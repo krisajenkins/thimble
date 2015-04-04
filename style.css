@@ -41,20 +41,19 @@ code {
 .categories .label {
   display: inline-block;
 }
-.product-summary-image {
-  height: 120px;
+.product-summary {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.product-summary .product-summary-image {
+  height: 200px;
   background-size: contain;
   background-repeat: no-repeat;
 }
 @media (min-width: 768px) {
-  .product-summary-image {
+  .product-summary .product-summary-image {
     height: 210px;
   }
-}
-.product-summary {
-  height: 250px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 }
 #debug {
   background-color: #f9f2f4;
