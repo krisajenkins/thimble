@@ -4527,7 +4527,7 @@ Elm.Main.make = function (_elm) {
    function ($) {
       return $Exts$RemoteData.fromJsonHttp($Schema.decodeDataFeed)($Maybe.Just($));
    },
-   $Http.sendGet($Signal.constant("/products.json")));
+   $Http.sendGet($Signal.constant("products.json")));
    var productFilterInc = F2(function (n,
    f) {
       return function () {
@@ -13126,7 +13126,7 @@ Elm.View.make = function (_elm) {
    _L.fromArray([$Html$Attributes.$class("loading")]),
    _L.fromArray([A2($Html.img,
    _L.fromArray([$Html$Attributes.$class("loading")
-                ,$Html$Attributes.src("/loading.gif")]),
+                ,$Html$Attributes.src("loading.gif")]),
    _L.fromArray([]))]));
    var productSummaryView = F3(function (uiChannel,
    starredProducts,
