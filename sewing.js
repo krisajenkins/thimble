@@ -13132,7 +13132,7 @@ Elm.View.make = function (_elm) {
    starredProducts,
    product) {
       return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("col-md-2 col-sm-3 col-xs-4 product-summary")
+      _L.fromArray([$Html$Attributes.$class("col-md-2 col-sm-3 col-xs-6 product-summary")
                    ,$Html$Attributes.key($Basics.toString(product.productId))]),
       _L.fromArray([A2($Html.div,
       _L.fromArray([]),
