@@ -11684,7 +11684,8 @@ Elm.Placement.make = function (_elm) {
                                                           "#/product/",
                                                           $Basics.toString(product.productId)))]),
                                                           _L.fromArray([A2($Html.img,
-                                                          _L.fromArray([$Html$Attributes.src(product.bestImage.url)]),
+                                                          _L.fromArray([$Html$Attributes.$class("img-responsive")
+                                                                       ,$Html$Attributes.src(product.bestImage.url)]),
                                                           _L.fromArray([]))]))]))
                                                           ,A2($Html.p,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
@@ -13029,10 +13030,10 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.key($Basics.toString(product.productId))
                    ,$Html$Attributes.$class("product-detail")]),
       _L.fromArray([$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.h1,
-                   _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-2")]),
+                   _L.fromArray([$Html$Attributes.$class("col-sm-8 col-sm-offset-2 col-xs-12")]),
                    _L.fromArray([$Html.text(product.name)]))]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-md-4 col-md-offset-2")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-sm-offset-2 col-xs-12")]),
                                                           _L.fromArray([A2($Html.a,
                                                           _L.fromArray([$Html$Attributes.href(product.clickUrl)
                                                                        ,$Html$Attributes.target("_blank")]),
@@ -13041,7 +13042,7 @@ Elm.View.make = function (_elm) {
                                                                        ,$Html$Attributes.src(product.bestImage.url)]),
                                                           _L.fromArray([]))]))]))
                                                           ,A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-md-4")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-xs-12")]),
                                                           _L.fromArray([A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))

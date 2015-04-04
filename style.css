@@ -29,6 +29,7 @@ code {
   color: #f0ad4e;
 }
 .img-responsive {
+  margin: 10px auto;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 .loading {
