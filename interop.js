@@ -8,7 +8,9 @@
     };
 
     var sendHash = function (event) {
-        app.ports.locationHash.send(document.location.hash);
+        var hash = document.location.hash;
+        app.ports.locationHash.send(hash);
+        ga('send', 'pageview', hash);
     };
 
     var sendScroll = function(event) {

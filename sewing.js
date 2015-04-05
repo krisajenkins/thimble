@@ -13027,11 +13027,11 @@ Elm.View.make = function (_elm) {
    product) {
       return A2($Html.div,
       _L.fromArray([]),
-      _L.fromArray([A3(starButton,
+      _L.fromArray([buyButton(product)
+                   ,A3(starButton,
                    uiChannel,
                    starredProducts,
-                   product)
-                   ,buyButton(product)]));
+                   product)]));
    });
    var productDetailView = F4(function (uiChannel,
    starredProducts,
