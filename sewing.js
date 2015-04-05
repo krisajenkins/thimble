@@ -4515,6 +4515,27 @@ Elm.Main.make = function (_elm) {
    $String = Elm.String.make(_elm),
    $System = Elm.System.make(_elm),
    $View = Elm.View.make(_elm);
+   var analytics = function (action) {
+      return function () {
+         switch (action.ctor)
+         {case "ChangeDataFeed":
+            switch (action._0.ctor)
+              {case "Failed":
+                 return $Maybe.Just({ctor: "_Tuple4"
+                                    ,_0: "DataLoad"
+                                    ,_1: "Failed"
+                                    ,_2: $Maybe.Just(action._0._0)
+                                    ,_3: $Maybe.Nothing});}
+              break;
+            case "StarProduct":
+            return $Maybe.Just({ctor: "_Tuple4"
+                               ,_0: "Star"
+                               ,_1: action._0 ? "Add" : "Remove"
+                               ,_2: $Maybe.Just($Basics.toString(action._1))
+                               ,_3: $Maybe.Nothing});}
+         return $Maybe.Nothing;
+      }();
+   };
    var uiChannel = $Signal.channel($System.NoOp);
    var pageSize = 24;
    var initialModel = $System.Model({_: {}
@@ -4571,22 +4592,20 @@ Elm.Main.make = function (_elm) {
                case "NoOp": return model;
                case "StarProduct":
                return _U.replace([["starredProducts"
-                                  ,$Maybe.Just(A2($Set.insert,
-                                  action._0,
-                                  A2($Maybe.withDefault,
-                                  $Set.empty,
-                                  model.starredProducts)))]],
-                 model);
-               case "UnstarProduct":
-               return _U.replace([["starredProducts"
-                                  ,$Maybe.Just(A2($Set.remove,
-                                  action._0,
+                                  ,$Maybe.Just(A2(function () {
+                                     switch (action._0)
+                                     {case false: return $Set.remove;
+                                        case true: return $Set.insert;}
+                                     _U.badCase($moduleName,
+                                     "between lines 124 and 127");
+                                  }(),
+                                  action._1,
                                   A2($Maybe.withDefault,
                                   $Set.empty,
                                   model.starredProducts)))]],
                  model);}
             _U.badCase($moduleName,
-            "between lines 114 and 124");
+            "between lines 114 and 130");
          }());
       }();
    });
@@ -4601,13 +4620,13 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v11 = A2($Json$Decode.decodeString,
+                    var _v17 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v11.ctor)
+                    switch (_v17.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v11._0);}
+                       return $Set.fromList(_v17._0);}
                     _U.badCase($moduleName,
                     "between lines 69 and 72");
                  }();
@@ -4653,14 +4672,14 @@ Elm.Main.make = function (_elm) {
          x)) : A2($String.startsWith,
          productPrefix,
          x) ? function () {
-            var _v14 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v20 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             x));
-            switch (_v14.ctor)
+            switch (_v20.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v14._0);}
+               return $System.ProductPage(_v20._0);}
             _U.badCase($moduleName,
             "between lines 44 and 47");
          }() : $System.NotFoundPage;
@@ -4674,24 +4693,25 @@ Elm.Main.make = function (_elm) {
    var hashLocation = A2($Signal._op["<~"],
    decodeHash,
    locationHash);
+   var actionSignal = $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.ChangeScroll,
+                                                     $Signal.dropRepeats(A2($Signal._op["<~"],
+                                                     downsample(1),
+                                                     scrollPercentage)))
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.ChangeView,
+                                                     hashLocation)
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.ChangeDataFeed,
+                                                     dataFeedQuery)
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.LoadStarred,
+                                                     $Signal.dropRepeats(persistedStarredProducts))]));
    var modelSignal = A3($Signal.foldp,
    step,
    initialModel,
-   $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
-                                  ,A2($Signal._op["<~"],
-                                  $System.ChangeScroll,
-                                  $Signal.dropRepeats(A2($Signal._op["<~"],
-                                  downsample(1),
-                                  scrollPercentage)))
-                                  ,A2($Signal._op["<~"],
-                                  $System.ChangeView,
-                                  hashLocation)
-                                  ,A2($Signal._op["<~"],
-                                  $System.ChangeDataFeed,
-                                  dataFeedQuery)
-                                  ,A2($Signal._op["<~"],
-                                  $System.LoadStarred,
-                                  $Signal.dropRepeats(persistedStarredProducts))])));
+   actionSignal);
    var starredProductsWrite = _P.portOut("starredProductsWrite",
    _P.outgoingSignal(function (v) {
       return v.ctor === "Nothing" ? null : v._0;
@@ -4700,11 +4720,11 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)(setToJsonValue($));
       });
-      var starred = function (_v17) {
+      var starred = function (_v23) {
          return function () {
-            switch (_v17.ctor)
+            switch (_v23.ctor)
             {case "Model":
-               return _v17._0.starredProducts;}
+               return _v23._0.starredProducts;}
             _U.badCase($moduleName,
             "on line 76, column 27 to 44");
          }();
@@ -4718,6 +4738,16 @@ Elm.Main.make = function (_elm) {
    var main = A2($Signal._op["<~"],
    $View.rootView(uiChannel),
    modelSignal);
+   var analyticsPort = _P.portOut("analyticsPort",
+   _P.outgoingSignal(function (v) {
+      return v.ctor === "Nothing" ? null : [v._0._0
+                                           ,v._0._1
+                                           ,v._0._2.ctor === "Nothing" ? null : v._0._2._0
+                                           ,v._0._3.ctor === "Nothing" ? null : v._0._3._0];
+   }),
+   $Signal.dropRepeats(A2($Signal._op["<~"],
+   analytics,
+   actionSignal)));
    _elm.Main.values = {_op: _op
                       ,hashLocation: hashLocation
                       ,decodeHash: decodeHash
@@ -4730,8 +4760,10 @@ Elm.Main.make = function (_elm) {
                       ,initialModel: initialModel
                       ,step: step
                       ,uiChannel: uiChannel
+                      ,actionSignal: actionSignal
                       ,modelSignal: modelSignal
-                      ,main: main};
+                      ,main: main
+                      ,analytics: analytics};
    return _elm.Main.values;
 };
 Elm.Markdown = Elm.Markdown || {};
@@ -12473,7 +12505,7 @@ Elm.System.make = function (_elm) {
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 59 and 61");
+                    "between lines 58 and 60");
                  }();
               },
               products);
@@ -12500,7 +12532,7 @@ Elm.System.make = function (_elm) {
               productsFilter._0,
               products);}
          _U.badCase($moduleName,
-         "between lines 55 and 61");
+         "between lines 54 and 60");
       }();
    });
    var lookupProduct = function (id) {
@@ -12538,14 +12570,12 @@ Elm.System.make = function (_elm) {
       return {ctor: "ChangeScroll"
              ,_0: a};
    };
-   var UnstarProduct = function (a) {
-      return {ctor: "UnstarProduct"
-             ,_0: a};
-   };
-   var StarProduct = function (a) {
+   var StarProduct = F2(function (a,
+   b) {
       return {ctor: "StarProduct"
-             ,_0: a};
-   };
+             ,_0: a
+             ,_1: b};
+   });
    var ChangeView = function (a) {
       return {ctor: "ChangeView"
              ,_0: a};
@@ -12584,7 +12614,6 @@ Elm.System.make = function (_elm) {
                         ,ChangeDataFeed: ChangeDataFeed
                         ,ChangeView: ChangeView
                         ,StarProduct: StarProduct
-                        ,UnstarProduct: UnstarProduct
                         ,ChangeScroll: ChangeScroll
                         ,LoadStarred: LoadStarred
                         ,NoPage: NoPage
@@ -13008,7 +13037,9 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.$class("btn btn-warning btn-passive")
                    ,$Html$Events.onClick(A2($Signal.send,
                    uiChannel,
-                   $System.UnstarProduct(p.productId)))]),
+                   A2($System.StarProduct,
+                   false,
+                   p.productId)))]),
       _L.fromArray([A2($Html.span,
                    _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                    _L.fromArray([]))
@@ -13016,7 +13047,9 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.$class("btn btn-warning")
                    ,$Html$Events.onClick(A2($Signal.send,
                    uiChannel,
-                   $System.StarProduct(p.productId)))]),
+                   A2($System.StarProduct,
+                   true,
+                   p.productId)))]),
       _L.fromArray([A2($Html.span,
                    _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                    _L.fromArray([]))
