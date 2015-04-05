@@ -56,4 +56,5 @@
     app.ports.starredProductsWrite.subscribe(starredProductsSave);
     app.ports.starredProductsRead.send(window.localStorage.getItem(STARRED_PRODUCTS_KEY));
     app.ports.analyticsPort.subscribe(postAnalyticsEvent);
+	ga('send', 'pageview', {page: document.location.hash});
 }());
