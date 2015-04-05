@@ -13178,7 +13178,7 @@ Elm.View.make = function (_elm) {
          productsFilter,
          dataFeed.products);
          return A2($Html.div,
-         _L.fromArray([]),
+         _L.fromArray([$Html$Attributes.key(name)]),
          _L.fromArray([A2($Html.h2,
                       _L.fromArray([]),
                       _L.fromArray([$Html.text(name)]))
