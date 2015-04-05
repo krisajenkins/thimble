@@ -11682,6 +11682,67 @@ Elm.Native.VirtualDom.make = function(elm) {
 
 },{}]},{},[39]);
 
+Elm.Number = Elm.Number || {};
+Elm.Number.Format = Elm.Number.Format || {};
+Elm.Number.Format.make = function (_elm) {
+   "use strict";
+   _elm.Number = _elm.Number || {};
+   _elm.Number.Format = _elm.Number.Format || {};
+   if (_elm.Number.Format.values)
+   return _elm.Number.Format.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Number.Format",
+   $Basics = Elm.Basics.make(_elm),
+   $String = Elm.String.make(_elm),
+   $String$Split = Elm.String.Split.make(_elm);
+   var prettyInt = F2(function (sep,
+   n) {
+      return function () {
+         var ni = $Basics.abs(n);
+         var nis = A2($String.join,
+         $String.fromChar(sep),
+         $String$Split.chunksOfRight(3)($Basics.toString(ni)));
+         return _U.cmp(n,
+         0) < 0 ? A2($String.cons,
+         _U.chr("-"),
+         nis) : nis;
+      }();
+   });
+   var pretty = F3(function (decimals,
+   sep,
+   n) {
+      return function () {
+         var decpow = Math.pow(10,
+         decimals);
+         var nshift = n * $Basics.toFloat(decpow);
+         var nshifti = $Basics.round(nshift);
+         var nshifti$ = $Basics.abs(nshifti);
+         var ni = nshifti$ / decpow | 0;
+         var nf = nshifti$ - ni * decpow;
+         var nfs = $Basics.toString(nf);
+         var nflen = $String.length(nfs);
+         return A2($String.append,
+         _U.cmp(nshifti,
+         0) < 0 ? A2(prettyInt,
+         sep,
+         0 - ni) : A2(prettyInt,sep,ni),
+         A2($String.cons,
+         _U.chr("."),
+         A3($String.padLeft,
+         decimals,
+         _U.chr("0"),
+         nfs)));
+      }();
+   });
+   _elm.Number.Format.values = {_op: _op
+                               ,pretty: pretty
+                               ,prettyInt: prettyInt};
+   return _elm.Number.Format.values;
+};
 Elm.Placement = Elm.Placement || {};
 Elm.Placement.make = function (_elm) {
    "use strict";
@@ -12471,6 +12532,68 @@ Elm.String.make = function (_elm) {
                         ,fromList: fromList};
    return _elm.String.values;
 };
+Elm.String = Elm.String || {};
+Elm.String.Split = Elm.String.Split || {};
+Elm.String.Split.make = function (_elm) {
+   "use strict";
+   _elm.String = _elm.String || {};
+   _elm.String.Split = _elm.String.Split || {};
+   if (_elm.String.Split.values)
+   return _elm.String.Split.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "String.Split",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $String = Elm.String.make(_elm);
+   var chunksOfRight = F2(function (k,
+   s) {
+      return function () {
+         var k2 = 2 * k;
+         var chunksOfR = function (s$) {
+            return _U.cmp($String.length(s$),
+            k2) > 0 ? A2($List._op["::"],
+            A2($String.right,k,s$),
+            chunksOfR(A2($String.dropRight,
+            k,
+            s$))) : A2($List._op["::"],
+            A2($String.right,k,s$),
+            _L.fromArray([A2($String.dropRight,
+            k,
+            s$)]));
+         };
+         var len = $String.length(s);
+         return _U.cmp(len,
+         k2) > 0 ? $List.reverse(chunksOfR(s)) : _U.cmp(len,
+         k) > 0 ? A2($List._op["::"],
+         A2($String.dropRight,k,s),
+         _L.fromArray([A2($String.right,
+         k,
+         s)])) : _L.fromArray([s]);
+      }();
+   });
+   var chunksOfLeft = F2(function (k,
+   s) {
+      return function () {
+         var len = $String.length(s);
+         return _U.cmp(len,
+         k) > 0 ? A2($List._op["::"],
+         A2($String.left,k,s),
+         A2(chunksOfLeft,
+         k,
+         A2($String.dropLeft,
+         k,
+         s))) : _L.fromArray([s]);
+      }();
+   });
+   _elm.String.Split.values = {_op: _op
+                              ,chunksOfLeft: chunksOfLeft
+                              ,chunksOfRight: chunksOfRight};
+   return _elm.String.Split.values;
+};
 Elm.System = Elm.System || {};
 Elm.System.make = function (_elm) {
    "use strict";
@@ -12899,6 +13022,7 @@ Elm.View.make = function (_elm) {
    $HtmlUtils = Elm.HtmlUtils.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Number$Format = Elm.Number.Format.make(_elm),
    $Placement = Elm.Placement.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm),
@@ -12972,7 +13096,7 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v0._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 153 and 157");
+         "between lines 155 and 159");
       }();
    };
    var brandLabel = F2(function (brands,
@@ -13020,13 +13144,14 @@ Elm.View.make = function (_elm) {
    var buyButton = function (p) {
       return A2($Html.a,
       _L.fromArray([$Html$Attributes.href(p.clickUrl)
+                   ,$Html$Attributes.$class("btn btn-sm btn-success")
                    ,$Html$Attributes.target("_blank")]),
-      _L.fromArray([A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-success")
-                   ,$Html$Attributes.href(p.clickUrl)]),
       _L.fromArray([$Html.text(A2($Basics._op["++"],
       "£",
-      $Basics.toString(p.price)))]))]));
+      A3($Number$Format.pretty,
+      2,
+      _U.chr(","),
+      p.price)))]));
    };
    var starButton = F3(function (uiChannel,
    starredProducts,
@@ -13034,7 +13159,7 @@ Elm.View.make = function (_elm) {
       return A2($Set.member,
       p.productId,
       starredProducts) ? A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-warning btn-passive")
+      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning btn-passive")
                    ,$Html$Events.onClick(A2($Signal.send,
                    uiChannel,
                    A2($System.StarProduct,
@@ -13044,7 +13169,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                    _L.fromArray([]))
                    ,$Html.text(" Liked")])) : A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-warning")
+      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning")
                    ,$Html$Events.onClick(A2($Signal.send,
                    uiChannel,
                    A2($System.StarProduct,
@@ -13059,7 +13184,7 @@ Elm.View.make = function (_elm) {
    starredProducts,
    product) {
       return A2($Html.div,
-      _L.fromArray([]),
+      _L.fromArray([$Html$Attributes.$class("product-controls")]),
       _L.fromArray([buyButton(product)
                    ,A3(starButton,
                    uiChannel,
@@ -13079,33 +13204,33 @@ Elm.View.make = function (_elm) {
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-sm-4 col-sm-offset-2 col-xs-12")]),
                                                           _L.fromArray([A2($Html.a,
-                                                          _L.fromArray([$Html$Attributes.href(product.clickUrl)
-                                                                       ,$Html$Attributes.target("_blank")]),
-                                                          _L.fromArray([A2($Html.img,
-                                                          _L.fromArray([$Html$Attributes.$class("img-responsive")
-                                                                       ,$Html$Attributes.src(product.bestImage.url)]),
-                                                          _L.fromArray([]))]))]))
+                                                                       _L.fromArray([$Html$Attributes.href(product.clickUrl)
+                                                                                    ,$Html$Attributes.target("_blank")]),
+                                                                       _L.fromArray([A2($Html.img,
+                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
+                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
+                                                                       _L.fromArray([]))]))
+                                                                       ,A3(productControls,
+                                                                       uiChannel,
+                                                                       starredProducts,
+                                                                       product)]))
                                                           ,A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-sm-4 col-xs-12")]),
                                                           _L.fromArray([A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))
-                                                                       ,A2($Html.div,
+                                                                       ,A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        A2($List.map,
                                                                        categoryLabel(dataFeed.categories),
                                                                        product.categoryIds))
-                                                                       ,A2($Html.div,
+                                                                       ,A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Maybe.withDefault(A2($Html.span,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([])))(A2($Maybe.map,
                                                                        brandLabel(dataFeed.brands),
-                                                                       product.brandId))]))
-                                                                       ,A3(productControls,
-                                                                       uiChannel,
-                                                                       starredProducts,
-                                                                       product)]))]))]));
+                                                                       product.brandId))]))]))]))]));
    });
    var navbarView = function (_v7) {
       return function () {
@@ -13139,7 +13264,7 @@ Elm.View.make = function (_elm) {
                                                                                         _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 69 and 83");
+         "between lines 70 and 84");
       }();
    };
    var notFoundView = A2($Html.h2,
@@ -13163,7 +13288,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 147 and 149");
+         "between lines 149 and 151");
       }();
    });
    var loadingView = A2($Html.div,
@@ -13250,7 +13375,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 162 and 164");
+            "between lines 164 and 166");
          }();
       }();
    });
@@ -13274,7 +13399,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 169 and 171");
+            "between lines 171 and 173");
          }();
       }();
    });
@@ -13308,7 +13433,7 @@ Elm.View.make = function (_elm) {
             case "NotAsked":
             return loadingView;}
          _U.badCase($moduleName,
-         "between lines 25 and 29");
+         "between lines 26 and 30");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13322,7 +13447,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([function () {
                       var _raw = m,
                       $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 213, column 33 to 34"),
+                      "on line 215, column 33 to 34"),
                       model = $._0;
                       var starredProducts = A2($Maybe.withDefault,
                       $Set.empty,
@@ -13375,7 +13500,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 219 and 227");
+                            "between lines 221 and 229");
                          }(),
                          model.dataFeed);
                       }();
