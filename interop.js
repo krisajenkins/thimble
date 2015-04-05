@@ -10,7 +10,7 @@
     var sendHash = function (event) {
         var hash = document.location.hash;
         app.ports.locationHash.send(hash);
-        ga('send', 'pageview', hash);
+        ga('send', 'pageview', {page: hash});
     };
 
     var sendScroll = function(event) {
