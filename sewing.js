@@ -13052,11 +13052,8 @@ Elm.View.make = function (_elm) {
                                    "#/category/vintage",
                                    "Vintage")
                                    ,A2(item,
-                                   "#/category/children",
-                                   "Children")
-                                   ,A2(item,
-                                   "#/category/leggings",
-                                   "Leggings")
+                                   "#/category/full-outfits",
+                                   "Full Outfits")
                                    ,A2(item,
                                    "#/category/jackets",
                                    "Jackets")
@@ -13064,14 +13061,23 @@ Elm.View.make = function (_elm) {
                                    "#/category/skirts",
                                    "Skirts")
                                    ,A2(item,
+                                   "#/category/trousers",
+                                   "Trousers")
+                                   ,A2(item,
                                    "#/category/corsets",
                                    "Corsets")
                                    ,A2(item,
-                                   "#/category/full-outfits",
-                                   "Full Outfits")
-                                   ,A2(item,
                                    "#/category/capes",
-                                   "Capes")]))]));
+                                   "Capes")
+                                   ,A2(item,
+                                   "#/category/plus-sizes",
+                                   "Plus Sizes")
+                                   ,A2(item,
+                                   "#/category/leggings",
+                                   "Leggings")
+                                   ,A2(item,
+                                   "#/category/children",
+                                   "Children")]))]));
       }();
    };
    var frontPage = F3(function (uiChannel,
@@ -13453,7 +13459,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([function () {
                       var _raw = m,
                       $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 217, column 33 to 34"),
+                      "on line 225, column 33 to 34"),
                       model = $._0;
                       var starredProducts = A2($Maybe.withDefault,
                       $Set.empty,
@@ -13506,7 +13512,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 223 and 231");
+                            "between lines 231 and 239");
                          }(),
                          model.dataFeed);
                       }();
