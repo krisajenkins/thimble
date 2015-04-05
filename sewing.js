@@ -12943,7 +12943,7 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v0._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 149 and 153");
+         "between lines 153 and 157");
       }();
    };
    var brandLabel = F2(function (brands,
@@ -12964,7 +12964,7 @@ Elm.View.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([]));}
          _U.badCase($moduleName,
-         "between lines 118 and 122");
+         "between lines 123 and 127");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -12985,7 +12985,7 @@ Elm.View.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([]));}
          _U.badCase($moduleName,
-         "between lines 109 and 113");
+         "between lines 114 and 118");
       }();
    });
    var buyButton = function (p) {
@@ -13021,6 +13021,17 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                    _L.fromArray([]))
                    ,$Html.text(" Like")]));
+   });
+   var productControls = F3(function (uiChannel,
+   starredProducts,
+   product) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A3(starButton,
+                   uiChannel,
+                   starredProducts,
+                   product)
+                   ,buyButton(product)]));
    });
    var productDetailView = F4(function (uiChannel,
    starredProducts,
@@ -13058,8 +13069,7 @@ Elm.View.make = function (_elm) {
                                                                        _L.fromArray([])))(A2($Maybe.map,
                                                                        brandLabel(dataFeed.brands),
                                                                        product.brandId))]))
-                                                                       ,buyButton(product)
-                                                                       ,A3(starButton,
+                                                                       ,A3(productControls,
                                                                        uiChannel,
                                                                        starredProducts,
                                                                        product)]))]))]));
@@ -13096,7 +13106,7 @@ Elm.View.make = function (_elm) {
                                                                                         _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 70 and 84");
+         "between lines 69 and 83");
       }();
    };
    var notFoundView = A2($Html.h2,
@@ -13120,7 +13130,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 143 and 145");
+         "between lines 147 and 149");
       }();
    });
    var loadingView = A2($Html.div,
@@ -13153,11 +13163,10 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
-                   _L.fromArray([buyButton(product)
-                                ,A3(starButton,
-                                uiChannel,
-                                starredProducts,
-                                product)]))]))]));
+                   _L.fromArray([A3(productControls,
+                   uiChannel,
+                   starredProducts,
+                   product)]))]))]));
    });
    var productSummaryRowView = F3(function (uiChannel,
    starredProducts,
@@ -13208,7 +13217,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 158 and 160");
+            "between lines 162 and 164");
          }();
       }();
    });
@@ -13232,7 +13241,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 165 and 167");
+            "between lines 169 and 171");
          }();
       }();
    });
@@ -13280,7 +13289,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([function () {
                       var _raw = m,
                       $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 209, column 33 to 34"),
+                      "on line 213, column 33 to 34"),
                       model = $._0;
                       var starredProducts = A2($Maybe.withDefault,
                       $Set.empty,
@@ -13333,7 +13342,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 215 and 223");
+                            "between lines 219 and 227");
                          }(),
                          model.dataFeed);
                       }();
@@ -13347,6 +13356,7 @@ Elm.View.make = function (_elm) {
                       ,loadingView: loadingView
                       ,notFoundView: notFoundView
                       ,navbarView: navbarView
+                      ,productControls: productControls
                       ,starButton: starButton
                       ,buyButton: buyButton
                       ,categoryLabel: categoryLabel
