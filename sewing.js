@@ -13064,6 +13064,12 @@ Elm.View.make = function (_elm) {
                                    "#/category/skirts",
                                    "Skirts")
                                    ,A2(item,
+                                   "#/category/corsets",
+                                   "Corsets")
+                                   ,A2(item,
+                                   "#/category/full-outfits",
+                                   "Full Outfits")
+                                   ,A2(item,
                                    "#/category/capes",
                                    "Capes")]))]));
       }();
@@ -13128,7 +13134,7 @@ Elm.View.make = function (_elm) {
          categories);
          switch (_v5.ctor)
          {case "Just": return A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info")
+              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
                            _v5._0.categoryId))]),
@@ -13447,7 +13453,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([function () {
                       var _raw = m,
                       $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 215, column 33 to 34"),
+                      "on line 217, column 33 to 34"),
                       model = $._0;
                       var starredProducts = A2($Maybe.withDefault,
                       $Set.empty,
@@ -13500,7 +13506,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 221 and 229");
+                            "between lines 223 and 231");
                          }(),
                          model.dataFeed);
                       }();
