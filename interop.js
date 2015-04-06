@@ -9,6 +9,7 @@
 
     var sendHash = function (event) {
         var hash = document.location.hash;
+        app.ports.location.send(document.location.toString());
         app.ports.locationHash.send(hash);
         ga('send', 'pageview', {page: hash});
     };
@@ -48,7 +49,8 @@
 
     var app = Elm.fullscreen(
         Elm.Main,
-        {locationHash : document.location.hash,
+        {location : document.location.toString(),
+         locationHash : document.location.hash,
          scrollPercentage: getScroll(),
          starredProductsRead: ""
         });

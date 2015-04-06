@@ -4527,6 +4527,15 @@ Elm.Main.make = function (_elm) {
                                     ,_2: $Maybe.Just(action._0._0)
                                     ,_3: $Maybe.Nothing});}
               break;
+            case "ShareProduct":
+            switch (action._0.ctor)
+              {case "Twitter":
+                 return $Maybe.Just({ctor: "_Tuple4"
+                                    ,_0: "Share"
+                                    ,_1: "Twitter"
+                                    ,_2: $Maybe.Just($Basics.toString(action._1))
+                                    ,_3: $Maybe.Nothing});}
+              break;
             case "StarProduct":
             return $Maybe.Just({ctor: "_Tuple4"
                                ,_0: "Star"
@@ -4539,6 +4548,7 @@ Elm.Main.make = function (_elm) {
    var uiChannel = $Signal.channel($System.NoOp);
    var pageSize = 24;
    var initialModel = $System.Model({_: {}
+                                    ,currentPageUrl: $Maybe.Nothing
                                     ,dataFeed: $Exts$RemoteData.NotAsked
                                     ,frontPageFilter: $System.FilterWithLimit(pageSize)
                                     ,scroll: 0.0
@@ -4563,11 +4573,15 @@ Elm.Main.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 109, column 23 to 24"),
+         "on line 112, column 23 to 24"),
          model = $._0;
          return $System.Model(function () {
             switch (action.ctor)
-            {case "ChangeDataFeed":
+            {case "ChangeCurrentPageUrl":
+               return _U.replace([["currentPageUrl"
+                                  ,$Maybe.Just(action._0)]],
+                 model);
+               case "ChangeDataFeed":
                return _U.replace([["dataFeed"
                                   ,action._0]],
                  model);
@@ -4590,6 +4604,8 @@ Elm.Main.make = function (_elm) {
                                   ,$Maybe.Just(action._0)]],
                  model);
                case "NoOp": return model;
+               case "ShareProduct":
+               return model;
                case "StarProduct":
                return _U.replace([["starredProducts"
                                   ,$Maybe.Just(A2(function () {
@@ -4597,7 +4613,7 @@ Elm.Main.make = function (_elm) {
                                      {case false: return $Set.remove;
                                         case true: return $Set.insert;}
                                      _U.badCase($moduleName,
-                                     "between lines 124 and 127");
+                                     "between lines 129 and 132");
                                   }(),
                                   action._1,
                                   A2($Maybe.withDefault,
@@ -4605,7 +4621,7 @@ Elm.Main.make = function (_elm) {
                                   model.starredProducts)))]],
                  model);}
             _U.badCase($moduleName,
-            "between lines 114 and 130");
+            "between lines 117 and 135");
          }());
       }();
    });
@@ -4620,20 +4636,20 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v17 = A2($Json$Decode.decodeString,
+                    var _v22 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v17.ctor)
+                    switch (_v22.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v17._0);}
+                       return $Set.fromList(_v22._0);}
                     _U.badCase($moduleName,
-                    "between lines 69 and 72");
+                    "between lines 71 and 74");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 67 and 72");
+            "between lines 69 and 74");
          }();
       };
       return A2($Signal._op["<~"],
@@ -4672,16 +4688,16 @@ Elm.Main.make = function (_elm) {
          x)) : A2($String.startsWith,
          productPrefix,
          x) ? function () {
-            var _v20 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v25 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             x));
-            switch (_v20.ctor)
+            switch (_v25.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v20._0);}
+               return $System.ProductPage(_v25._0);}
             _U.badCase($moduleName,
-            "between lines 44 and 47");
+            "between lines 46 and 49");
          }() : $System.NotFoundPage;
       }();
    };
@@ -4693,6 +4709,11 @@ Elm.Main.make = function (_elm) {
    var hashLocation = A2($Signal._op["<~"],
    decodeHash,
    locationHash);
+   var location = _P.portIn("location",
+   _P.incomingSignal(function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
+      v);
+   }));
    var actionSignal = $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeScroll,
@@ -4702,6 +4723,9 @@ Elm.Main.make = function (_elm) {
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeView,
                                                      hashLocation)
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.ChangeCurrentPageUrl,
+                                                     location)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeDataFeed,
                                                      dataFeedQuery)
@@ -4720,13 +4744,13 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)(setToJsonValue($));
       });
-      var starred = function (_v23) {
+      var starred = function (_v28) {
          return function () {
-            switch (_v23.ctor)
+            switch (_v28.ctor)
             {case "Model":
-               return _v23._0.starredProducts;}
+               return _v28._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 76, column 27 to 44");
+            "on line 78, column 27 to 44");
          }();
       };
       return $Signal.dropRepeats(A2($Signal._op["<~"],
@@ -9435,6 +9459,26 @@ Elm.Native.Transform2D.make = function(elm) {
 
 };
 
+// setup
+Elm.Native = Elm.Native || {};
+Elm.Native.Uri = Elm.Native.Uri || {};
+
+// definition
+Elm.Native.Uri.make = function(localRuntime) {
+    'use strict';
+
+    // attempt to short-circuit
+    if ('values' in Elm.Native.Uri)
+    {
+        return Elm.Native.Uri.values;
+    }
+
+    return Elm.Native.Uri.values = {
+        encodeUri: encodeURI,
+        encodeUriComponent: encodeURIComponent
+    };
+};
+
 Elm.Native = Elm.Native || {};
 Elm.Native.Utils = {};
 Elm.Native.Utils.make = function(localRuntime) {
@@ -11762,8 +11806,13 @@ Elm.Placement.make = function (_elm) {
    $Markdown = Elm.Markdown.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Schema = Elm.Schema.make(_elm),
-   $System = Elm.System.make(_elm);
-   var placementView = F2(function (product,
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $System = Elm.System.make(_elm),
+   $ViewCommon = Elm.ViewCommon.make(_elm);
+   var placementView = F4(function (uiChannel,
+   starredProducts,
+   product,
    copy) {
       return A2($Html.div,
       _L.fromArray([]),
@@ -11773,26 +11822,34 @@ Elm.Placement.make = function (_elm) {
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
                                                           _L.fromArray([A2($Html.a,
-                                                          _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
-                                                          "#/product/",
-                                                          $Basics.toString(product.productId)))]),
-                                                          _L.fromArray([A2($Html.img,
-                                                          _L.fromArray([$Html$Attributes.$class("img-responsive")
-                                                                       ,$Html$Attributes.src(product.bestImage.url)]),
-                                                          _L.fromArray([]))]))]))
+                                                                       _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
+                                                                       "#/product/",
+                                                                       $Basics.toString(product.productId)))]),
+                                                                       _L.fromArray([A2($Html.img,
+                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
+                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
+                                                                       _L.fromArray([]))]))
+                                                                       ,A3($ViewCommon.productControls,
+                                                                       uiChannel,
+                                                                       starredProducts,
+                                                                       product)]))
                                                           ,A2($Html.p,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
                                                           _L.fromArray([copy]))]))]));
    });
    var firstPlacementCopy = $Markdown.toHtml("\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n");
-   var firstPlacementView = function (dataFeed) {
+   var firstPlacementView = F3(function (uiChannel,
+   starredProducts,
+   dataFeed) {
       return function () {
          var _v0 = A2($System.lookupProduct,
          468355587,
          dataFeed.products);
          switch (_v0.ctor)
          {case "Just":
-            return A2(placementView,
+            return A4(placementView,
+              uiChannel,
+              starredProducts,
               _v0._0,
               firstPlacementCopy);
             case "Nothing":
@@ -11800,9 +11857,9 @@ Elm.Placement.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([]));}
          _U.badCase($moduleName,
-         "between lines 13 and 15");
+         "between lines 17 and 19");
       }();
-   };
+   });
    _elm.Placement.values = {_op: _op
                            ,firstPlacementView: firstPlacementView
                            ,firstPlacementCopy: firstPlacementCopy
@@ -12628,7 +12685,7 @@ Elm.System.make = function (_elm) {
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 58 and 60");
+                    "between lines 65 and 67");
                  }();
               },
               products);
@@ -12655,7 +12712,7 @@ Elm.System.make = function (_elm) {
               productsFilter._0,
               products);}
          _U.badCase($moduleName,
-         "between lines 54 and 60");
+         "between lines 61 and 67");
       }();
    });
    var lookupProduct = function (id) {
@@ -12689,10 +12746,20 @@ Elm.System.make = function (_elm) {
       return {ctor: "LoadStarred"
              ,_0: a};
    };
+   var ChangeCurrentPageUrl = function (a) {
+      return {ctor: "ChangeCurrentPageUrl"
+             ,_0: a};
+   };
    var ChangeScroll = function (a) {
       return {ctor: "ChangeScroll"
              ,_0: a};
    };
+   var ShareProduct = F2(function (a,
+   b) {
+      return {ctor: "ShareProduct"
+             ,_0: a
+             ,_1: b};
+   });
    var StarProduct = F2(function (a,
    b) {
       return {ctor: "StarProduct"
@@ -12708,6 +12775,7 @@ Elm.System.make = function (_elm) {
              ,_0: a};
    };
    var NoOp = {ctor: "NoOp"};
+   var Twitter = {ctor: "Twitter"};
    var Model = function (a) {
       return {ctor: "Model",_0: a};
    };
@@ -12733,11 +12801,14 @@ Elm.System.make = function (_elm) {
                         ,FilterWithCategoryId: FilterWithCategoryId
                         ,FilterWithBrandId: FilterWithBrandId
                         ,Model: Model
+                        ,Twitter: Twitter
                         ,NoOp: NoOp
                         ,ChangeDataFeed: ChangeDataFeed
                         ,ChangeView: ChangeView
                         ,StarProduct: StarProduct
+                        ,ShareProduct: ShareProduct
                         ,ChangeScroll: ChangeScroll
+                        ,ChangeCurrentPageUrl: ChangeCurrentPageUrl
                         ,LoadStarred: LoadStarred
                         ,NoPage: NoPage
                         ,FrontPage: FrontPage
@@ -13000,6 +13071,26 @@ Elm.Transform2D.make = function (_elm) {
                              ,scaleY: scaleY};
    return _elm.Transform2D.values;
 };
+Elm.Uri = Elm.Uri || {};
+Elm.Uri.make = function (_elm) {
+   "use strict";
+   _elm.Uri = _elm.Uri || {};
+   if (_elm.Uri.values)
+   return _elm.Uri.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Uri",
+   $Native$Uri = Elm.Native.Uri.make(_elm);
+   var encodeUriComponent = $Native$Uri.encodeUriComponent;
+   var encodeUri = $Native$Uri.encodeUri;
+   _elm.Uri.values = {_op: _op
+                     ,encodeUri: encodeUri
+                     ,encodeUriComponent: encodeUriComponent};
+   return _elm.Uri.values;
+};
 Elm.View = Elm.View || {};
 Elm.View.make = function (_elm) {
    "use strict";
@@ -13022,12 +13113,13 @@ Elm.View.make = function (_elm) {
    $HtmlUtils = Elm.HtmlUtils.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
-   $Number$Format = Elm.Number.Format.make(_elm),
    $Placement = Elm.Placement.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm),
    $Signal = Elm.Signal.make(_elm),
-   $System = Elm.System.make(_elm);
+   $System = Elm.System.make(_elm),
+   $Uri = Elm.Uri.make(_elm),
+   $ViewCommon = Elm.ViewCommon.make(_elm);
    var dataFeedBlurbView = function (dataFeed) {
       return function () {
          var item = F2(function (link,
@@ -13088,7 +13180,10 @@ Elm.View.make = function (_elm) {
                                                    _L.fromArray([dataFeedBlurbView(dataFeed)]))
                                                    ,A2($Html.div,
                                                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
-                                                   _L.fromArray([$Placement.firstPlacementView(dataFeed)]))]));
+                                                   _L.fromArray([A3($Placement.firstPlacementView,
+                                                   uiChannel,
+                                                   starredProducts,
+                                                   dataFeed)]))]));
    });
    var debuggingView = function (_v0) {
       return function () {
@@ -13108,201 +13203,67 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v0._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 155 and 159");
+         "between lines 151 and 155");
       }();
    };
-   var brandLabel = F2(function (brands,
-   brandId) {
+   var shareTwitterLink = F2(function (url,
+   body) {
+      return $Uri.encodeUri(A2($Basics._op["++"],
+      "https://twitter.com/intent/tweet",
+      A2($Basics._op["++"],
+      "?via=",
+      A2($Basics._op["++"],
+      "getstitching",
+      A2($Basics._op["++"],
+      "&url=",
+      A2($Basics._op["++"],
+      $Uri.encodeUriComponent(url),
+      A2($Basics._op["++"],
+      "&text=",
+      body)))))));
+   });
+   var navbarView = function (_v3) {
       return function () {
-         var _v3 = A2($Dict.get,
-         brandId,
-         brands);
          switch (_v3.ctor)
-         {case "Just": return A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-primary")
-                           ,$Html$Attributes.href(A2($Basics._op["++"],
-                           "#/brand/",
-                           _v3._0.brandId))]),
-              _L.fromArray([$Html.text(_v3._0.name)]));
-            case "Nothing":
-            return A2($Html.span,
-              _L.fromArray([]),
-              _L.fromArray([]));}
-         _U.badCase($moduleName,
-         "between lines 123 and 127");
-      }();
-   });
-   var categoryLabel = F2(function (categories,
-   categoryId) {
-      return function () {
-         var _v5 = A2($Dict.get,
-         categoryId,
-         categories);
-         switch (_v5.ctor)
-         {case "Just": return A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
-                           ,$Html$Attributes.href(A2($Basics._op["++"],
-                           "#/category/",
-                           _v5._0.categoryId))]),
-              _L.fromArray([$Html.text(_v5._0.name)]));
-            case "Nothing":
-            return A2($Html.span,
-              _L.fromArray([]),
-              _L.fromArray([]));}
-         _U.badCase($moduleName,
-         "between lines 114 and 118");
-      }();
-   });
-   var buyButton = function (p) {
-      return A2($Html.a,
-      _L.fromArray([$Html$Attributes.href(p.clickUrl)
-                   ,$Html$Attributes.$class("btn btn-sm btn-success")
-                   ,$Html$Attributes.target("_blank")]),
-      _L.fromArray([$Html.text(A2($Basics._op["++"],
-      "£",
-      A3($Number$Format.pretty,
-      2,
-      _U.chr(","),
-      p.price)))]));
-   };
-   var starButton = F3(function (uiChannel,
-   starredProducts,
-   p) {
-      return A2($Set.member,
-      p.productId,
-      starredProducts) ? A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning btn-passive")
-                   ,$Html$Events.onClick(A2($Signal.send,
-                   uiChannel,
-                   A2($System.StarProduct,
-                   false,
-                   p.productId)))]),
-      _L.fromArray([A2($Html.span,
-                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
-                   _L.fromArray([]))
-                   ,$Html.text(" Liked")])) : A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning")
-                   ,$Html$Events.onClick(A2($Signal.send,
-                   uiChannel,
-                   A2($System.StarProduct,
-                   true,
-                   p.productId)))]),
-      _L.fromArray([A2($Html.span,
-                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
-                   _L.fromArray([]))
-                   ,$Html.text(" Like")]));
-   });
-   var productControls = F3(function (uiChannel,
-   starredProducts,
-   product) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("product-controls")]),
-      _L.fromArray([buyButton(product)
-                   ,A3(starButton,
-                   uiChannel,
-                   starredProducts,
-                   product)]));
-   });
-   var productDetailView = F4(function (uiChannel,
-   starredProducts,
-   product,
-   dataFeed) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.key($Basics.toString(product.productId))
-                   ,$Html$Attributes.$class("product-detail")]),
-      _L.fromArray([$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.h1,
-                   _L.fromArray([$Html$Attributes.$class("col-sm-8 col-sm-offset-2 col-xs-12")]),
-                   _L.fromArray([$Html.text(product.name)]))]))
-                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-sm-offset-2 col-xs-12")]),
-                                                          _L.fromArray([A2($Html.a,
-                                                                       _L.fromArray([$Html$Attributes.href(product.clickUrl)
-                                                                                    ,$Html$Attributes.target("_blank")]),
-                                                                       _L.fromArray([A2($Html.img,
-                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
-                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
-                                                                       _L.fromArray([]))]))
-                                                                       ,A3(productControls,
-                                                                       uiChannel,
-                                                                       starredProducts,
-                                                                       product)]))
-                                                          ,A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-xs-12")]),
-                                                          _L.fromArray([A2($Html.p,
-                                                                       _L.fromArray([]),
-                                                                       _L.fromArray([$Html.text(product.description)]))
-                                                                       ,A2($Html.p,
-                                                                       _L.fromArray([]),
-                                                                       A2($List.map,
-                                                                       categoryLabel(dataFeed.categories),
-                                                                       product.categoryIds))
-                                                                       ,A2($Html.p,
-                                                                       _L.fromArray([]),
-                                                                       _L.fromArray([$Maybe.withDefault(A2($Html.span,
-                                                                       _L.fromArray([]),
-                                                                       _L.fromArray([])))(A2($Maybe.map,
-                                                                       brandLabel(dataFeed.brands),
-                                                                       product.brandId))]))]))]))]));
-   });
-   var navbarView = function (_v7) {
-      return function () {
-         switch (_v7.ctor)
          {case "Model":
             return function () {
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
-                 _v7._0.starredProducts)));
+                 _v3._0.starredProducts)));
                  return A2($Html.nav,
                  _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
                  _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
                                                                            _L.fromArray([$Html$Attributes.$class("navbar-header")]),
                                                                            _L.fromArray([A2($Html.div,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-brand")]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.href("#")]),
-                                                                                        _L.fromArray([$Html.text("Slipstitcher")]))]))
-                                                                                        ,A2($Html.p,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-text")]),
-                                                                                        _L.fromArray([$Html.text("Find your next project...")]))]))
-                                                                           ,A2($Html.ul,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                           _L.fromArray([A2($Html.li,
-                                                                           _L.fromArray([]),
+                                                                           _L.fromArray([$Html$Attributes.$class("navbar-brand")]),
                                                                            _L.fromArray([A2($Html.a,
-                                                                           _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                           _L.fromArray([$Html.text("Your Favourites ")
-                                                                                        ,A2($Html.span,
-                                                                                        _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                        _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
+                                                                           _L.fromArray([$Html$Attributes.href("#")]),
+                                                                           _L.fromArray([$Html.text("Get Stitching!")]))]))]))
+                                                                           ,A2($Html.div,
+                                                                           _L.fromArray([$Html$Attributes.$class("collapse navbar-collapse")]),
+                                                                           _L.fromArray([A2($Html.div,
+                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left")]),
+                                                                                        _L.fromArray([A2($Html.p,
+                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-text navbar-collapse")]),
+                                                                                        _L.fromArray([$Html.text("Find your next project...")]))]))
+                                                                                        ,A2($Html.ul,
+                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
+                                                                                        _L.fromArray([A2($Html.li,
+                                                                                        _L.fromArray([]),
+                                                                                        _L.fromArray([A2($Html.a,
+                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                        _L.fromArray([$Html.text("Your Favourites ")
+                                                                                                     ,A2($Html.span,
+                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 70 and 84");
+         "between lines 74 and 90");
       }();
    };
    var notFoundView = A2($Html.h2,
    _L.fromArray([]),
    _L.fromArray([$Html.text("Not Found")]));
-   var singleProductView = F4(function (uiChannel,
-   starredProducts,
-   productId,
-   dataFeed) {
-      return function () {
-         var _v10 = A2($System.lookupProduct,
-         productId,
-         dataFeed.products);
-         switch (_v10.ctor)
-         {case "Just":
-            return A4(productDetailView,
-              uiChannel,
-              starredProducts,
-              _v10._0,
-              dataFeed);
-            case "Nothing":
-            return notFoundView;}
-         _U.badCase($moduleName,
-         "between lines 149 and 151");
-      }();
-   });
    var loadingView = A2($Html.div,
    _L.fromArray([$Html$Attributes.$class("loading")]),
    _L.fromArray([A2($Html.img,
@@ -13333,7 +13294,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
-                   _L.fromArray([A3(productControls,
+                   _L.fromArray([A3($ViewCommon.productControls,
                    uiChannel,
                    starredProducts,
                    product)]))]))]));
@@ -13387,7 +13348,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 164 and 166");
+            "between lines 160 and 162");
          }();
       }();
    });
@@ -13411,7 +13372,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 171 and 173");
+            "between lines 167 and 169");
          }();
       }();
    });
@@ -13445,7 +13406,129 @@ Elm.View.make = function (_elm) {
             case "NotAsked":
             return loadingView;}
          _U.badCase($moduleName,
-         "between lines 26 and 30");
+         "between lines 30 and 34");
+      }();
+   });
+   var emptySpan = A2($Html.span,
+   _L.fromArray([]),
+   _L.fromArray([]));
+   var categoryLabel = F2(function (categories,
+   categoryId) {
+      return function () {
+         var _v13 = A2($Dict.get,
+         categoryId,
+         categories);
+         switch (_v13.ctor)
+         {case "Just": return A2($Html.a,
+              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
+                           ,$Html$Attributes.href(A2($Basics._op["++"],
+                           "#/category/",
+                           _v13._0.categoryId))]),
+              _L.fromArray([$Html.text(_v13._0.name)]));
+            case "Nothing":
+            return emptySpan;}
+         _U.badCase($moduleName,
+         "between lines 95 and 99");
+      }();
+   });
+   var brandLabel = F2(function (brands,
+   brandId) {
+      return function () {
+         var _v15 = A2($Dict.get,
+         brandId,
+         brands);
+         switch (_v15.ctor)
+         {case "Just": return A2($Html.a,
+              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-primary")
+                           ,$Html$Attributes.href(A2($Basics._op["++"],
+                           "#/brand/",
+                           _v15._0.brandId))]),
+              _L.fromArray([$Html.text(_v15._0.name)]));
+            case "Nothing":
+            return emptySpan;}
+         _U.badCase($moduleName,
+         "between lines 104 and 108");
+      }();
+   });
+   var productDetailView = F5(function (uiChannel,
+   starredProducts,
+   currentPageUrl,
+   product,
+   dataFeed) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.key($Basics.toString(product.productId))
+                   ,$Html$Attributes.$class("product-detail")]),
+      _L.fromArray([$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.h1,
+                   _L.fromArray([$Html$Attributes.$class("col-sm-8 col-sm-offset-2 col-xs-12")]),
+                   _L.fromArray([$Html.text(product.name)]))]))
+                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-sm-offset-2 col-xs-12")]),
+                                                          _L.fromArray([A2($Html.a,
+                                                                       _L.fromArray([$Html$Attributes.href(product.clickUrl)
+                                                                                    ,$Html$Attributes.target("_blank")]),
+                                                                       _L.fromArray([A2($Html.img,
+                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
+                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
+                                                                       _L.fromArray([]))]))
+                                                                       ,A3($ViewCommon.productControls,
+                                                                       uiChannel,
+                                                                       starredProducts,
+                                                                       product)]))
+                                                          ,A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-xs-12")]),
+                                                          _L.fromArray([A2($Html.p,
+                                                                       _L.fromArray([]),
+                                                                       _L.fromArray([$Html.text(product.description)]))
+                                                                       ,A2($Html.p,
+                                                                       _L.fromArray([]),
+                                                                       A2($List.map,
+                                                                       categoryLabel(dataFeed.categories),
+                                                                       product.categoryIds))
+                                                                       ,A2($Html.p,
+                                                                       _L.fromArray([]),
+                                                                       _L.fromArray([$Maybe.withDefault(emptySpan)(A2($Maybe.map,
+                                                                       brandLabel(dataFeed.brands),
+                                                                       product.brandId))]))
+                                                                       ,function () {
+                                                                          switch (currentPageUrl.ctor)
+                                                                          {case "Just":
+                                                                             return A2($Html.a,
+                                                                               _L.fromArray([$Html$Attributes.$class("btn btn-info")
+                                                                                            ,$Html$Events.onClick($Signal.send(uiChannel)(A2($System.ShareProduct,
+                                                                                            $System.Twitter,
+                                                                                            product.productId)))
+                                                                                            ,$Html$Attributes.target("_blank")
+                                                                                            ,$Html$Attributes.href(A2(shareTwitterLink,
+                                                                                            currentPageUrl._0,
+                                                                                            product.name))]),
+                                                                               _L.fromArray([$Html.text("Share on Twitter")]));
+                                                                             case "Nothing":
+                                                                             return emptySpan;}
+                                                                          _U.badCase($moduleName,
+                                                                          "between lines 135 and 141");
+                                                                       }()]))]))]));
+   });
+   var singleProductView = F5(function (uiChannel,
+   starredProducts,
+   currentPageUrl,
+   productId,
+   dataFeed) {
+      return function () {
+         var _v19 = A2($System.lookupProduct,
+         productId,
+         dataFeed.products);
+         switch (_v19.ctor)
+         {case "Just":
+            return A5(productDetailView,
+              uiChannel,
+              starredProducts,
+              currentPageUrl,
+              _v19._0,
+              dataFeed);
+            case "Nothing":
+            return notFoundView;}
+         _U.badCase($moduleName,
+         "between lines 145 and 147");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13459,14 +13542,14 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([function () {
                       var _raw = m,
                       $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 225, column 33 to 34"),
+                      "on line 221, column 33 to 34"),
                       model = $._0;
                       var starredProducts = A2($Maybe.withDefault,
                       $Set.empty,
                       model.starredProducts);
                       return function () {
-                         var _v19 = model.view;
-                         switch (_v19.ctor)
+                         var _v21 = model.view;
+                         switch (_v21.ctor)
                          {case "NoPage":
                             return A2($Html.div,
                               _L.fromArray([]),
@@ -13475,36 +13558,29 @@ Elm.View.make = function (_elm) {
                             return notFoundView;}
                          return A2(defaultRemoteDataView,
                          function () {
-                            var _v20 = model.view;
-                            switch (_v20.ctor)
-                            {case "BrandListPage":
-                               return function (_v24) {
-                                    return function () {
-                                       return A2($Html.h2,
-                                       _L.fromArray([]),
-                                       _L.fromArray([$Html.text("TODO")]));
-                                    }();
-                                 };
-                               case "BrandPage":
+                            var _v22 = model.view;
+                            switch (_v22.ctor)
+                            {case "BrandPage":
                                return A3(productsByBrandView,
                                  uiChannel,
                                  starredProducts,
-                                 _v20._0);
+                                 _v22._0);
                                case "CategoryPage":
                                return A3(productsByCategoryView,
                                  uiChannel,
                                  starredProducts,
-                                 _v20._0);
+                                 _v22._0);
                                case "FrontPage":
                                return A3(frontPageView,
                                  uiChannel,
                                  starredProducts,
                                  model.frontPageFilter);
                                case "ProductPage":
-                               return A3(singleProductView,
+                               return A4(singleProductView,
                                  uiChannel,
                                  starredProducts,
-                                 _v20._0);
+                                 model.currentPageUrl,
+                                 _v22._0);
                                case "StarredPage":
                                return A4(productsView,
                                  uiChannel,
@@ -13512,13 +13588,14 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 231 and 239");
+                            "between lines 227 and 235");
                          }(),
                          model.dataFeed);
                       }();
                    }()]))]));
    });
    _elm.View.values = {_op: _op
+                      ,emptySpan: emptySpan
                       ,defaultRemoteDataView: defaultRemoteDataView
                       ,productSummaryView: productSummaryView
                       ,productSummaryRowView: productSummaryRowView
@@ -13526,11 +13603,9 @@ Elm.View.make = function (_elm) {
                       ,loadingView: loadingView
                       ,notFoundView: notFoundView
                       ,navbarView: navbarView
-                      ,productControls: productControls
-                      ,starButton: starButton
-                      ,buyButton: buyButton
                       ,categoryLabel: categoryLabel
                       ,brandLabel: brandLabel
+                      ,shareTwitterLink: shareTwitterLink
                       ,productDetailView: productDetailView
                       ,singleProductView: singleProductView
                       ,debuggingView: debuggingView
@@ -13541,6 +13616,83 @@ Elm.View.make = function (_elm) {
                       ,frontPageView: frontPageView
                       ,rootView: rootView};
    return _elm.View.values;
+};
+Elm.ViewCommon = Elm.ViewCommon || {};
+Elm.ViewCommon.make = function (_elm) {
+   "use strict";
+   _elm.ViewCommon = _elm.ViewCommon || {};
+   if (_elm.ViewCommon.values)
+   return _elm.ViewCommon.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "ViewCommon",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $Number$Format = Elm.Number.Format.make(_elm),
+   $Schema = Elm.Schema.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $System = Elm.System.make(_elm);
+   var buyButton = function (p) {
+      return A2($Html.a,
+      _L.fromArray([$Html$Attributes.href(p.clickUrl)
+                   ,$Html$Attributes.$class("btn btn-sm btn-success")
+                   ,$Html$Attributes.target("_blank")]),
+      _L.fromArray([$Html.text(A2($Basics._op["++"],
+      "£",
+      A3($Number$Format.pretty,
+      2,
+      _U.chr(","),
+      p.price)))]));
+   };
+   var starButton = F3(function (uiChannel,
+   starredProducts,
+   p) {
+      return A2($Set.member,
+      p.productId,
+      starredProducts) ? A2($Html.button,
+      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning btn-passive")
+                   ,$Html$Events.onClick(A2($Signal.send,
+                   uiChannel,
+                   A2($System.StarProduct,
+                   false,
+                   p.productId)))]),
+      _L.fromArray([A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
+                   _L.fromArray([]))
+                   ,$Html.text(" Liked")])) : A2($Html.button,
+      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning")
+                   ,$Html$Events.onClick(A2($Signal.send,
+                   uiChannel,
+                   A2($System.StarProduct,
+                   true,
+                   p.productId)))]),
+      _L.fromArray([A2($Html.span,
+                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
+                   _L.fromArray([]))
+                   ,$Html.text(" Like")]));
+   });
+   var productControls = F3(function (uiChannel,
+   starredProducts,
+   product) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("product-controls")]),
+      _L.fromArray([A3(starButton,
+                   uiChannel,
+                   starredProducts,
+                   product)
+                   ,buyButton(product)]));
+   });
+   _elm.ViewCommon.values = {_op: _op
+                            ,starButton: starButton
+                            ,buyButton: buyButton
+                            ,productControls: productControls};
+   return _elm.ViewCommon.values;
 };
 Elm.VirtualDom = Elm.VirtualDom || {};
 Elm.VirtualDom.make = function (_elm) {
