@@ -13211,7 +13211,7 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v1._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 151 and 155");
+         "between lines 155 and 159");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13257,16 +13257,22 @@ Elm.View.make = function (_elm) {
                                                                                         ,A2($Html.ul,
                                                                                         _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
                                                                                         _L.fromArray([A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                                        _L.fromArray([$Html.text("Your Favourites ")
-                                                                                                     ,A2($Html.span,
-                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
+                                                                                                     _L.fromArray([]),
+                                                                                                     _L.fromArray([A2($Html.a,
+                                                                                                     _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                                  ,$Html$Attributes.href("https://twitter.com/getstitching")]),
+                                                                                                     _L.fromArray([$Html.text("Contact")]))]))
+                                                                                                     ,A2($Html.li,
+                                                                                                     _L.fromArray([]),
+                                                                                                     _L.fromArray([A2($Html.a,
+                                                                                                     _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                                     _L.fromArray([$Html.text("Your Favourites ")
+                                                                                                                  ,A2($Html.span,
+                                                                                                                  _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                                  _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 74 and 90");
+         "between lines 74 and 94");
       }();
    };
    var notFoundView = A2($Html.h2,
@@ -13356,7 +13362,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 160 and 162");
+            "between lines 164 and 166");
          }();
       }();
    });
@@ -13380,7 +13386,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 167 and 169");
+            "between lines 171 and 173");
          }();
       }();
    });
@@ -13436,7 +13442,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 95 and 99");
+         "between lines 99 and 103");
       }();
    });
    var brandLabel = F2(function (brands,
@@ -13455,7 +13461,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 104 and 108");
+         "between lines 108 and 112");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13513,7 +13519,7 @@ Elm.View.make = function (_elm) {
                                                                              case "Nothing":
                                                                              return emptySpan;}
                                                                           _U.badCase($moduleName,
-                                                                          "between lines 135 and 141");
+                                                                          "between lines 139 and 145");
                                                                        }()]))]))]));
    });
    var singleProductView = F5(function (uiChannel,
@@ -13536,7 +13542,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 145 and 147");
+         "between lines 149 and 151");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13544,7 +13550,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 222, column 23 to 24"),
+         "on line 226, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13596,7 +13602,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 233 and 241");
+                            "between lines 237 and 245");
                          }(),
                          model.dataFeed);
                       }()]))]));
