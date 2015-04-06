@@ -13120,6 +13120,14 @@ Elm.View.make = function (_elm) {
    $System = Elm.System.make(_elm),
    $Uri = Elm.Uri.make(_elm),
    $ViewCommon = Elm.ViewCommon.make(_elm);
+   var pageKey = function (view) {
+      return function () {
+         switch (view.ctor)
+         {case "FrontPage":
+            return "front-page";}
+         return "";
+      }();
+   };
    var dataFeedBlurbView = function (dataFeed) {
       return function () {
          var item = F2(function (link,
@@ -13185,9 +13193,9 @@ Elm.View.make = function (_elm) {
                                                    starredProducts,
                                                    dataFeed)]))]));
    });
-   var debuggingView = function (_v0) {
+   var debuggingView = function (_v1) {
       return function () {
-         switch (_v0.ctor)
+         switch (_v1.ctor)
          {case "Model":
             return A2($Html.div,
               _L.fromArray([$Html$Attributes.id("debug")]),
@@ -13195,13 +13203,13 @@ Elm.View.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([$Html.text(A2($Basics._op["++"],
                            "View: ",
-                           $Basics.toString(_v0._0.view)))
+                           $Basics.toString(_v1._0.view)))
                            ,A2($Html.br,
                            _L.fromArray([]),
                            _L.fromArray([]))
                            ,$Html.text(A2($Basics._op["++"],
                            "Scroll: ",
-                           $Basics.toString(_v0._0.scroll)))]))]));}
+                           $Basics.toString(_v1._0.scroll)))]))]));}
          _U.badCase($moduleName,
          "between lines 151 and 155");
       }();
@@ -13222,14 +13230,14 @@ Elm.View.make = function (_elm) {
       "&text=",
       body)))))));
    });
-   var navbarView = function (_v3) {
+   var navbarView = function (_v4) {
       return function () {
-         switch (_v3.ctor)
+         switch (_v4.ctor)
          {case "Model":
             return function () {
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
-                 _v3._0.starredProducts)));
+                 _v4._0.starredProducts)));
                  return A2($Html.nav,
                  _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
                  _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
@@ -13318,7 +13326,7 @@ Elm.View.make = function (_elm) {
          productsFilter,
          dataFeed.products);
          return A2($Html.div,
-         _L.fromArray([$Html$Attributes.key(name)]),
+         _L.fromArray([]),
          _L.fromArray([A2($Html.h2,
                       _L.fromArray([]),
                       _L.fromArray([$Html.text(name)]))
@@ -13415,16 +13423,16 @@ Elm.View.make = function (_elm) {
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v13 = A2($Dict.get,
+         var _v14 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v13.ctor)
+         switch (_v14.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v13._0.categoryId))]),
-              _L.fromArray([$Html.text(_v13._0.name)]));
+                           _v14._0.categoryId))]),
+              _L.fromArray([$Html.text(_v14._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
@@ -13434,16 +13442,16 @@ Elm.View.make = function (_elm) {
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v15 = A2($Dict.get,
+         var _v16 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v15.ctor)
+         switch (_v16.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-primary")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v15._0.brandId))]),
-              _L.fromArray([$Html.text(_v15._0.name)]));
+                           _v16._0.brandId))]),
+              _L.fromArray([$Html.text(_v16._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
@@ -13514,16 +13522,16 @@ Elm.View.make = function (_elm) {
    productId,
    dataFeed) {
       return function () {
-         var _v19 = A2($System.lookupProduct,
+         var _v20 = A2($System.lookupProduct,
          productId,
          dataFeed.products);
-         switch (_v19.ctor)
+         switch (_v20.ctor)
          {case "Just":
             return A5(productDetailView,
               uiChannel,
               starredProducts,
               currentPageUrl,
-              _v19._0,
+              _v20._0,
               dataFeed);
             case "Nothing":
             return notFoundView;}
@@ -13533,23 +13541,24 @@ Elm.View.make = function (_elm) {
    });
    var rootView = F2(function (uiChannel,
    m) {
-      return A2($Html.div,
-      _L.fromArray([]),
-      _L.fromArray([navbarView(m)
-                   ,A2($Html.div,
-                   _L.fromArray([$Html$Attributes.id("main-container")
-                                ,$Html$Attributes.$class("container")]),
-                   _L.fromArray([function () {
-                      var _raw = m,
-                      $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-                      "on line 221, column 33 to 34"),
-                      model = $._0;
-                      var starredProducts = A2($Maybe.withDefault,
-                      $Set.empty,
-                      model.starredProducts);
-                      return function () {
-                         var _v21 = model.view;
-                         switch (_v21.ctor)
+      return function () {
+         var _raw = m,
+         $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
+         "on line 222, column 23 to 24"),
+         model = $._0;
+         var starredProducts = A2($Maybe.withDefault,
+         $Set.empty,
+         model.starredProducts);
+         return A2($Html.div,
+         _L.fromArray([]),
+         _L.fromArray([navbarView(m)
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.key(pageKey(model.view))
+                                   ,$Html$Attributes.id("main-container")
+                                   ,$Html$Attributes.$class("container")]),
+                      _L.fromArray([function () {
+                         var _v22 = model.view;
+                         switch (_v22.ctor)
                          {case "NoPage":
                             return A2($Html.div,
                               _L.fromArray([]),
@@ -13558,18 +13567,18 @@ Elm.View.make = function (_elm) {
                             return notFoundView;}
                          return A2(defaultRemoteDataView,
                          function () {
-                            var _v22 = model.view;
-                            switch (_v22.ctor)
+                            var _v23 = model.view;
+                            switch (_v23.ctor)
                             {case "BrandPage":
                                return A3(productsByBrandView,
                                  uiChannel,
                                  starredProducts,
-                                 _v22._0);
+                                 _v23._0);
                                case "CategoryPage":
                                return A3(productsByCategoryView,
                                  uiChannel,
                                  starredProducts,
-                                 _v22._0);
+                                 _v23._0);
                                case "FrontPage":
                                return A3(frontPageView,
                                  uiChannel,
@@ -13580,7 +13589,7 @@ Elm.View.make = function (_elm) {
                                  uiChannel,
                                  starredProducts,
                                  model.currentPageUrl,
-                                 _v22._0);
+                                 _v23._0);
                                case "StarredPage":
                                return A4(productsView,
                                  uiChannel,
@@ -13588,11 +13597,11 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 227 and 235");
+                            "between lines 234 and 242");
                          }(),
                          model.dataFeed);
-                      }();
-                   }()]))]));
+                      }()]))]));
+      }();
    });
    _elm.View.values = {_op: _op
                       ,emptySpan: emptySpan
@@ -13614,6 +13623,7 @@ Elm.View.make = function (_elm) {
                       ,dataFeedBlurbView: dataFeedBlurbView
                       ,frontPage: frontPage
                       ,frontPageView: frontPageView
+                      ,pageKey: pageKey
                       ,rootView: rootView};
    return _elm.View.values;
 };
