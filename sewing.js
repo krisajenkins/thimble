@@ -13228,7 +13228,7 @@ Elm.View.make = function (_elm) {
       $Uri.encodeUriComponent(url),
       A2($Basics._op["++"],
       "&text=",
-      $Uri.encodeUriComponent(body)))))));
+      body))))));
    });
    var navbarView = function (_v4) {
       return function () {
