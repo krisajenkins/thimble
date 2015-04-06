@@ -13550,11 +13550,10 @@ Elm.View.make = function (_elm) {
          $Set.empty,
          model.starredProducts);
          return A2($Html.div,
-         _L.fromArray([]),
+         _L.fromArray([$Html$Attributes.key(pageKey(model.view))]),
          _L.fromArray([navbarView(m)
                       ,A2($Html.div,
-                      _L.fromArray([$Html$Attributes.key(pageKey(model.view))
-                                   ,$Html$Attributes.id("main-container")
+                      _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
                       _L.fromArray([function () {
                          var _v22 = model.view;
@@ -13597,7 +13596,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 234 and 242");
+                            "between lines 233 and 241");
                          }(),
                          model.dataFeed);
                       }()]))]));
