@@ -13211,7 +13211,7 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v1._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 154 and 158");
+         "between lines 163 and 167");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13272,7 +13272,7 @@ Elm.View.make = function (_elm) {
                                                                                                                   _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 74 and 94");
+         "between lines 75 and 95");
       }();
    };
    var notFoundView = A2($Html.h2,
@@ -13316,11 +13316,17 @@ Elm.View.make = function (_elm) {
    var productSummaryRowView = F3(function (uiChannel,
    starredProducts,
    ps) {
-      return $Exts$Html$Bootstrap.row(A2($List.map,
-      A2(productSummaryView,
-      uiChannel,
-      starredProducts),
-      ps));
+      return function () {
+         switch (ps.ctor)
+         {case "[]": return A2($Html.p,
+              _L.fromArray([]),
+              _L.fromArray([$Html.text("Nothing here yet!")]));}
+         return $Exts$Html$Bootstrap.row(A2($List.map,
+         A2(productSummaryView,
+         uiChannel,
+         starredProducts),
+         ps));
+      }();
    });
    var productsView = F5(function (uiChannel,
    starredProducts,
@@ -13362,7 +13368,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 163 and 165");
+            "between lines 172 and 174");
          }();
       }();
    });
@@ -13386,7 +13392,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 170 and 172");
+            "between lines 179 and 181");
          }();
       }();
    });
@@ -13429,39 +13435,39 @@ Elm.View.make = function (_elm) {
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v14 = A2($Dict.get,
+         var _v15 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v14.ctor)
+         switch (_v15.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v14._0.categoryId))]),
-              _L.fromArray([$Html.text(_v14._0.name)]));
+                           _v15._0.categoryId))]),
+              _L.fromArray([$Html.text(_v15._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 99 and 103");
+         "between lines 100 and 104");
       }();
    });
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v16 = A2($Dict.get,
+         var _v17 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v16.ctor)
+         switch (_v17.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-primary")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v16._0.brandId))]),
-              _L.fromArray([$Html.text(_v16._0.name)]));
+                           _v17._0.brandId))]),
+              _L.fromArray([$Html.text(_v17._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 108 and 112");
+         "between lines 109 and 113");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13473,10 +13479,10 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.key($Basics.toString(product.productId))
                    ,$Html$Attributes.$class("product-detail")]),
       _L.fromArray([$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.h1,
-                   _L.fromArray([$Html$Attributes.$class("col-sm-8 col-sm-offset-2 col-xs-12")]),
+                   _L.fromArray([$Html$Attributes.$class("col-xs-12\n                       col-sm-10 col-sm-offset-1\n                       col-md-8 col-md-offset-2\n                      ")]),
                    _L.fromArray([$Html.text(product.name)]))]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-sm-offset-2 col-xs-12")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12\n                        col-sm-5 col-sm-offset-1\n                        col-md-4 col-md-offset-2")]),
                                                           _L.fromArray([A2($Html.a,
                                                                        _L.fromArray([$Html$Attributes.href(product.clickUrl)
                                                                                     ,$Html$Attributes.target("_blank")]),
@@ -13489,7 +13495,7 @@ Elm.View.make = function (_elm) {
                                                                        starredProducts,
                                                                        product)]))
                                                           ,A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-sm-4 col-xs-12")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12\n                        col-sm-5\n                        col-md-4")]),
                                                           _L.fromArray([A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))
@@ -13519,7 +13525,7 @@ Elm.View.make = function (_elm) {
                                                                              case "Nothing":
                                                                              return emptySpan;}
                                                                           _U.badCase($moduleName,
-                                                                          "between lines 138 and 144");
+                                                                          "between lines 147 and 153");
                                                                        }()]))]))]));
    });
    var singleProductView = F5(function (uiChannel,
@@ -13528,21 +13534,21 @@ Elm.View.make = function (_elm) {
    productId,
    dataFeed) {
       return function () {
-         var _v20 = A2($System.lookupProduct,
+         var _v21 = A2($System.lookupProduct,
          productId,
          dataFeed.products);
-         switch (_v20.ctor)
+         switch (_v21.ctor)
          {case "Just":
             return A5(productDetailView,
               uiChannel,
               starredProducts,
               currentPageUrl,
-              _v20._0,
+              _v21._0,
               dataFeed);
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 148 and 150");
+         "between lines 157 and 159");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13550,7 +13556,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 225, column 23 to 24"),
+         "on line 234, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13562,8 +13568,8 @@ Elm.View.make = function (_elm) {
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
                       _L.fromArray([function () {
-                         var _v22 = model.view;
-                         switch (_v22.ctor)
+                         var _v23 = model.view;
+                         switch (_v23.ctor)
                          {case "NoPage":
                             return A2($Html.div,
                               _L.fromArray([]),
@@ -13572,18 +13578,18 @@ Elm.View.make = function (_elm) {
                             return notFoundView;}
                          return A2(defaultRemoteDataView,
                          function () {
-                            var _v23 = model.view;
-                            switch (_v23.ctor)
+                            var _v24 = model.view;
+                            switch (_v24.ctor)
                             {case "BrandPage":
                                return A3(productsByBrandView,
                                  uiChannel,
                                  starredProducts,
-                                 _v23._0);
+                                 _v24._0);
                                case "CategoryPage":
                                return A3(productsByCategoryView,
                                  uiChannel,
                                  starredProducts,
-                                 _v23._0);
+                                 _v24._0);
                                case "FrontPage":
                                return A3(frontPageView,
                                  uiChannel,
@@ -13594,7 +13600,7 @@ Elm.View.make = function (_elm) {
                                  uiChannel,
                                  starredProducts,
                                  model.currentPageUrl,
-                                 _v23._0);
+                                 _v24._0);
                                case "StarredPage":
                                return A4(productsView,
                                  uiChannel,
@@ -13602,7 +13608,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 236 and 244");
+                            "between lines 245 and 253");
                          }(),
                          model.dataFeed);
                       }()]))]));
@@ -13668,29 +13674,33 @@ Elm.ViewCommon.make = function (_elm) {
    var starButton = F3(function (uiChannel,
    starredProducts,
    p) {
-      return A2($Set.member,
-      p.productId,
-      starredProducts) ? A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning btn-passive")
-                   ,$Html$Events.onClick(A2($Signal.send,
-                   uiChannel,
-                   A2($System.StarProduct,
-                   false,
-                   p.productId)))]),
-      _L.fromArray([A2($Html.span,
-                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
-                   _L.fromArray([]))
-                   ,$Html.text(" Liked")])) : A2($Html.button,
-      _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning")
-                   ,$Html$Events.onClick(A2($Signal.send,
-                   uiChannel,
-                   A2($System.StarProduct,
-                   true,
-                   p.productId)))]),
-      _L.fromArray([A2($Html.span,
-                   _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
-                   _L.fromArray([]))
-                   ,$Html.text(" Like")]));
+      return function () {
+         var starred = A2($Set.member,
+         p.productId,
+         starredProducts);
+         return A2($Html.button,
+         _L.fromArray([$Html$Attributes.classList(_L.fromArray([{ctor: "_Tuple2"
+                                                                ,_0: "btn"
+                                                                ,_1: true}
+                                                               ,{ctor: "_Tuple2"
+                                                                ,_0: "btn-sm"
+                                                                ,_1: true}
+                                                               ,{ctor: "_Tuple2"
+                                                                ,_0: "btn-warning"
+                                                                ,_1: true}
+                                                               ,{ctor: "_Tuple2"
+                                                                ,_0: "btn-passive"
+                                                                ,_1: starred}]))
+                      ,$Html$Events.onClick(A2($Signal.send,
+                      uiChannel,
+                      A2($System.StarProduct,
+                      $Basics.not(starred),
+                      p.productId)))]),
+         _L.fromArray([A2($Html.span,
+                      _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
+                      _L.fromArray([]))
+                      ,$Html.text(starred ? " Liked" : " Like")]));
+      }();
    });
    var productControls = F3(function (uiChannel,
    starredProducts,
