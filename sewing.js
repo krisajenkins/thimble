@@ -13481,14 +13481,14 @@ Elm.View.make = function (_elm) {
                                                                        _L.fromArray([$Html.text(product.description)]))
                                                                        ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.p,
                                                                                                               _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
-                                                                                                              A2($List.map,
-                                                                                                              categoryLabel(dataFeed.categories),
-                                                                                                              product.categoryIds))
-                                                                                                              ,A2($Html.p,
-                                                                                                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
                                                                                                               _L.fromArray([$Maybe.withDefault(emptySpan)(A2($Maybe.map,
                                                                                                               brandLabel(dataFeed.brands),
-                                                                                                              product.brandId))]))]))
+                                                                                                              product.brandId))]))
+                                                                                                              ,A2($Html.p,
+                                                                                                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
+                                                                                                              A2($List.map,
+                                                                                                              categoryLabel(dataFeed.categories),
+                                                                                                              product.categoryIds))]))
                                                                        ,function () {
                                                                           switch (currentPageUrl.ctor)
                                                                           {case "Just":
@@ -13544,7 +13544,6 @@ Elm.View.make = function (_elm) {
          return A2($Html.div,
          _L.fromArray([]),
          _L.fromArray([navbarView(m)
-                      ,debuggingView(m)
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
