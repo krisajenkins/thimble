@@ -55,7 +55,7 @@ code {
     height: 210px;
   }
 }
-.btn + .btn {
+.product-controls .btn + .btn {
   margin-left: 6px;
 }
 #debug {

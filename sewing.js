@@ -4546,85 +4546,18 @@ Elm.Main.make = function (_elm) {
       }();
    };
    var uiChannel = $Signal.channel($System.NoOp);
-   var pageSize = 24;
    var initialModel = $System.Model({_: {}
                                     ,currentPageUrl: $Maybe.Nothing
                                     ,dataFeed: $Exts$RemoteData.NotAsked
-                                    ,frontPageFilter: $System.FilterWithLimit(pageSize)
                                     ,scroll: 0.0
                                     ,starredProducts: $Maybe.Nothing
                                     ,view: $System.NoPage});
+   var pageSize = 24;
    var dataFeedQuery = A2($Signal._op["<~"],
    function ($) {
       return $Exts$RemoteData.fromJsonHttp($Schema.decodeDataFeed)($Maybe.Just($));
    },
    $Http.sendGet($Signal.constant("products.json")));
-   var productFilterInc = F2(function (n,
-   f) {
-      return function () {
-         switch (f.ctor)
-         {case "FilterWithLimit":
-            return $System.FilterWithLimit(f._0 + n);}
-         return f;
-      }();
-   });
-   var step = F2(function (action,
-   m) {
-      return function () {
-         var _raw = m,
-         $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 112, column 23 to 24"),
-         model = $._0;
-         return $System.Model(function () {
-            switch (action.ctor)
-            {case "ChangeCurrentPageUrl":
-               return _U.replace([["currentPageUrl"
-                                  ,$Maybe.Just(action._0)]],
-                 model);
-               case "ChangeDataFeed":
-               return _U.replace([["dataFeed"
-                                  ,action._0]],
-                 model);
-               case "ChangeScroll":
-               return _U.replace([["scroll"
-                                  ,action._0]
-                                 ,["frontPageFilter"
-                                  ,_U.cmp(action._0,
-                                  95) > -1 && _U.eq(model.view,
-                                  $System.FrontPage) ? A2(productFilterInc,
-                                  pageSize,
-                                  model.frontPageFilter) : model.frontPageFilter]],
-                 model);
-               case "ChangeView":
-               return _U.replace([["view"
-                                  ,action._0]],
-                 model);
-               case "LoadStarred":
-               return _U.replace([["starredProducts"
-                                  ,$Maybe.Just(action._0)]],
-                 model);
-               case "NoOp": return model;
-               case "ShareProduct":
-               return model;
-               case "StarProduct":
-               return _U.replace([["starredProducts"
-                                  ,$Maybe.Just(A2(function () {
-                                     switch (action._0)
-                                     {case false: return $Set.remove;
-                                        case true: return $Set.insert;}
-                                     _U.badCase($moduleName,
-                                     "between lines 129 and 132");
-                                  }(),
-                                  action._1,
-                                  A2($Maybe.withDefault,
-                                  $Set.empty,
-                                  model.starredProducts)))]],
-                 model);}
-            _U.badCase($moduleName,
-            "between lines 117 and 135");
-         }());
-      }();
-   });
    var starredProductsRead = _P.portIn("starredProductsRead",
    _P.incomingSignal(function (v) {
       return v === null ? Elm.Maybe.make(_elm).Nothing : Elm.Maybe.make(_elm).Just(typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
@@ -4636,20 +4569,20 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v22 = A2($Json$Decode.decodeString,
+                    var _v9 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v22.ctor)
+                    switch (_v9.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v22._0);}
+                       return $Set.fromList(_v9._0);}
                     _U.badCase($moduleName,
-                    "between lines 71 and 74");
+                    "between lines 68 and 71");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 69 and 74");
+            "between lines 66 and 71");
          }();
       };
       return A2($Signal._op["<~"],
@@ -4668,47 +4601,110 @@ Elm.Main.make = function (_elm) {
       return typeof v === "number" ? v : _U.badPort("a number",
       v);
    }));
-   var decodeHash = function (x) {
+   var decodeHash = function (hash) {
       return function () {
          var brandPrefix = "#/brand/";
          var categoryPrefix = "#/category/";
          var productPrefix = "#/product/";
-         return _U.eq(x,
-         "") ? $System.FrontPage : _U.eq(x,
-         "#/favourites") ? $System.StarredPage : _U.eq(x,
-         "#/category") ? $System.CategoryListPage : _U.eq(x,
+         return _U.eq(hash,
+         "") ? A2($System.ProductListPage,
+         pageSize,
+         $System.NoFilter) : _U.eq(hash,
+         "#/favourites") ? A2($System.ProductListPage,
+         pageSize,
+         $System.FilterStarred) : _U.eq(hash,
+         "#/category") ? $System.CategoryListPage : _U.eq(hash,
          "#/brand") ? $System.BrandListPage : A2($String.startsWith,
          categoryPrefix,
-         x) ? $System.CategoryPage(A2($Exts$String.removePrefix,
+         hash) ? $System.ProductListPage(pageSize)($System.FilterWithCategoryId(A2($Exts$String.removePrefix,
          categoryPrefix,
-         x)) : A2($String.startsWith,
+         hash))) : A2($String.startsWith,
          brandPrefix,
-         x) ? $System.BrandPage(A2($Exts$String.removePrefix,
+         hash) ? $System.ProductListPage(pageSize)($System.FilterWithBrandId(A2($Exts$String.removePrefix,
          brandPrefix,
-         x)) : A2($String.startsWith,
+         hash))) : A2($String.startsWith,
          productPrefix,
-         x) ? function () {
-            var _v25 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+         hash) ? function () {
+            var _v12 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
-            x));
-            switch (_v25.ctor)
+            hash));
+            switch (_v12.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v25._0);}
+               return $System.ProductPage(_v12._0);}
             _U.badCase($moduleName,
-            "between lines 46 and 49");
+            "between lines 43 and 46");
          }() : $System.NotFoundPage;
       }();
    };
+   var step = F2(function (action,
+   m) {
+      return function () {
+         var _raw = m,
+         $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
+         "on line 102, column 23 to 24"),
+         model = $._0;
+         return $System.Model(function () {
+            switch (action.ctor)
+            {case "ChangeCurrentPageUrl":
+               return _U.replace([["currentPageUrl"
+                                  ,$Maybe.Just(action._0)]],
+                 model);
+               case "ChangeDataFeed":
+               return _U.replace([["dataFeed"
+                                  ,action._0]],
+                 model);
+               case "ChangeScroll":
+               return _U.replace([["scroll"
+                                  ,action._0]
+                                 ,["view"
+                                  ,function () {
+                                     var _v25 = model.view;
+                                     switch (_v25.ctor)
+                                     {case "ProductListPage":
+                                        return _U.cmp(action._0,
+                                          95) > -1 ? A2($System.ProductListPage,
+                                          _v25._0 + pageSize,
+                                          _v25._1) : model.view;}
+                                     return model.view;
+                                  }()]],
+                 model);
+               case "ChangeView":
+               return _U.replace([["view"
+                                  ,decodeHash(action._0)]],
+                 model);
+               case "LoadStarred":
+               return _U.replace([["starredProducts"
+                                  ,$Maybe.Just(action._0)]],
+                 model);
+               case "NoOp": return model;
+               case "ShareProduct":
+               return model;
+               case "StarProduct":
+               return _U.replace([["starredProducts"
+                                  ,$Maybe.Just(A2(function () {
+                                     switch (action._0)
+                                     {case false: return $Set.remove;
+                                        case true: return $Set.insert;}
+                                     _U.badCase($moduleName,
+                                     "between lines 121 and 124");
+                                  }(),
+                                  action._1,
+                                  A2($Maybe.withDefault,
+                                  $Set.empty,
+                                  model.starredProducts)))]],
+                 model);}
+            _U.badCase($moduleName,
+            "between lines 107 and 127");
+         }());
+      }();
+   });
    var locationHash = _P.portIn("locationHash",
    _P.incomingSignal(function (v) {
       return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
       v);
    }));
-   var hashLocation = A2($Signal._op["<~"],
-   decodeHash,
-   locationHash);
    var location = _P.portIn("location",
    _P.incomingSignal(function (v) {
       return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
@@ -4722,7 +4718,7 @@ Elm.Main.make = function (_elm) {
                                                      scrollPercentage)))
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeView,
-                                                     hashLocation)
+                                                     locationHash)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeCurrentPageUrl,
                                                      location)
@@ -4744,13 +4740,13 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)(setToJsonValue($));
       });
-      var starred = function (_v28) {
+      var starred = function (_v29) {
          return function () {
-            switch (_v28.ctor)
+            switch (_v29.ctor)
             {case "Model":
-               return _v28._0.starredProducts;}
+               return _v29._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 78, column 27 to 44");
+            "on line 75, column 27 to 44");
          }();
       };
       return $Signal.dropRepeats(A2($Signal._op["<~"],
@@ -4773,12 +4769,10 @@ Elm.Main.make = function (_elm) {
    analytics,
    actionSignal)));
    _elm.Main.values = {_op: _op
-                      ,hashLocation: hashLocation
                       ,decodeHash: decodeHash
                       ,downsample: downsample
                       ,setToJsonValue: setToJsonValue
                       ,persistedStarredProducts: persistedStarredProducts
-                      ,productFilterInc: productFilterInc
                       ,dataFeedQuery: dataFeedQuery
                       ,pageSize: pageSize
                       ,initialModel: initialModel
@@ -12670,51 +12664,6 @@ Elm.System.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm);
-   var filterProducts = F2(function (productsFilter,
-   products) {
-      return function () {
-         switch (productsFilter.ctor)
-         {case "FilterWithBrandId":
-            return A2($List.filter,
-              function (p) {
-                 return function () {
-                    var _v5 = p.brandId;
-                    switch (_v5.ctor)
-                    {case "Just":
-                       return _U.eq(_v5._0,
-                         productsFilter._0);
-                       case "Nothing": return false;}
-                    _U.badCase($moduleName,
-                    "between lines 65 and 67");
-                 }();
-              },
-              products);
-            case "FilterWithCategoryId":
-            return A2($List.filter,
-              function (p) {
-                 return A2($Set.member,
-                 productsFilter._0,
-                 $Set.fromList(p.categoryIds));
-              },
-              products);
-            case "FilterWithIds":
-            return A2($List.filter,
-              function (p) {
-                 return A2($Set.member,
-                 function (_) {
-                    return _.productId;
-                 }(p),
-                 productsFilter._0);
-              },
-              products);
-            case "FilterWithLimit":
-            return A2($List.take,
-              productsFilter._0,
-              products);}
-         _U.badCase($moduleName,
-         "between lines 61 and 67");
-      }();
-   });
    var lookupProduct = function (id) {
       return $Exts$SafeList.lookup(function ($) {
          return F2(function (x,y) {
@@ -12724,23 +12673,19 @@ Elm.System.make = function (_elm) {
          }($));
       });
    };
-   var NotFoundPage = {ctor: "NotFoundPage"};
-   var CategoryPage = function (a) {
-      return {ctor: "CategoryPage"
-             ,_0: a};
-   };
    var CategoryListPage = {ctor: "CategoryListPage"};
-   var BrandPage = function (a) {
-      return {ctor: "BrandPage"
-             ,_0: a};
-   };
    var BrandListPage = {ctor: "BrandListPage"};
+   var ProductListPage = F2(function (a,
+   b) {
+      return {ctor: "ProductListPage"
+             ,_0: a
+             ,_1: b};
+   });
    var ProductPage = function (a) {
       return {ctor: "ProductPage"
              ,_0: a};
    };
-   var StarredPage = {ctor: "StarredPage"};
-   var FrontPage = {ctor: "FrontPage"};
+   var NotFoundPage = {ctor: "NotFoundPage"};
    var NoPage = {ctor: "NoPage"};
    var LoadStarred = function (a) {
       return {ctor: "LoadStarred"
@@ -12791,11 +12736,68 @@ Elm.System.make = function (_elm) {
       return {ctor: "FilterWithIds"
              ,_0: a};
    };
+   var filterProducts = F3(function (starredProducts,
+   productsFilter,
+   products) {
+      return function () {
+         switch (productsFilter.ctor)
+         {case "FilterStarred":
+            return A3(filterProducts,
+              starredProducts,
+              FilterWithIds(starredProducts),
+              products);
+            case "FilterWithBrandId":
+            return A2($List.filter,
+              function (p) {
+                 return function () {
+                    var _v5 = p.brandId;
+                    switch (_v5.ctor)
+                    {case "Just":
+                       return _U.eq(_v5._0,
+                         productsFilter._0);
+                       case "Nothing": return false;}
+                    _U.badCase($moduleName,
+                    "between lines 65 and 67");
+                 }();
+              },
+              products);
+            case "FilterWithCategoryId":
+            return A2($List.filter,
+              function (p) {
+                 return A2($Set.member,
+                 productsFilter._0,
+                 $Set.fromList(p.categoryIds));
+              },
+              products);
+            case "FilterWithIds":
+            return A2($List.filter,
+              function (p) {
+                 return A2($Set.member,
+                 function (_) {
+                    return _.productId;
+                 }(p),
+                 productsFilter._0);
+              },
+              products);
+            case "FilterWithLimit":
+            return A2($List.take,
+              productsFilter._0,
+              products);
+            case "NoFilter":
+            return products;}
+         _U.badCase($moduleName,
+         "between lines 59 and 67");
+      }();
+   });
    var FilterWithLimit = function (a) {
       return {ctor: "FilterWithLimit"
              ,_0: a};
    };
+   var FilterStarred = {ctor: "FilterStarred"};
+   var NoFilter = {ctor: "NoFilter"};
    _elm.System.values = {_op: _op
+                        ,NoFilter: NoFilter
+                        ,FilterStarred: FilterStarred
                         ,FilterWithLimit: FilterWithLimit
                         ,FilterWithIds: FilterWithIds
                         ,FilterWithCategoryId: FilterWithCategoryId
@@ -12811,14 +12813,11 @@ Elm.System.make = function (_elm) {
                         ,ChangeCurrentPageUrl: ChangeCurrentPageUrl
                         ,LoadStarred: LoadStarred
                         ,NoPage: NoPage
-                        ,FrontPage: FrontPage
-                        ,StarredPage: StarredPage
-                        ,ProductPage: ProductPage
-                        ,BrandListPage: BrandListPage
-                        ,BrandPage: BrandPage
-                        ,CategoryListPage: CategoryListPage
-                        ,CategoryPage: CategoryPage
                         ,NotFoundPage: NotFoundPage
+                        ,ProductPage: ProductPage
+                        ,ProductListPage: ProductListPage
+                        ,BrandListPage: BrandListPage
+                        ,CategoryListPage: CategoryListPage
                         ,lookupProduct: lookupProduct
                         ,filterProducts: filterProducts};
    return _elm.System.values;
@@ -13120,14 +13119,6 @@ Elm.View.make = function (_elm) {
    $System = Elm.System.make(_elm),
    $Uri = Elm.Uri.make(_elm),
    $ViewCommon = Elm.ViewCommon.make(_elm);
-   var pageKey = function (view) {
-      return function () {
-         switch (view.ctor)
-         {case "FrontPage":
-            return "front-page";}
-         return "";
-      }();
-   };
    var dataFeedBlurbView = function (dataFeed) {
       return function () {
          var item = F2(function (link,
@@ -13180,7 +13171,7 @@ Elm.View.make = function (_elm) {
                                    "Children")]))]));
       }();
    };
-   var frontPage = F3(function (uiChannel,
+   var frontPageBlurb = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
       return $Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
@@ -13193,9 +13184,9 @@ Elm.View.make = function (_elm) {
                                                    starredProducts,
                                                    dataFeed)]))]));
    });
-   var debuggingView = function (_v1) {
+   var debuggingView = function (_v0) {
       return function () {
-         switch (_v1.ctor)
+         switch (_v0.ctor)
          {case "Model":
             return A2($Html.div,
               _L.fromArray([$Html$Attributes.id("debug")]),
@@ -13203,15 +13194,15 @@ Elm.View.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([$Html.text(A2($Basics._op["++"],
                            "View: ",
-                           $Basics.toString(_v1._0.view)))
+                           $Basics.toString(_v0._0.view)))
                            ,A2($Html.br,
                            _L.fromArray([]),
                            _L.fromArray([]))
                            ,$Html.text(A2($Basics._op["++"],
                            "Scroll: ",
-                           $Basics.toString(_v1._0.scroll)))]))]));}
+                           $Basics.toString(_v0._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 163 and 167");
+         "between lines 185 and 189");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13230,14 +13221,14 @@ Elm.View.make = function (_elm) {
       "&text=",
       body))))));
    });
-   var navbarView = function (_v4) {
+   var navbarView = function (_v3) {
       return function () {
-         switch (_v4.ctor)
+         switch (_v3.ctor)
          {case "Model":
             return function () {
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
-                 _v4._0.starredProducts)));
+                 _v3._0.starredProducts)));
                  return A2($Html.nav,
                  _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
                  _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
@@ -13272,7 +13263,7 @@ Elm.View.make = function (_elm) {
                                                                                                                   _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 75 and 95");
+         "between lines 99 and 119");
       }();
    };
    var notFoundView = A2($Html.h2,
@@ -13284,6 +13275,41 @@ Elm.View.make = function (_elm) {
    _L.fromArray([$Html$Attributes.$class("loading")
                 ,$Html$Attributes.src("loading.gif")]),
    _L.fromArray([]))]));
+   var nameForProductFilter = F2(function (dataFeed,
+   productFilter) {
+      return function () {
+         switch (productFilter.ctor)
+         {case "FilterStarred":
+            return "Your Favourite Patterns";
+            case "FilterWithBrandId":
+            return function () {
+                 var _v9 = A2($Dict.get,
+                 productFilter._0,
+                 dataFeed.brands);
+                 switch (_v9.ctor)
+                 {case "Just":
+                    return _v9._0.name;
+                    case "Nothing": return "";}
+                 _U.badCase($moduleName,
+                 "between lines 64 and 67");
+              }();
+            case "FilterWithCategoryId":
+            return function () {
+                 var _v11 = A2($Dict.get,
+                 productFilter._0,
+                 dataFeed.categories);
+                 switch (_v11.ctor)
+                 {case "Just":
+                    return _v11._0.name;
+                    case "Nothing": return "";}
+                 _U.badCase($moduleName,
+                 "between lines 60 and 63");
+              }();
+            case "NoFilter":
+            return "All Patterns";}
+         return "";
+      }();
+   });
    var productSummaryView = F3(function (uiChannel,
    starredProducts,
    product) {
@@ -13330,13 +13356,18 @@ Elm.View.make = function (_elm) {
    });
    var productsView = F5(function (uiChannel,
    starredProducts,
-   name,
-   productsFilter,
+   n,
+   productFilter,
    dataFeed) {
       return function () {
-         var filteredProducts = A2($System.filterProducts,
-         productsFilter,
-         dataFeed.products);
+         var name = A2(nameForProductFilter,
+         dataFeed,
+         productFilter);
+         var filteredProducts = A3($List.foldl,
+         $System.filterProducts(starredProducts),
+         dataFeed.products,
+         _L.fromArray([productFilter
+                      ,$System.FilterWithLimit(n)]));
          return A2($Html.div,
          _L.fromArray([]),
          _L.fromArray([A2($Html.h2,
@@ -13347,71 +13378,6 @@ Elm.View.make = function (_elm) {
                       starredProducts,
                       filteredProducts)]));
       }();
-   });
-   var productsByBrandView = F4(function (uiChannel,
-   starredProducts,
-   brandId,
-   dataFeed) {
-      return function () {
-         var brand = A2($Dict.get,
-         brandId,
-         dataFeed.brands);
-         return function () {
-            switch (brand.ctor)
-            {case "Just":
-               return A5(productsView,
-                 uiChannel,
-                 starredProducts,
-                 brand._0.name,
-                 $System.FilterWithBrandId(brand._0.brandId),
-                 dataFeed);
-               case "Nothing":
-               return notFoundView;}
-            _U.badCase($moduleName,
-            "between lines 172 and 174");
-         }();
-      }();
-   });
-   var productsByCategoryView = F4(function (uiChannel,
-   starredProducts,
-   categoryId,
-   dataFeed) {
-      return function () {
-         var category = A2($Dict.get,
-         categoryId,
-         dataFeed.categories);
-         return function () {
-            switch (category.ctor)
-            {case "Just":
-               return A5(productsView,
-                 uiChannel,
-                 starredProducts,
-                 category._0.name,
-                 $System.FilterWithCategoryId(category._0.categoryId),
-                 dataFeed);
-               case "Nothing":
-               return notFoundView;}
-            _U.badCase($moduleName,
-            "between lines 179 and 181");
-         }();
-      }();
-   });
-   var frontPageView = F4(function (uiChannel,
-   starredProducts,
-   frontPageFilter,
-   dataFeed) {
-      return A2($Html.div,
-      _L.fromArray([]),
-      _L.fromArray([A3(frontPage,
-                   uiChannel,
-                   starredProducts,
-                   dataFeed)
-                   ,A5(productsView,
-                   uiChannel,
-                   starredProducts,
-                   "All Patterns",
-                   frontPageFilter,
-                   dataFeed)]));
    });
    var defaultRemoteDataView = F2(function (view,
    data) {
@@ -13432,42 +13398,56 @@ Elm.View.make = function (_elm) {
    var emptySpan = A2($Html.span,
    _L.fromArray([]),
    _L.fromArray([]));
+   var blurbForFilter = F4(function (uiChannel,
+   starredProducts,
+   productFilter,
+   dataFeed) {
+      return function () {
+         switch (productFilter.ctor)
+         {case "NoFilter":
+            return A3(frontPageBlurb,
+              uiChannel,
+              starredProducts,
+              dataFeed);}
+         return emptySpan;
+      }();
+   });
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v15 = A2($Dict.get,
+         var _v18 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v15.ctor)
+         switch (_v18.ctor)
          {case "Just": return A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-info category-label")
+              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-success btn-block category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v15._0.categoryId))]),
-              _L.fromArray([$Html.text(_v15._0.name)]));
+                           _v18._0.categoryId))]),
+              _L.fromArray([$Html.text(_v18._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 100 and 104");
+         "between lines 123 and 127");
       }();
    });
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v17 = A2($Dict.get,
+         var _v20 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v17.ctor)
+         switch (_v20.ctor)
          {case "Just": return A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-primary")
+              _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-warning btn-block")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v17._0.brandId))]),
-              _L.fromArray([$Html.text(_v17._0.name)]));
+                           _v20._0.brandId))]),
+              _L.fromArray([$Html.text(_v20._0.name)]));
             case "Nothing":
             return emptySpan;}
          _U.badCase($moduleName,
-         "between lines 109 and 113");
+         "between lines 131 and 135");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13499,21 +13479,21 @@ Elm.View.make = function (_elm) {
                                                           _L.fromArray([A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))
-                                                                       ,A2($Html.p,
-                                                                       _L.fromArray([]),
-                                                                       A2($List.map,
-                                                                       categoryLabel(dataFeed.categories),
-                                                                       product.categoryIds))
-                                                                       ,A2($Html.p,
-                                                                       _L.fromArray([]),
-                                                                       _L.fromArray([$Maybe.withDefault(emptySpan)(A2($Maybe.map,
-                                                                       brandLabel(dataFeed.brands),
-                                                                       product.brandId))]))
+                                                                       ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.p,
+                                                                                                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
+                                                                                                              A2($List.map,
+                                                                                                              categoryLabel(dataFeed.categories),
+                                                                                                              product.categoryIds))
+                                                                                                              ,A2($Html.p,
+                                                                                                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
+                                                                                                              _L.fromArray([$Maybe.withDefault(emptySpan)(A2($Maybe.map,
+                                                                                                              brandLabel(dataFeed.brands),
+                                                                                                              product.brandId))]))]))
                                                                        ,function () {
                                                                           switch (currentPageUrl.ctor)
                                                                           {case "Just":
                                                                              return A2($Html.a,
-                                                                               _L.fromArray([$Html$Attributes.$class("btn btn-info")
+                                                                               _L.fromArray([$Html$Attributes.$class("btn btn-info btn-block")
                                                                                             ,$Html$Events.onClick($Signal.send(uiChannel)(A2($System.ShareProduct,
                                                                                             $System.Twitter,
                                                                                             product.productId)))
@@ -13521,11 +13501,11 @@ Elm.View.make = function (_elm) {
                                                                                             ,$Html$Attributes.href(A2(shareTwitterLink,
                                                                                             currentPageUrl._0,
                                                                                             product.name))]),
-                                                                               _L.fromArray([$Html.text("Share on Twitter")]));
+                                                                               _L.fromArray([$Html.text("Tweet This!")]));
                                                                              case "Nothing":
                                                                              return emptySpan;}
                                                                           _U.badCase($moduleName,
-                                                                          "between lines 147 and 153");
+                                                                          "between lines 169 and 175");
                                                                        }()]))]))]));
    });
    var singleProductView = F5(function (uiChannel,
@@ -13534,21 +13514,21 @@ Elm.View.make = function (_elm) {
    productId,
    dataFeed) {
       return function () {
-         var _v21 = A2($System.lookupProduct,
+         var _v24 = A2($System.lookupProduct,
          productId,
          dataFeed.products);
-         switch (_v21.ctor)
+         switch (_v24.ctor)
          {case "Just":
             return A5(productDetailView,
               uiChannel,
               starredProducts,
               currentPageUrl,
-              _v21._0,
+              _v24._0,
               dataFeed);
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 157 and 159");
+         "between lines 179 and 181");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13556,20 +13536,21 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 234, column 23 to 24"),
+         "on line 224, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
          model.starredProducts);
          return A2($Html.div,
-         _L.fromArray([$Html$Attributes.key(pageKey(model.view))]),
+         _L.fromArray([]),
          _L.fromArray([navbarView(m)
+                      ,debuggingView(m)
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
                       _L.fromArray([function () {
-                         var _v23 = model.view;
-                         switch (_v23.ctor)
+                         var _v26 = model.view;
+                         switch (_v26.ctor)
                          {case "NoPage":
                             return A2($Html.div,
                               _L.fromArray([]),
@@ -13578,37 +13559,48 @@ Elm.View.make = function (_elm) {
                             return notFoundView;}
                          return A2(defaultRemoteDataView,
                          function () {
-                            var _v24 = model.view;
-                            switch (_v24.ctor)
-                            {case "BrandPage":
-                               return A3(productsByBrandView,
-                                 uiChannel,
-                                 starredProducts,
-                                 _v24._0);
-                               case "CategoryPage":
-                               return A3(productsByCategoryView,
-                                 uiChannel,
-                                 starredProducts,
-                                 _v24._0);
-                               case "FrontPage":
-                               return A3(frontPageView,
-                                 uiChannel,
-                                 starredProducts,
-                                 model.frontPageFilter);
+                            var _v27 = model.view;
+                            switch (_v27.ctor)
+                            {case "BrandListPage":
+                               return function (_v31) {
+                                    return function () {
+                                       return A2($Html.h2,
+                                       _L.fromArray([]),
+                                       _L.fromArray([$Html.text("TODO")]));
+                                    }();
+                                 };
+                               case "CategoryListPage":
+                               return function (_v33) {
+                                    return function () {
+                                       return A2($Html.h2,
+                                       _L.fromArray([]),
+                                       _L.fromArray([$Html.text("TODO")]));
+                                    }();
+                                 };
+                               case "ProductListPage":
+                               return function (ps) {
+                                    return A2($Html.div,
+                                    _L.fromArray([]),
+                                    _L.fromArray([A4(blurbForFilter,
+                                                 uiChannel,
+                                                 starredProducts,
+                                                 _v27._1,
+                                                 ps)
+                                                 ,A5(productsView,
+                                                 uiChannel,
+                                                 starredProducts,
+                                                 _v27._0,
+                                                 _v27._1,
+                                                 ps)]));
+                                 };
                                case "ProductPage":
                                return A4(singleProductView,
                                  uiChannel,
                                  starredProducts,
                                  model.currentPageUrl,
-                                 _v24._0);
-                               case "StarredPage":
-                               return A4(productsView,
-                                 uiChannel,
-                                 starredProducts,
-                                 "Your Favourite Patterns",
-                                 $System.FilterWithIds(starredProducts));}
+                                 _v27._0);}
                             _U.badCase($moduleName,
-                            "between lines 245 and 253");
+                            "between lines 235 and 243");
                          }(),
                          model.dataFeed);
                       }()]))]));
@@ -13619,6 +13611,8 @@ Elm.View.make = function (_elm) {
                       ,defaultRemoteDataView: defaultRemoteDataView
                       ,productSummaryView: productSummaryView
                       ,productSummaryRowView: productSummaryRowView
+                      ,nameForProductFilter: nameForProductFilter
+                      ,blurbForFilter: blurbForFilter
                       ,productsView: productsView
                       ,loadingView: loadingView
                       ,notFoundView: notFoundView
@@ -13629,12 +13623,8 @@ Elm.View.make = function (_elm) {
                       ,productDetailView: productDetailView
                       ,singleProductView: singleProductView
                       ,debuggingView: debuggingView
-                      ,productsByBrandView: productsByBrandView
-                      ,productsByCategoryView: productsByCategoryView
                       ,dataFeedBlurbView: dataFeedBlurbView
-                      ,frontPage: frontPage
-                      ,frontPageView: frontPageView
-                      ,pageKey: pageKey
+                      ,frontPageBlurb: frontPageBlurb
                       ,rootView: rootView};
    return _elm.View.values;
 };
