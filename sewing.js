@@ -13211,12 +13211,12 @@ Elm.View.make = function (_elm) {
                            "Scroll: ",
                            $Basics.toString(_v1._0.scroll)))]))]));}
          _U.badCase($moduleName,
-         "between lines 155 and 159");
+         "between lines 154 and 158");
       }();
    };
    var shareTwitterLink = F2(function (url,
    body) {
-      return $Uri.encodeUri(A2($Basics._op["++"],
+      return A2($Basics._op["++"],
       "https://twitter.com/intent/tweet",
       A2($Basics._op["++"],
       "?via=",
@@ -13228,7 +13228,7 @@ Elm.View.make = function (_elm) {
       $Uri.encodeUriComponent(url),
       A2($Basics._op["++"],
       "&text=",
-      $Uri.encodeUriComponent(body))))))));
+      $Uri.encodeUriComponent(body)))))));
    });
    var navbarView = function (_v4) {
       return function () {
@@ -13362,7 +13362,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 164 and 166");
+            "between lines 163 and 165");
          }();
       }();
    });
@@ -13386,7 +13386,7 @@ Elm.View.make = function (_elm) {
                case "Nothing":
                return notFoundView;}
             _U.badCase($moduleName,
-            "between lines 171 and 173");
+            "between lines 170 and 172");
          }();
       }();
    });
@@ -13519,7 +13519,7 @@ Elm.View.make = function (_elm) {
                                                                              case "Nothing":
                                                                              return emptySpan;}
                                                                           _U.badCase($moduleName,
-                                                                          "between lines 139 and 145");
+                                                                          "between lines 138 and 144");
                                                                        }()]))]))]));
    });
    var singleProductView = F5(function (uiChannel,
@@ -13542,7 +13542,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 149 and 151");
+         "between lines 148 and 150");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -13550,7 +13550,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 226, column 23 to 24"),
+         "on line 225, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13602,7 +13602,7 @@ Elm.View.make = function (_elm) {
                                  "Your Favourite Patterns",
                                  $System.FilterWithIds(starredProducts));}
                             _U.badCase($moduleName,
-                            "between lines 237 and 245");
+                            "between lines 236 and 244");
                          }(),
                          model.dataFeed);
                       }()]))]));
