@@ -13544,7 +13544,6 @@ Elm.View.make = function (_elm) {
          return A2($Html.div,
          _L.fromArray([]),
          _L.fromArray([navbarView(m)
-                      ,debuggingView(m)
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
