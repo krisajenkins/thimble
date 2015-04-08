@@ -5901,7 +5901,7 @@ Elm.Native.Debug.make = function(elm) {
         tracePath: F2(tracePath),
         log: F2(log),
         watch: F2(watch),
-        watchSummary:F3(watchSummary),
+        watchSummary:F3(watchSummary)
     };
 };
 
