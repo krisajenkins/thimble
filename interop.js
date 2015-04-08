@@ -48,10 +48,8 @@
 
     var scrollRequest = function (value) {
         if (value) {
-            // console.log("Scroll request", value);
             window.requestAnimationFrame(function () {
                 window.scrollTo(0,value);
-                // console.log("Scrolled request", value);
             });
         }
     };
