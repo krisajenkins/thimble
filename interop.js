@@ -3,8 +3,12 @@
 (function () {
     var STARRED_PRODUCTS_KEY = "STARRED_PRODUCTS";
 
-    var getScroll = function () {
-        return ((document.documentElement.scrollTop + document.body.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100);
+    var getViewport = function () {
+        return {
+            pageHeight: document.documentElement.scrollHeight,
+            viewportTop: document.body.scrollTop,
+            viewportHeight: document.documentElement.clientHeight
+        };
     };
 
     var sendHash = function (event) {
@@ -14,8 +18,8 @@
         ga('send', 'pageview', {page: hash});
     };
 
-    var sendScroll = function(event) {
-        app.ports.scrollPercentage.send(getScroll());
+    var sendViewport = function(event) {
+        app.ports.viewport.send(getViewport());
     };
 
     var localStorageEvent = function(event) {
@@ -44,14 +48,14 @@
 
     window.addEventListener('load', sendHash, false);
     window.addEventListener('popstate', sendHash, false);
-    window.addEventListener('scroll', sendScroll, false);
+    window.addEventListener('scroll', sendViewport, false);
     window.addEventListener('storage', localStorageEvent, false);
 
     var app = Elm.fullscreen(
         Elm.Main,
         {location : document.location.toString(),
          locationHash : document.location.hash,
-         scrollPercentage: getScroll(),
+         viewport: getViewport(),
          starredProductsRead: ""
         });
 

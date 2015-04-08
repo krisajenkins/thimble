@@ -4549,9 +4549,9 @@ Elm.Main.make = function (_elm) {
    var initialModel = $System.Model({_: {}
                                     ,currentPageUrl: $Maybe.Nothing
                                     ,dataFeed: $Exts$RemoteData.NotAsked
-                                    ,scroll: 0.0
                                     ,starredProducts: $Maybe.Nothing
-                                    ,view: $System.NoPage});
+                                    ,view: $System.NoPage
+                                    ,viewport: $Maybe.Nothing});
    var pageSize = 24;
    var dataFeedQuery = A2($Signal._op["<~"],
    function ($) {
@@ -4577,12 +4577,12 @@ Elm.Main.make = function (_elm) {
                        case "Ok":
                        return $Set.fromList(_v9._0);}
                     _U.badCase($moduleName,
-                    "between lines 68 and 71");
+                    "between lines 65 and 68");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 66 and 71");
+            "between lines 63 and 68");
          }();
       };
       return A2($Signal._op["<~"],
@@ -4592,13 +4592,15 @@ Elm.Main.make = function (_elm) {
    var setToJsonValue = function ($) {
       return $Json$Encode.list($List.map($Json$Encode.$int)($List.sort($Set.toList($))));
    };
-   var downsample = F2(function (rate,
-   x) {
-      return $Basics.toFloat($Basics.round(x * rate)) / rate;
-   });
-   var scrollPercentage = _P.portIn("scrollPercentage",
+   var viewport = _P.portIn("viewport",
    _P.incomingSignal(function (v) {
-      return typeof v === "number" ? v : _U.badPort("a number",
+      return typeof v === "object" && "pageHeight" in v && "viewportTop" in v && "viewportHeight" in v ? {_: {}
+                                                                                                         ,pageHeight: typeof v.pageHeight === "number" ? v.pageHeight : _U.badPort("a number",
+                                                                                                         v.pageHeight)
+                                                                                                         ,viewportTop: typeof v.viewportTop === "number" ? v.viewportTop : _U.badPort("a number",
+                                                                                                         v.viewportTop)
+                                                                                                         ,viewportHeight: typeof v.viewportHeight === "number" ? v.viewportHeight : _U.badPort("a number",
+                                                                                                         v.viewportHeight)} : _U.badPort("an object with fields \'pageHeight\', \'viewportTop\', \'viewportHeight\'",
       v);
    }));
    var decodeHash = function (hash) {
@@ -4634,7 +4636,7 @@ Elm.Main.make = function (_elm) {
                case "Ok":
                return $System.ProductPage(_v12._0);}
             _U.badCase($moduleName,
-            "between lines 43 and 46");
+            "between lines 42 and 45");
          }() : $System.NotFoundPage;
       }();
    };
@@ -4643,7 +4645,7 @@ Elm.Main.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 102, column 23 to 24"),
+         "on line 99, column 23 to 24"),
          model = $._0;
          return $System.Model(function () {
             switch (action.ctor)
@@ -4655,24 +4657,23 @@ Elm.Main.make = function (_elm) {
                return _U.replace([["dataFeed"
                                   ,action._0]],
                  model);
-               case "ChangeScroll":
-               return _U.replace([["scroll"
-                                  ,action._0]
+               case "ChangeView":
+               return _U.replace([["view"
+                                  ,decodeHash(action._0)]],
+                 model);
+               case "ChangeViewport":
+               return _U.replace([["viewport"
+                                  ,$Maybe.Just(action._0)]
                                  ,["view"
                                   ,function () {
                                      var _v25 = model.view;
                                      switch (_v25.ctor)
                                      {case "ProductListPage":
-                                        return _U.cmp(action._0,
-                                          95) > -1 ? A2($System.ProductListPage,
+                                        return $System.scrolledToBottom(action._0) ? A2($System.ProductListPage,
                                           _v25._0 + pageSize,
                                           _v25._1) : model.view;}
                                      return model.view;
                                   }()]],
-                 model);
-               case "ChangeView":
-               return _U.replace([["view"
-                                  ,decodeHash(action._0)]],
                  model);
                case "LoadStarred":
                return _U.replace([["starredProducts"
@@ -4688,7 +4689,7 @@ Elm.Main.make = function (_elm) {
                                      {case false: return $Set.remove;
                                         case true: return $Set.insert;}
                                      _U.badCase($moduleName,
-                                     "between lines 121 and 124");
+                                     "between lines 115 and 118");
                                   }(),
                                   action._1,
                                   A2($Maybe.withDefault,
@@ -4696,7 +4697,7 @@ Elm.Main.make = function (_elm) {
                                   model.starredProducts)))]],
                  model);}
             _U.badCase($moduleName,
-            "between lines 107 and 127");
+            "between lines 101 and 121");
          }());
       }();
    });
@@ -4712,10 +4713,8 @@ Elm.Main.make = function (_elm) {
    }));
    var actionSignal = $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
                                                      ,A2($Signal._op["<~"],
-                                                     $System.ChangeScroll,
-                                                     $Signal.dropRepeats(A2($Signal._op["<~"],
-                                                     downsample(1),
-                                                     scrollPercentage)))
+                                                     $System.ChangeViewport,
+                                                     $Signal.dropRepeats(viewport))
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeView,
                                                      locationHash)
@@ -4746,7 +4745,7 @@ Elm.Main.make = function (_elm) {
             {case "Model":
                return _v29._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 75, column 27 to 44");
+            "on line 72, column 27 to 44");
          }();
       };
       return $Signal.dropRepeats(A2($Signal._op["<~"],
@@ -4770,7 +4769,6 @@ Elm.Main.make = function (_elm) {
    actionSignal)));
    _elm.Main.values = {_op: _op
                       ,decodeHash: decodeHash
-                      ,downsample: downsample
                       ,setToJsonValue: setToJsonValue
                       ,persistedStarredProducts: persistedStarredProducts
                       ,dataFeedQuery: dataFeedQuery
@@ -12664,6 +12662,10 @@ Elm.System.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm);
+   var scrolledToBottom = function (v) {
+      return _U.cmp(v.viewportTop + v.viewportHeight,
+      v.pageHeight - 5) > -1;
+   };
    var lookupProduct = function (id) {
       return $Exts$SafeList.lookup(function ($) {
          return F2(function (x,y) {
@@ -12695,8 +12697,8 @@ Elm.System.make = function (_elm) {
       return {ctor: "ChangeCurrentPageUrl"
              ,_0: a};
    };
-   var ChangeScroll = function (a) {
-      return {ctor: "ChangeScroll"
+   var ChangeViewport = function (a) {
+      return {ctor: "ChangeViewport"
              ,_0: a};
    };
    var ShareProduct = F2(function (a,
@@ -12724,6 +12726,14 @@ Elm.System.make = function (_elm) {
    var Model = function (a) {
       return {ctor: "Model",_0: a};
    };
+   var Viewport = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,pageHeight: a
+             ,viewportHeight: c
+             ,viewportTop: b};
+   });
    var FilterWithBrandId = function (a) {
       return {ctor: "FilterWithBrandId"
              ,_0: a};
@@ -12757,7 +12767,7 @@ Elm.System.make = function (_elm) {
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 65 and 67");
+                    "between lines 70 and 72");
                  }();
               },
               products);
@@ -12786,7 +12796,7 @@ Elm.System.make = function (_elm) {
             case "NoFilter":
             return products;}
          _U.badCase($moduleName,
-         "between lines 59 and 67");
+         "between lines 64 and 72");
       }();
    });
    var FilterWithLimit = function (a) {
@@ -12802,6 +12812,7 @@ Elm.System.make = function (_elm) {
                         ,FilterWithIds: FilterWithIds
                         ,FilterWithCategoryId: FilterWithCategoryId
                         ,FilterWithBrandId: FilterWithBrandId
+                        ,Viewport: Viewport
                         ,Model: Model
                         ,Twitter: Twitter
                         ,NoOp: NoOp
@@ -12809,7 +12820,7 @@ Elm.System.make = function (_elm) {
                         ,ChangeView: ChangeView
                         ,StarProduct: StarProduct
                         ,ShareProduct: ShareProduct
-                        ,ChangeScroll: ChangeScroll
+                        ,ChangeViewport: ChangeViewport
                         ,ChangeCurrentPageUrl: ChangeCurrentPageUrl
                         ,LoadStarred: LoadStarred
                         ,NoPage: NoPage
@@ -12819,7 +12830,8 @@ Elm.System.make = function (_elm) {
                         ,BrandListPage: BrandListPage
                         ,CategoryListPage: CategoryListPage
                         ,lookupProduct: lookupProduct
-                        ,filterProducts: filterProducts};
+                        ,filterProducts: filterProducts
+                        ,scrolledToBottom: scrolledToBottom};
    return _elm.System.values;
 };
 Elm.Text = Elm.Text || {};
@@ -13203,8 +13215,8 @@ Elm.View.make = function (_elm) {
                            _L.fromArray([]),
                            _L.fromArray([]))
                            ,$Html.text(A2($Basics._op["++"],
-                           "Scroll: ",
-                           $Basics.toString(_v4._0.scroll)))]))]));}
+                           "Viewport: ",
+                           $Basics.toString(_v4._0.viewport)))]))]));}
          _U.badCase($moduleName,
          "between lines 181 and 185");
       }();
@@ -13544,6 +13556,7 @@ Elm.View.make = function (_elm) {
          return A2($Html.div,
          _L.fromArray([]),
          _L.fromArray([navbarView(m)
+                      ,debuggingView(m)
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),

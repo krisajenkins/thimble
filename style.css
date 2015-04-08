@@ -5,6 +5,7 @@ h3 {
 }
 body {
   font-family: 'Fauna One', serif;
+  padding-bottom: 20px;
 }
 @media (max-width: 767px) {
   body .navbar-fixed-top {
@@ -81,5 +82,5 @@ code {
   border-radius: 5px;
   border: solid 1px black;
   word-wrap: break-word;
-  max-width: 40%;
+  width: 350px;
 }
