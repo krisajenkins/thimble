@@ -46,6 +46,16 @@
         }
     };
 
+    var scrollRequest = function (value) {
+        if (value) {
+            // console.log("Scroll request", value);
+            window.requestAnimationFrame(function () {
+                window.scrollTo(0,value);
+                // console.log("Scrolled request", value);
+            });
+        }
+    };
+
     window.addEventListener('load', sendHash, false);
     window.addEventListener('popstate', sendHash, false);
     window.addEventListener('scroll', sendViewport, false);
@@ -62,5 +72,6 @@
     app.ports.starredProductsWrite.subscribe(starredProductsSave);
     app.ports.starredProductsRead.send(window.localStorage.getItem(STARRED_PRODUCTS_KEY));
     app.ports.analyticsPort.subscribe(postAnalyticsEvent);
+    app.ports.scrollTo.subscribe(scrollRequest);
 	ga('send', 'pageview', {page: document.location.hash});
 }());
