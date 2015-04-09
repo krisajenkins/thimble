@@ -4563,11 +4563,11 @@ Elm.Main.make = function (_elm) {
                               switch (_v10._1._1.ctor)
                                 {case "NoFilter":
                                    return function () {
-                                        var $new = $Maybe.Just({_: {}
-                                                               ,pageSize: _v10._1._0
-                                                               ,scroll: _v10._0._0.viewportTop});
+                                        var newSettings = $Maybe.Just({_: {}
+                                                                      ,pageSize: _v10._1._0
+                                                                      ,scroll: _v10._0._0.viewportTop});
                                         return _U.replace([["frontPageSettings"
-                                                           ,$new]],
+                                                           ,newSettings]],
                                         _v7._0);
                                      }();}
                                 break;}
@@ -4576,7 +4576,7 @@ Elm.Main.make = function (_elm) {
                  return _v7._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 135 and 140");
+         "between lines 134 and 139");
       }();
    };
    var initialModel = $System.Model({_: {}
@@ -4611,7 +4611,7 @@ Elm.Main.make = function (_elm) {
                  return _v16._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 126 and 131");
+         "between lines 125 and 130");
       }();
    };
    var dataFeedQuery = A2($Signal._op["<~"],
@@ -4650,8 +4650,10 @@ Elm.Main.make = function (_elm) {
       decodeStarred,
       starredProductsRead);
    }();
-   var setToJsonValue = function ($) {
-      return $Json$Encode.list($List.map($Json$Encode.$int)($List.sort($Set.toList($))));
+   var jsonEncodeSet = function (encodeElement) {
+      return function ($) {
+         return $Json$Encode.list($List.map(encodeElement)($List.sort($Set.toList($))));
+      };
    };
    var scrollWatcher = F2(function (_v30,
    scrollWatch) {
@@ -4705,7 +4707,7 @@ Elm.Main.make = function (_elm) {
                  scrollWatch);
               }();}
          _U.badCase($moduleName,
-         "between lines 65 and 73");
+         "between lines 64 and 72");
       }();
    });
    var ScrollWatch = F2(function (a,
@@ -4734,17 +4736,21 @@ Elm.Main.make = function (_elm) {
          "") ? A2($System.ProductListPage,
          pageSize,
          $System.NoFilter) : _U.eq(hash,
+         "#/category") ? $System.CategoryListPage : _U.eq(hash,
+         "#/brand") ? $System.BrandListPage : _U.eq(hash,
          "#/favourites") ? A2($System.ProductListPage,
          pageSize,
-         $System.FilterStarred) : _U.eq(hash,
-         "#/category") ? $System.CategoryListPage : _U.eq(hash,
-         "#/brand") ? $System.BrandListPage : A2($String.startsWith,
+         $System.FilterStarred) : A2($String.startsWith,
          categoryPrefix,
-         hash) ? $System.ProductListPage(pageSize)($System.FilterWithCategoryId(A2($Exts$String.removePrefix,
+         hash) ? A2($System.ProductListPage,
+         pageSize,
+         $System.FilterWithCategoryId(A2($Exts$String.removePrefix,
          categoryPrefix,
          hash))) : A2($String.startsWith,
          brandPrefix,
-         hash) ? $System.ProductListPage(pageSize)($System.FilterWithBrandId(A2($Exts$String.removePrefix,
+         hash) ? A2($System.ProductListPage,
+         pageSize,
+         $System.FilterWithBrandId(A2($Exts$String.removePrefix,
          brandPrefix,
          hash))) : A2($String.startsWith,
          productPrefix,
@@ -4758,7 +4764,7 @@ Elm.Main.make = function (_elm) {
                case "Ok":
                return $System.ProductPage(_v47._0);}
             _U.badCase($moduleName,
-            "between lines 43 and 46");
+            "between lines 42 and 45");
          }() : $System.NotFoundPage;
       }();
    };
@@ -4798,7 +4804,7 @@ Elm.Main.make = function (_elm) {
                                       break;}
                                  return _v63._1;}
                             _U.badCase($moduleName,
-                            "between lines 149 and 152");
+                            "between lines 148 and 151");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
@@ -4825,10 +4831,10 @@ Elm.Main.make = function (_elm) {
                                                      _v50._0.starredProducts)))]],
                       _v50._0));}
                  _U.badCase($moduleName,
-                 "between lines 144 and 162");
+                 "between lines 143 and 160");
               }();}
          _U.badCase($moduleName,
-         "between lines 144 and 162");
+         "between lines 143 and 160");
       }();
    });
    var locationHash = _P.portIn("locationHash",
@@ -4846,11 +4852,11 @@ Elm.Main.make = function (_elm) {
                                                      $System.ChangeViewport,
                                                      $Signal.dropRepeats(viewport))
                                                      ,A2($Signal._op["<~"],
-                                                     $System.ChangeView,
-                                                     locationHash)
-                                                     ,A2($Signal._op["<~"],
                                                      $System.ChangeCurrentPageUrl,
                                                      location)
+                                                     ,A2($Signal._op["<~"],
+                                                     $System.ChangeView,
+                                                     locationHash)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeDataFeed,
                                                      dataFeedQuery)
@@ -4882,7 +4888,7 @@ Elm.Main.make = function (_elm) {
    }),
    function () {
       var encodeStarred = $Maybe.map(function ($) {
-         return $Json$Encode.encode(0)(setToJsonValue($));
+         return $Json$Encode.encode(0)(jsonEncodeSet($Json$Encode.$int)($));
       });
       var starred = function (_v69) {
          return function () {
@@ -4917,7 +4923,7 @@ Elm.Main.make = function (_elm) {
                       ,ScrollWatch: ScrollWatch
                       ,scrollWatch: scrollWatch
                       ,scrollWatcher: scrollWatcher
-                      ,setToJsonValue: setToJsonValue
+                      ,jsonEncodeSet: jsonEncodeSet
                       ,persistedStarredProducts: persistedStarredProducts
                       ,dataFeedQuery: dataFeedQuery
                       ,pageSize: pageSize
@@ -11952,7 +11958,13 @@ Elm.Placement.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $System = Elm.System.make(_elm),
    $ViewCommon = Elm.ViewCommon.make(_elm);
-   var placementView = F4(function (uiChannel,
+   var placement2 = {ctor: "_Tuple2"
+                    ,_0: 468354536
+                    ,_1: "\n### Burda Women\'s Special Occasion Cape\n\nThis might be the best thing in the world. Something about the name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts?\n"};
+   var placement1 = {ctor: "_Tuple2"
+                    ,_0: 468355587
+                    ,_1: "\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n"};
+   var validPlacementView = F4(function (uiChannel,
    starredProducts,
    product,
    copy) {
@@ -11960,9 +11972,9 @@ Elm.Placement.make = function (_elm) {
       _L.fromArray([]),
       _L.fromArray([A2($Html.h2,
                    _L.fromArray([]),
-                   _L.fromArray([$Html.text("We\'re Making...")]))
+                   _L.fromArray([$Html.text("We\'re Craving...")]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6 pull-right")]),
                                                           _L.fromArray([A2($Html.a,
                                                                        _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
                                                                        "#/product/",
@@ -11979,33 +11991,40 @@ Elm.Placement.make = function (_elm) {
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
                                                           _L.fromArray([copy]))]))]));
    });
-   var firstPlacementCopy = $Markdown.toHtml("\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n");
-   var firstPlacementView = F3(function (uiChannel,
+   var placementView = F4(function (_v0,
+   uiChannel,
    starredProducts,
    dataFeed) {
       return function () {
-         var _v0 = A2($System.lookupProduct,
-         468355587,
-         dataFeed.products);
          switch (_v0.ctor)
-         {case "Just":
-            return A4(placementView,
-              uiChannel,
-              starredProducts,
-              _v0._0,
-              firstPlacementCopy);
-            case "Nothing":
-            return A2($Html.span,
-              _L.fromArray([]),
-              _L.fromArray([]));}
+         {case "_Tuple2":
+            return function () {
+                 var _v4 = A2($System.lookupProduct,
+                 _v0._0,
+                 dataFeed.products);
+                 switch (_v4.ctor)
+                 {case "Just":
+                    return A4(validPlacementView,
+                      uiChannel,
+                      starredProducts,
+                      _v4._0,
+                      $Markdown.toHtml(_v0._1));
+                    case "Nothing":
+                    return $ViewCommon.emptySpan;}
+                 _U.badCase($moduleName,
+                 "between lines 19 and 21");
+              }();}
          _U.badCase($moduleName,
-         "between lines 17 and 19");
+         "between lines 19 and 21");
       }();
    });
+   var currentPlacementView = placementView(placement1);
    _elm.Placement.values = {_op: _op
-                           ,firstPlacementView: firstPlacementView
-                           ,firstPlacementCopy: firstPlacementCopy
-                           ,placementView: placementView};
+                           ,placementView: placementView
+                           ,validPlacementView: validPlacementView
+                           ,currentPlacementView: currentPlacementView
+                           ,placement1: placement1
+                           ,placement2: placement2};
    return _elm.Placement.values;
 };
 Elm.Result = Elm.Result || {};
@@ -13293,7 +13312,7 @@ Elm.View.make = function (_elm) {
                     _L.fromArray([$Html$Attributes.href(_v0._0)]),
                     _L.fromArray([$Html.text(_v0._1)]))]));}
                _U.badCase($moduleName,
-               "on line 191, column 27 to 84");
+               "on line 194, column 27 to 84");
             }();
          };
          return A2($Html.div,
@@ -13345,7 +13364,7 @@ Elm.View.make = function (_elm) {
                                                    _L.fromArray([dataFeedBlurbView(dataFeed)]))
                                                    ,A2($Html.div,
                                                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
-                                                   _L.fromArray([A3($Placement.firstPlacementView,
+                                                   _L.fromArray([A3($Placement.currentPlacementView,
                                                    uiChannel,
                                                    starredProducts,
                                                    dataFeed)]))]));
@@ -13374,7 +13393,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v4._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 181 and 187");
+         "between lines 184 and 190");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13393,19 +13412,42 @@ Elm.View.make = function (_elm) {
       "&text=",
       body))))));
    });
+   var twitterButton = F3(function (uiChannel,
+   currentPageUrl,
+   product) {
+      return function () {
+         switch (currentPageUrl.ctor)
+         {case "Just": return A2($Html.p,
+              _L.fromArray([]),
+              _L.fromArray([A2($Html.a,
+              _L.fromArray([$Html$Attributes.$class("btn btn-info btn-block")
+                           ,$Html$Events.onClick($Signal.send(uiChannel)(A2($System.ShareProduct,
+                           $System.Twitter,
+                           product.productId)))
+                           ,$Html$Attributes.target("_blank")
+                           ,$Html$Attributes.href(A2(shareTwitterLink,
+                           currentPageUrl._0,
+                           product.name))]),
+              _L.fromArray([$Html.text("Tweet This!")]))]));
+            case "Nothing":
+            return $ViewCommon.emptySpan;}
+         _U.badCase($moduleName,
+         "between lines 143 and 150");
+      }();
+   });
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v7 = A2($Dict.get,
+         var _v9 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v7.ctor)
+         switch (_v9.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v7._0.brandId))]),
-              _L.fromArray([$Html.text(_v7._0.name)]));
+                           _v9._0.brandId))]),
+              _L.fromArray([$Html.text(_v9._0.name)]));
             case "Nothing":
             return $ViewCommon.emptySpan;}
          _U.badCase($moduleName,
@@ -13415,16 +13457,16 @@ Elm.View.make = function (_elm) {
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v9 = A2($Dict.get,
+         var _v11 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v9.ctor)
+         switch (_v11.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v9._0.categoryId))]),
-              _L.fromArray([$Html.text(_v9._0.name)]));
+                           _v11._0.categoryId))]),
+              _L.fromArray([$Html.text(_v11._0.name)]));
             case "Nothing":
             return $ViewCommon.emptySpan;}
          _U.badCase($moduleName,
@@ -13440,7 +13482,7 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.key($Basics.toString(product.productId))
                    ,$Html$Attributes.$class("product-detail")]),
       _L.fromArray([$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.h1,
-                   _L.fromArray([$Html$Attributes.$class("col-xs-12\n                       col-sm-10 col-sm-offset-1\n                       col-md-8 col-md-offset-2\n                      ")]),
+                   _L.fromArray([$Html$Attributes.$class("col-xs-12\n                       col-sm-10 col-sm-offset-1\n                       col-md-8 col-md-offset-2")]),
                    _L.fromArray([$Html.text(product.name)]))]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12\n                        col-sm-5 col-sm-offset-1\n                        col-md-4 col-md-offset-2")]),
@@ -13460,26 +13502,10 @@ Elm.View.make = function (_elm) {
                                                                        ,A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))
-                                                                       ,function () {
-                                                                          switch (currentPageUrl.ctor)
-                                                                          {case "Just":
-                                                                             return A2($Html.p,
-                                                                               _L.fromArray([]),
-                                                                               _L.fromArray([A2($Html.a,
-                                                                               _L.fromArray([$Html$Attributes.$class("btn btn-info btn-block")
-                                                                                            ,$Html$Events.onClick($Signal.send(uiChannel)(A2($System.ShareProduct,
-                                                                                            $System.Twitter,
-                                                                                            product.productId)))
-                                                                                            ,$Html$Attributes.target("_blank")
-                                                                                            ,$Html$Attributes.href(A2(shareTwitterLink,
-                                                                                            currentPageUrl._0,
-                                                                                            product.name))]),
-                                                                               _L.fromArray([$Html.text("Tweet This!")]))]));
-                                                                             case "Nothing":
-                                                                             return $ViewCommon.emptySpan;}
-                                                                          _U.badCase($moduleName,
-                                                                          "between lines 162 and 170");
-                                                                       }()
+                                                                       ,A3(twitterButton,
+                                                                       uiChannel,
+                                                                       currentPageUrl,
+                                                                       product)
                                                                        ,A2($ViewCommon.twoColumns,
                                                                        _L.fromArray([$Maybe.withDefault($ViewCommon.emptySpan)(A2($Maybe.map,
                                                                        brandLabel(dataFeed.brands),
@@ -13556,7 +13582,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 175 and 177");
+         "between lines 178 and 180");
       }();
    });
    var loadingView = A2($Html.div,
@@ -13674,7 +13700,7 @@ Elm.View.make = function (_elm) {
                       ,$System.FilterWithLimit(n)]));
          return A2($Html.div,
          _L.fromArray([]),
-         _L.fromArray([A2($Html.h2,
+         _L.fromArray([A2($Html.h1,
                       _L.fromArray([]),
                       _L.fromArray([$Html.text(name)]))
                       ,A3(productSummaryRowView,
@@ -13704,7 +13730,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 220, column 23 to 24"),
+         "on line 223, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13767,7 +13793,7 @@ Elm.View.make = function (_elm) {
                                  model.currentPageUrl,
                                  _v31._0);}
                             _U.badCase($moduleName,
-                            "between lines 231 and 239");
+                            "between lines 234 and 242");
                          }(),
                          model.dataFeed);
                       }()]))]));
@@ -13786,6 +13812,7 @@ Elm.View.make = function (_elm) {
                       ,categoryLabel: categoryLabel
                       ,brandLabel: brandLabel
                       ,shareTwitterLink: shareTwitterLink
+                      ,twitterButton: twitterButton
                       ,productDetailView: productDetailView
                       ,singleProductView: singleProductView
                       ,debuggingView: debuggingView
