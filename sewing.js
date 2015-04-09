@@ -1874,14 +1874,57 @@ Elm.Exts.Html.Bootstrap.make = function (_elm) {
    $moduleName = "Exts.Html.Bootstrap",
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm);
+   var empty = A2($Html.span,
+   _L.fromArray([]),
+   _L.fromArray([]));
    var row = $Html.div(_L.fromArray([$Html$Attributes.$class("row")]));
+   var twoColumns = F2(function (left,
+   right) {
+      return row(_L.fromArray([A2($Html.div,
+                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
+                              left)
+                              ,A2($Html.div,
+                              _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
+                              right)]));
+   });
    var containerFluid = $Html.div(_L.fromArray([$Html$Attributes.$class("container-fluid")]));
    var container = $Html.div(_L.fromArray([$Html$Attributes.$class("container")]));
    _elm.Exts.Html.Bootstrap.values = {_op: _op
                                      ,container: container
                                      ,containerFluid: containerFluid
-                                     ,row: row};
+                                     ,row: row
+                                     ,empty: empty
+                                     ,twoColumns: twoColumns};
    return _elm.Exts.Html.Bootstrap.values;
+};
+Elm.Exts = Elm.Exts || {};
+Elm.Exts.Json = Elm.Exts.Json || {};
+Elm.Exts.Json.Encode = Elm.Exts.Json.Encode || {};
+Elm.Exts.Json.Encode.make = function (_elm) {
+   "use strict";
+   _elm.Exts = _elm.Exts || {};
+   _elm.Exts.Json = _elm.Exts.Json || {};
+   _elm.Exts.Json.Encode = _elm.Exts.Json.Encode || {};
+   if (_elm.Exts.Json.Encode.values)
+   return _elm.Exts.Json.Encode.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   _P = _N.Ports.make(_elm),
+   $moduleName = "Exts.Json.Encode",
+   $Basics = Elm.Basics.make(_elm),
+   $Json$Encode = Elm.Json.Encode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Set = Elm.Set.make(_elm);
+   var set = function (encodeElement) {
+      return function ($) {
+         return $Json$Encode.list($List.map(encodeElement)($List.sort($Set.toList($))));
+      };
+   };
+   _elm.Exts.Json.Encode.values = {_op: _op
+                                  ,set: set};
+   return _elm.Exts.Json.Encode.values;
 };
 Elm.Exts = Elm.Exts || {};
 Elm.Exts.Maybe = Elm.Exts.Maybe || {};
@@ -4500,13 +4543,13 @@ Elm.Main.make = function (_elm) {
    _P = _N.Ports.make(_elm),
    $moduleName = "Main",
    $Basics = Elm.Basics.make(_elm),
+   $Exts$Json$Encode = Elm.Exts.Json.Encode.make(_elm),
    $Exts$RemoteData = Elm.Exts.RemoteData.make(_elm),
    $Exts$String = Elm.Exts.String.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Http = Elm.Http.make(_elm),
    $Json$Decode = Elm.Json.Decode.make(_elm),
    $Json$Encode = Elm.Json.Encode.make(_elm),
-   $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
@@ -4576,7 +4619,7 @@ Elm.Main.make = function (_elm) {
                  return _v7._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 134 and 139");
+         "between lines 131 and 136");
       }();
    };
    var initialModel = $System.Model({_: {}
@@ -4611,7 +4654,7 @@ Elm.Main.make = function (_elm) {
                  return _v16._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 125 and 130");
+         "between lines 122 and 127");
       }();
    };
    var dataFeedQuery = A2($Signal._op["<~"],
@@ -4638,23 +4681,18 @@ Elm.Main.make = function (_elm) {
                        case "Ok":
                        return $Set.fromList(_v27._0);}
                     _U.badCase($moduleName,
-                    "between lines 91 and 94");
+                    "between lines 88 and 91");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 89 and 94");
+            "between lines 86 and 91");
          }();
       };
       return A2($Signal._op["<~"],
       decodeStarred,
       starredProductsRead);
    }();
-   var jsonEncodeSet = function (encodeElement) {
-      return function ($) {
-         return $Json$Encode.list($List.map(encodeElement)($List.sort($Set.toList($))));
-      };
-   };
    var scrollWatcher = F2(function (_v30,
    scrollWatch) {
       return function () {
@@ -4707,7 +4745,7 @@ Elm.Main.make = function (_elm) {
                  scrollWatch);
               }();}
          _U.badCase($moduleName,
-         "between lines 64 and 72");
+         "between lines 65 and 73");
       }();
    });
    var ScrollWatch = F2(function (a,
@@ -4764,7 +4802,7 @@ Elm.Main.make = function (_elm) {
                case "Ok":
                return $System.ProductPage(_v47._0);}
             _U.badCase($moduleName,
-            "between lines 42 and 45");
+            "between lines 43 and 46");
          }() : $System.NotFoundPage;
       }();
    };
@@ -4804,7 +4842,7 @@ Elm.Main.make = function (_elm) {
                                       break;}
                                  return _v63._1;}
                             _U.badCase($moduleName,
-                            "between lines 148 and 151");
+                            "between lines 145 and 148");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
@@ -4831,10 +4869,10 @@ Elm.Main.make = function (_elm) {
                                                      _v50._0.starredProducts)))]],
                       _v50._0));}
                  _U.badCase($moduleName,
-                 "between lines 143 and 160");
+                 "between lines 140 and 157");
               }();}
          _U.badCase($moduleName,
-         "between lines 143 and 160");
+         "between lines 140 and 157");
       }();
    });
    var locationHash = _P.portIn("locationHash",
@@ -4888,7 +4926,7 @@ Elm.Main.make = function (_elm) {
    }),
    function () {
       var encodeStarred = $Maybe.map(function ($) {
-         return $Json$Encode.encode(0)(jsonEncodeSet($Json$Encode.$int)($));
+         return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
       var starred = function (_v69) {
          return function () {
@@ -4896,7 +4934,7 @@ Elm.Main.make = function (_elm) {
             {case "Model":
                return _v69._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 98, column 27 to 44");
+            "on line 95, column 27 to 44");
          }();
       };
       return $Signal.dropRepeats(A2($Signal._op["<~"],
@@ -4923,7 +4961,6 @@ Elm.Main.make = function (_elm) {
                       ,ScrollWatch: ScrollWatch
                       ,scrollWatch: scrollWatch
                       ,scrollWatcher: scrollWatcher
-                      ,jsonEncodeSet: jsonEncodeSet
                       ,persistedStarredProducts: persistedStarredProducts
                       ,dataFeedQuery: dataFeedQuery
                       ,pageSize: pageSize
@@ -11960,7 +11997,7 @@ Elm.Placement.make = function (_elm) {
    $ViewCommon = Elm.ViewCommon.make(_elm);
    var placement2 = {ctor: "_Tuple2"
                     ,_0: 468354536
-                    ,_1: "\n### Burda Women\'s Special Occasion Cape\n\nThis might be the best thing in the world. Something about the name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts?\n"};
+                    ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts?\n"};
    var placement1 = {ctor: "_Tuple2"
                     ,_0: 468355587
                     ,_1: "\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n"};
@@ -11973,6 +12010,11 @@ Elm.Placement.make = function (_elm) {
       _L.fromArray([A2($Html.h2,
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("We\'re Craving...")]))
+                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("col-xs-12")]),
+                   _L.fromArray([A2($Html.h3,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text(product.name)]))]))]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6 pull-right")]),
                                                           _L.fromArray([A2($Html.a,
@@ -12010,7 +12052,7 @@ Elm.Placement.make = function (_elm) {
                       _v4._0,
                       $Markdown.toHtml(_v0._1));
                     case "Nothing":
-                    return $ViewCommon.emptySpan;}
+                    return $Exts$Html$Bootstrap.empty;}
                  _U.badCase($moduleName,
                  "between lines 19 and 21");
               }();}
@@ -12833,7 +12875,7 @@ Elm.System.make = function (_elm) {
    $Set = Elm.Set.make(_elm);
    var scrolledToBottom = function (v) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
-      v.pageHeight - 5) > -1;
+      v.pageHeight - 20) > -1;
    };
    var lookupProduct = function (id) {
       return $Exts$SafeList.lookup(function ($) {
@@ -13430,7 +13472,7 @@ Elm.View.make = function (_elm) {
                            product.name))]),
               _L.fromArray([$Html.text("Tweet This!")]))]));
             case "Nothing":
-            return $ViewCommon.emptySpan;}
+            return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
          "between lines 143 and 150");
       }();
@@ -13449,7 +13491,7 @@ Elm.View.make = function (_elm) {
                            _v9._0.brandId))]),
               _L.fromArray([$Html.text(_v9._0.name)]));
             case "Nothing":
-            return $ViewCommon.emptySpan;}
+            return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
          "between lines 128 and 132");
       }();
@@ -13468,7 +13510,7 @@ Elm.View.make = function (_elm) {
                            _v11._0.categoryId))]),
               _L.fromArray([$Html.text(_v11._0.name)]));
             case "Nothing":
-            return $ViewCommon.emptySpan;}
+            return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
          "between lines 120 and 124");
       }();
@@ -13506,8 +13548,8 @@ Elm.View.make = function (_elm) {
                                                                        uiChannel,
                                                                        currentPageUrl,
                                                                        product)
-                                                                       ,A2($ViewCommon.twoColumns,
-                                                                       _L.fromArray([$Maybe.withDefault($ViewCommon.emptySpan)(A2($Maybe.map,
+                                                                       ,A2($Exts$Html$Bootstrap.twoColumns,
+                                                                       _L.fromArray([$Maybe.withDefault($Exts$Html$Bootstrap.empty)(A2($Maybe.map,
                                                                        brandLabel(dataFeed.brands),
                                                                        product.brandId))]),
                                                                        A2($List.map,
@@ -13602,7 +13644,7 @@ Elm.View.make = function (_elm) {
               uiChannel,
               starredProducts,
               dataFeed);}
-         return $ViewCommon.emptySpan;
+         return $Exts$Html$Bootstrap.empty;
       }();
    });
    var nameForProductFilter = F2(function (dataFeed,
@@ -13906,11 +13948,7 @@ Elm.ViewCommon.make = function (_elm) {
                                                    _L.fromArray([$Html$Attributes.$class("col-xs-6")]),
                                                    right)]));
    });
-   var emptySpan = A2($Html.span,
-   _L.fromArray([]),
-   _L.fromArray([]));
    _elm.ViewCommon.values = {_op: _op
-                            ,emptySpan: emptySpan
                             ,twoColumns: twoColumns
                             ,starButton: starButton
                             ,buyButton: buyButton
