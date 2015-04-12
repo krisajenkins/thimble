@@ -11995,6 +11995,9 @@ Elm.Placement.make = function (_elm) {
    $Signal = Elm.Signal.make(_elm),
    $System = Elm.System.make(_elm),
    $ViewCommon = Elm.ViewCommon.make(_elm);
+   var placement3 = {ctor: "_Tuple2"
+                    ,_0: 468353082
+                    ,_1: "\nSimplicity Women\'s Knit Dress and Tunic, 1251\n"};
    var placement2 = {ctor: "_Tuple2"
                     ,_0: 468354536
                     ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts?\n"};
@@ -12066,7 +12069,8 @@ Elm.Placement.make = function (_elm) {
                            ,validPlacementView: validPlacementView
                            ,currentPlacementView: currentPlacementView
                            ,placement1: placement1
-                           ,placement2: placement2};
+                           ,placement2: placement2
+                           ,placement3: placement3};
    return _elm.Placement.values;
 };
 Elm.Result = Elm.Result || {};
@@ -13925,7 +13929,7 @@ Elm.ViewCommon.make = function (_elm) {
          _L.fromArray([A2($Html.span,
                       _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                       _L.fromArray([]))
-                      ,$Html.text(starred ? " Liked" : " Like")]));
+                      ,$Html.text(starred ? " Saved" : " Save")]));
       }();
    });
    var productControls = F3(function (uiChannel,
