@@ -12879,7 +12879,7 @@ Elm.System.make = function (_elm) {
    $Set = Elm.Set.make(_elm);
    var scrolledToBottom = function (v) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
-      v.pageHeight - 20) > -1;
+      v.pageHeight - 100) > -1;
    };
    var lookupProduct = function (id) {
       return $Exts$SafeList.lookup(function ($) {
@@ -13395,6 +13395,9 @@ Elm.View.make = function (_elm) {
                                     ,_0: "#/category/capes"
                                     ,_1: "Capes"}
                                    ,{ctor: "_Tuple2"
+                                    ,_0: "#/category/costumes"
+                                    ,_1: "Costumes"}
+                                   ,{ctor: "_Tuple2"
                                     ,_0: "#/category/children"
                                     ,_1: "Children"}
                                    ,{ctor: "_Tuple2"
@@ -13776,7 +13779,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 223, column 23 to 24"),
+         "on line 224, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13839,7 +13842,7 @@ Elm.View.make = function (_elm) {
                                  model.currentPageUrl,
                                  _v31._0);}
                             _U.badCase($moduleName,
-                            "between lines 234 and 242");
+                            "between lines 235 and 243");
                          }(),
                          model.dataFeed);
                       }()]))]));
