@@ -4570,6 +4570,15 @@ Elm.Main.make = function (_elm) {
                                     ,_2: $Maybe.Just(action._0._0)
                                     ,_3: $Maybe.Nothing});}
               break;
+            case "Contact":
+            switch (action._0.ctor)
+              {case "Twitter":
+                 return $Maybe.Just({ctor: "_Tuple4"
+                                    ,_0: "Contact"
+                                    ,_1: "Twitter"
+                                    ,_2: $Maybe.Nothing
+                                    ,_3: $Maybe.Nothing});}
+              break;
             case "ShareProduct":
             switch (action._0.ctor)
               {case "Twitter":
@@ -4589,37 +4598,37 @@ Elm.Main.make = function (_elm) {
       }();
    };
    var uiChannel = $Signal.channel($System.NoOp);
-   var updateFrontPageSettings = function (_v7) {
+   var updateFrontPageSettings = function (_v8) {
       return function () {
-         switch (_v7.ctor)
+         switch (_v8.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v10 = {ctor: "_Tuple2"
-                            ,_0: _v7._0.viewport
-                            ,_1: _v7._0.view};
-                 switch (_v10.ctor)
+                 var _v11 = {ctor: "_Tuple2"
+                            ,_0: _v8._0.viewport
+                            ,_1: _v8._0.view};
+                 switch (_v11.ctor)
                  {case "_Tuple2":
-                    switch (_v10._0.ctor)
+                    switch (_v11._0.ctor)
                       {case "Just":
-                         switch (_v10._1.ctor)
+                         switch (_v11._1.ctor)
                            {case "ProductListPage":
-                              switch (_v10._1._1.ctor)
+                              switch (_v11._1._1.ctor)
                                 {case "NoFilter":
                                    return function () {
                                         var newSettings = $Maybe.Just({_: {}
-                                                                      ,pageSize: _v10._1._0
-                                                                      ,scroll: _v10._0._0.viewportTop});
+                                                                      ,pageSize: _v11._1._0
+                                                                      ,scroll: _v11._0._0.viewportTop});
                                         return _U.replace([["frontPageSettings"
                                                            ,newSettings]],
-                                        _v7._0);
+                                        _v8._0);
                                      }();}
                                 break;}
                            break;}
                       break;}
-                 return _v7._0;
+                 return _v8._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 131 and 136");
+         "between lines 133 and 138");
       }();
    };
    var initialModel = $System.Model({_: {}
@@ -4630,31 +4639,31 @@ Elm.Main.make = function (_elm) {
                                     ,view: $System.NoPage
                                     ,viewport: $Maybe.Nothing});
    var pageSize = 24;
-   var updatePageSize = function (_v16) {
+   var updatePageSize = function (_v17) {
       return function () {
-         switch (_v16.ctor)
+         switch (_v17.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v19 = {ctor: "_Tuple2"
-                            ,_0: _v16._0.viewport
-                            ,_1: _v16._0.view};
-                 switch (_v19.ctor)
+                 var _v20 = {ctor: "_Tuple2"
+                            ,_0: _v17._0.viewport
+                            ,_1: _v17._0.view};
+                 switch (_v20.ctor)
                  {case "_Tuple2":
-                    switch (_v19._0.ctor)
+                    switch (_v20._0.ctor)
                       {case "Just":
-                         switch (_v19._1.ctor)
+                         switch (_v20._1.ctor)
                            {case "ProductListPage":
-                              return $System.scrolledToBottom(_v19._0._0) ? _U.replace([["view"
+                              return $System.scrolledToBottom(_v20._0._0) ? _U.replace([["view"
                                                                                         ,A2($System.ProductListPage,
-                                                                                        _v19._1._0 + pageSize,
-                                                                                        _v19._1._1)]],
-                                _v16._0) : _v16._0;}
+                                                                                        _v20._1._0 + pageSize,
+                                                                                        _v20._1._1)]],
+                                _v17._0) : _v17._0;}
                            break;}
                       break;}
-                 return _v16._0;
+                 return _v17._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 122 and 127");
+         "between lines 124 and 129");
       }();
    };
    var dataFeedQuery = A2($Signal._op["<~"],
@@ -4673,79 +4682,79 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v27 = A2($Json$Decode.decodeString,
+                    var _v28 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v27.ctor)
+                    switch (_v28.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v27._0);}
+                       return $Set.fromList(_v28._0);}
                     _U.badCase($moduleName,
-                    "between lines 88 and 91");
+                    "between lines 90 and 93");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 86 and 91");
+            "between lines 88 and 93");
          }();
       };
       return A2($Signal._op["<~"],
       decodeStarred,
       starredProductsRead);
    }();
-   var scrollWatcher = F2(function (_v30,
+   var scrollWatcher = F2(function (_v31,
    scrollWatch) {
       return function () {
-         switch (_v30.ctor)
+         switch (_v31.ctor)
          {case "Model":
             return function () {
                  var newScroll = function () {
-                    var _v33 = {ctor: "_Tuple3"
+                    var _v34 = {ctor: "_Tuple3"
                                ,_0: scrollWatch.view
-                               ,_1: _v30._0.view
-                               ,_2: _v30._0.frontPageSettings};
-                    switch (_v33.ctor)
+                               ,_1: _v31._0.view
+                               ,_2: _v31._0.frontPageSettings};
+                    switch (_v34.ctor)
                     {case "_Tuple3":
-                       switch (_v33._0.ctor)
+                       switch (_v34._0.ctor)
                          {case "ProductListPage":
-                            switch (_v33._0._1.ctor)
+                            switch (_v34._0._1.ctor)
                               {case "NoFilter":
-                                 switch (_v33._1.ctor)
+                                 switch (_v34._1.ctor)
                                    {case "ProductListPage":
-                                      switch (_v33._1._1.ctor)
+                                      switch (_v34._1._1.ctor)
                                         {case "NoFilter":
                                            return $Maybe.Nothing;}
                                         break;}
                                    break;}
                               break;}
-                         switch (_v33._1.ctor)
+                         switch (_v34._1.ctor)
                          {case "ProductListPage":
-                            switch (_v33._1._1.ctor)
+                            switch (_v34._1._1.ctor)
                               {case "NoFilter":
-                                 switch (_v33._2.ctor)
+                                 switch (_v34._2.ctor)
                                    {case "Just":
-                                      return $Maybe.Just(_v33._2._0.scroll);}
+                                      return $Maybe.Just(_v34._2._0.scroll);}
                                    break;}
                               break;}
-                         switch (_v33._0.ctor)
+                         switch (_v34._0.ctor)
                          {case "ProductPage":
-                            switch (_v33._1.ctor)
+                            switch (_v34._1.ctor)
                               {case "ProductPage":
                                  return $Maybe.Nothing;}
                               break;}
-                         switch (_v33._1.ctor)
+                         switch (_v34._1.ctor)
                          {case "ProductPage":
                             return $Maybe.Just(0);}
                          break;}
                     return $Maybe.Nothing;
                  }();
                  return _U.replace([["view"
-                                    ,_v30._0.view]
+                                    ,_v31._0.view]
                                    ,["scroll",newScroll]],
                  scrollWatch);
               }();}
          _U.badCase($moduleName,
-         "between lines 65 and 73");
+         "between lines 67 and 75");
       }();
    });
    var ScrollWatch = F2(function (a,
@@ -4778,7 +4787,13 @@ Elm.Main.make = function (_elm) {
          "#/brand") ? $System.BrandListPage : _U.eq(hash,
          "#/favourites") ? A2($System.ProductListPage,
          pageSize,
-         $System.FilterStarred) : A2($String.startsWith,
+         $System.FilterStarred) : _U.eq(hash,
+         "#/uncategorised") ? A2($System.ProductListPage,
+         pageSize,
+         $System.FilterNoCategory) : _U.eq(hash,
+         "#/unbranded") ? A2($System.ProductListPage,
+         pageSize,
+         $System.FilterNoBrand) : A2($String.startsWith,
          categoryPrefix,
          hash) ? A2($System.ProductListPage,
          pageSize,
@@ -4793,86 +4808,88 @@ Elm.Main.make = function (_elm) {
          hash))) : A2($String.startsWith,
          productPrefix,
          hash) ? function () {
-            var _v47 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v48 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             hash));
-            switch (_v47.ctor)
+            switch (_v48.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v47._0);}
+               return $System.ProductPage(_v48._0);}
             _U.badCase($moduleName,
-            "between lines 43 and 46");
+            "between lines 45 and 48");
          }() : $System.NotFoundPage;
       }();
    };
    var step = F2(function (action,
-   _v50) {
+   _v51) {
       return function () {
-         switch (_v50.ctor)
+         switch (_v51.ctor)
          {case "Model":
             return function () {
                  switch (action.ctor)
                  {case "ChangeCurrentPageUrl":
                     return $System.Model(_U.replace([["currentPageUrl"
                                                      ,$Maybe.Just(action._0)]],
-                      _v50._0));
+                      _v51._0));
                     case "ChangeDataFeed":
                     return $System.Model(_U.replace([["dataFeed"
                                                      ,action._0]],
-                      _v50._0));
+                      _v51._0));
                     case "ChangeView":
                     return function () {
                          var newView = function () {
-                            var _v63 = {ctor: "_Tuple2"
-                                       ,_0: _v50._0.frontPageSettings
+                            var _v65 = {ctor: "_Tuple2"
+                                       ,_0: _v51._0.frontPageSettings
                                        ,_1: decodeHash(action._0)};
-                            switch (_v63.ctor)
+                            switch (_v65.ctor)
                             {case "_Tuple2":
-                               switch (_v63._0.ctor)
+                               switch (_v65._0.ctor)
                                  {case "Just":
-                                    switch (_v63._1.ctor)
+                                    switch (_v65._1.ctor)
                                       {case "ProductListPage":
-                                         switch (_v63._1._1.ctor)
+                                         switch (_v65._1._1.ctor)
                                            {case "NoFilter":
                                               return A2($System.ProductListPage,
-                                                _v63._0._0.pageSize,
+                                                _v65._0._0.pageSize,
                                                 $System.NoFilter);}
                                            break;}
                                       break;}
-                                 return _v63._1;}
+                                 return _v65._1;}
                             _U.badCase($moduleName,
-                            "between lines 145 and 148");
+                            "between lines 148 and 151");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
-                         _v50._0));
+                         _v51._0));
                       }();
                     case "ChangeViewport":
                     return updateFrontPageSettings(updatePageSize($System.Model(_U.replace([["viewport"
                                                                                             ,$Maybe.Just(action._0)]],
-                      _v50._0))));
+                      _v51._0))));
+                    case "Contact":
+                    return $System.Model(_v51._0);
                     case "LoadStarred":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(action._0)]],
-                      _v50._0));
+                      _v51._0));
                     case "NoOp":
-                    return $System.Model(_v50._0);
+                    return $System.Model(_v51._0);
                     case "ShareProduct":
-                    return $System.Model(_v50._0);
+                    return $System.Model(_v51._0);
                     case "StarProduct":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(A2(action._0 ? $Set.insert : $Set.remove,
                                                      action._1,
                                                      A2($Maybe.withDefault,
                                                      $Set.empty,
-                                                     _v50._0.starredProducts)))]],
-                      _v50._0));}
+                                                     _v51._0.starredProducts)))]],
+                      _v51._0));}
                  _U.badCase($moduleName,
-                 "between lines 140 and 157");
+                 "between lines 142 and 160");
               }();}
          _U.badCase($moduleName,
-         "between lines 140 and 157");
+         "between lines 142 and 160");
       }();
    });
    var locationHash = _P.portIn("locationHash",
@@ -4928,13 +4945,13 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v69) {
+      var starred = function (_v71) {
          return function () {
-            switch (_v69.ctor)
+            switch (_v71.ctor)
             {case "Model":
-               return _v69._0.starredProducts;}
+               return _v71._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 95, column 27 to 44");
+            "on line 97, column 27 to 44");
          }();
       };
       return $Signal.dropRepeats(A2($Signal._op["<~"],
@@ -12009,17 +12026,12 @@ Elm.Placement.make = function (_elm) {
    product,
    copy) {
       return A2($Html.div,
-      _L.fromArray([]),
+      _L.fromArray([$Html$Attributes.$class("placement")]),
       _L.fromArray([A2($Html.h2,
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("We\'re Craving...")]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                   _L.fromArray([$Html$Attributes.$class("col-xs-12")]),
-                   _L.fromArray([A2($Html.h3,
-                   _L.fromArray([]),
-                   _L.fromArray([$Html.text(product.name)]))]))]))
-                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6 pull-right")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-5 pull-right")]),
                                                           _L.fromArray([A2($Html.a,
                                                                        _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
                                                                        "#/product/",
@@ -12032,9 +12044,12 @@ Elm.Placement.make = function (_elm) {
                                                                        uiChannel,
                                                                        starredProducts,
                                                                        product)]))
-                                                          ,A2($Html.p,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-6")]),
-                                                          _L.fromArray([copy]))]))]));
+                                                          ,A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-7")]),
+                                                          _L.fromArray([A2($Html.h3,
+                                                                       _L.fromArray([]),
+                                                                       _L.fromArray([$Html.text(product.name)]))
+                                                                       ,copy]))]))]));
    });
    var placementView = F4(function (_v0,
    uiChannel,
@@ -12916,6 +12931,10 @@ Elm.System.make = function (_elm) {
       return {ctor: "ChangeViewport"
              ,_0: a};
    };
+   var Contact = function (a) {
+      return {ctor: "Contact"
+             ,_0: a};
+   };
    var ShareProduct = F2(function (a,
    b) {
       return {ctor: "ShareProduct"
@@ -12966,7 +12985,27 @@ Elm.System.make = function (_elm) {
    products) {
       return function () {
          switch (productsFilter.ctor)
-         {case "FilterStarred":
+         {case "FilterNoBrand":
+            return A2($List.filter,
+              function (p) {
+                 return function () {
+                    var _v5 = p.brandId;
+                    switch (_v5.ctor)
+                    {case "Just": return false;
+                       case "Nothing": return true;}
+                    _U.badCase($moduleName,
+                    "between lines 75 and 77");
+                 }();
+              },
+              products);
+            case "FilterNoCategory":
+            return A2($List.filter,
+              function (p) {
+                 return _U.eq(p.categoryIds,
+                 _L.fromArray([]));
+              },
+              products);
+            case "FilterStarred":
             return A3(filterProducts,
               starredProducts,
               FilterWithIds(starredProducts),
@@ -12975,14 +13014,14 @@ Elm.System.make = function (_elm) {
             return A2($List.filter,
               function (p) {
                  return function () {
-                    var _v5 = p.brandId;
-                    switch (_v5.ctor)
+                    var _v7 = p.brandId;
+                    switch (_v7.ctor)
                     {case "Just":
-                       return _U.eq(_v5._0,
+                       return _U.eq(_v7._0,
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 71 and 73");
+                    "between lines 78 and 80");
                  }();
               },
               products);
@@ -13011,18 +13050,22 @@ Elm.System.make = function (_elm) {
             case "NoFilter":
             return products;}
          _U.badCase($moduleName,
-         "between lines 65 and 73");
+         "between lines 68 and 80");
       }();
    });
    var FilterWithLimit = function (a) {
       return {ctor: "FilterWithLimit"
              ,_0: a};
    };
+   var FilterNoCategory = {ctor: "FilterNoCategory"};
+   var FilterNoBrand = {ctor: "FilterNoBrand"};
    var FilterStarred = {ctor: "FilterStarred"};
    var NoFilter = {ctor: "NoFilter"};
    _elm.System.values = {_op: _op
                         ,NoFilter: NoFilter
                         ,FilterStarred: FilterStarred
+                        ,FilterNoBrand: FilterNoBrand
+                        ,FilterNoCategory: FilterNoCategory
                         ,FilterWithLimit: FilterWithLimit
                         ,FilterWithIds: FilterWithIds
                         ,FilterWithCategoryId: FilterWithCategoryId
@@ -13035,6 +13078,7 @@ Elm.System.make = function (_elm) {
                         ,ChangeView: ChangeView
                         ,StarProduct: StarProduct
                         ,ShareProduct: ShareProduct
+                        ,Contact: Contact
                         ,ChangeViewport: ChangeViewport
                         ,ChangeCurrentPageUrl: ChangeCurrentPageUrl
                         ,LoadStarred: LoadStarred
@@ -13346,71 +13390,69 @@ Elm.View.make = function (_elm) {
    $System = Elm.System.make(_elm),
    $Uri = Elm.Uri.make(_elm),
    $ViewCommon = Elm.ViewCommon.make(_elm);
-   var dataFeedBlurbView = function (dataFeed) {
+   var categoryListView = function (categories) {
       return function () {
-         var item = function (_v0) {
-            return function () {
-               switch (_v0.ctor)
-               {case "_Tuple2":
-                  return A2($Html.li,
-                    _L.fromArray([$Html$Attributes.$class("list-group-item")]),
-                    _L.fromArray([A2($Html.a,
-                    _L.fromArray([$Html$Attributes.href(_v0._0)]),
-                    _L.fromArray([$Html.text(_v0._1)]))]));}
-               _U.badCase($moduleName,
-               "on line 194, column 27 to 84");
-            }();
+         var item = function (c) {
+            return A2($Html.li,
+            _L.fromArray([$Html$Attributes.$class("list-group-item")]),
+            _L.fromArray([A2($Html.a,
+            _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
+            "#/category/",
+            c.categoryId))]),
+            _L.fromArray([$Html.text(c.name)]))]));
          };
-         return A2($Html.div,
-         _L.fromArray([]),
-         _L.fromArray([A2($Html.h2,
-                      _L.fromArray([]),
-                      _L.fromArray([$Html.text("Top Categories")]))
-                      ,A2($Html.ul,
-                      _L.fromArray([$Html$Attributes.$class("list-group")]),
-                      A2($List.map,
-                      item,
-                      _L.fromArray([{ctor: "_Tuple2"
-                                    ,_0: "#/category/wedding"
-                                    ,_1: "Wedding"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/vintage"
-                                    ,_1: "Vintage"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/full-outfits"
-                                    ,_1: "Full Outfits"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/jackets"
-                                    ,_1: "Jackets"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/skirts"
-                                    ,_1: "Skirts"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/trousers"
-                                    ,_1: "Trousers"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/corsets"
-                                    ,_1: "Corsets"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/capes"
-                                    ,_1: "Capes"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/costumes"
-                                    ,_1: "Costumes"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/children"
-                                    ,_1: "Children"}
-                                   ,{ctor: "_Tuple2"
-                                    ,_0: "#/category/plus-sizes"
-                                    ,_1: "Plus Sizes"}])))]));
+         return A2($Html.ul,
+         _L.fromArray([$Html$Attributes.$class("list-group")]),
+         A2($List.map,item,categories));
       }();
+   };
+   var topCategories = _L.fromArray([{_: {}
+                                     ,categoryId: "wedding"
+                                     ,name: "Wedding"}
+                                    ,{_: {}
+                                     ,categoryId: "vintage"
+                                     ,name: "Vintage"}
+                                    ,{_: {}
+                                     ,categoryId: "full-outfits"
+                                     ,name: "Full Outfits"}
+                                    ,{_: {}
+                                     ,categoryId: "jackets"
+                                     ,name: "Jackets"}
+                                    ,{_: {}
+                                     ,categoryId: "skirts"
+                                     ,name: "Skirts"}
+                                    ,{_: {}
+                                     ,categoryId: "trousers"
+                                     ,name: "Trousers"}
+                                    ,{_: {}
+                                     ,categoryId: "corsets"
+                                     ,name: "Corsets"}
+                                    ,{_: {}
+                                     ,categoryId: "capes"
+                                     ,name: "Capes"}
+                                    ,{_: {}
+                                     ,categoryId: "costumes"
+                                     ,name: "Costumes"}
+                                    ,{_: {}
+                                     ,categoryId: "children"
+                                     ,name: "Children"}
+                                    ,{_: {}
+                                     ,categoryId: "plus-sizes"
+                                     ,name: "Plus Sizes"}]);
+   var exploreCategoriesView = function (dataFeed) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.h2,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("Top Categories")]))
+                   ,categoryListView(topCategories)]));
    };
    var frontPageBlurb = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
       return $Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
                                                    _L.fromArray([$Html$Attributes.$class("col-md-3")]),
-                                                   _L.fromArray([dataFeedBlurbView(dataFeed)]))
+                                                   _L.fromArray([exploreCategoriesView(dataFeed)]))
                                                    ,A2($Html.div,
                                                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
                                                    _L.fromArray([A3($Placement.currentPlacementView,
@@ -13418,9 +13460,9 @@ Elm.View.make = function (_elm) {
                                                    starredProducts,
                                                    dataFeed)]))]));
    });
-   var debuggingView = function (_v4) {
+   var debuggingView = function (_v0) {
       return function () {
-         switch (_v4.ctor)
+         switch (_v0.ctor)
          {case "Model":
             return A2($Html.div,
               _L.fromArray([$Html$Attributes.id("debug")]),
@@ -13428,21 +13470,21 @@ Elm.View.make = function (_elm) {
               _L.fromArray([]),
               _L.fromArray([$Html.text(A2($Basics._op["++"],
                            "View: ",
-                           $Basics.toString(_v4._0.view)))
+                           $Basics.toString(_v0._0.view)))
                            ,A2($Html.br,
                            _L.fromArray([]),
                            _L.fromArray([]))
                            ,$Html.text(A2($Basics._op["++"],
                            "FPS: ",
-                           $Basics.toString(_v4._0.frontPageSettings)))
+                           $Basics.toString(_v0._0.frontPageSettings)))
                            ,A2($Html.br,
                            _L.fromArray([]),
                            _L.fromArray([]))
                            ,$Html.text(A2($Basics._op["++"],
                            "Viewport: ",
-                           $Basics.toString(_v4._0.viewport)))]))]));}
+                           $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 184 and 190");
+         "between lines 186 and 192");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13481,45 +13523,45 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 143 and 150");
+         "between lines 145 and 152");
       }();
    });
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v9 = A2($Dict.get,
+         var _v5 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v9.ctor)
+         switch (_v5.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v9._0.brandId))]),
-              _L.fromArray([$Html.text(_v9._0.name)]));
+                           _v5._0.brandId))]),
+              _L.fromArray([$Html.text(_v5._0.name)]));
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 128 and 132");
+         "between lines 130 and 134");
       }();
    });
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v11 = A2($Dict.get,
+         var _v7 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v11.ctor)
+         switch (_v7.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v11._0.categoryId))]),
-              _L.fromArray([$Html.text(_v11._0.name)]));
+                           _v7._0.categoryId))]),
+              _L.fromArray([$Html.text(_v7._0.name)]));
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 120 and 124");
+         "between lines 122 and 126");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13563,14 +13605,15 @@ Elm.View.make = function (_elm) {
                                                                        categoryLabel(dataFeed.categories),
                                                                        product.categoryIds))]))]))]));
    });
-   var navbarView = function (_v13) {
+   var navbarView = F2(function (uiChannel,
+   _v9) {
       return function () {
-         switch (_v13.ctor)
+         switch (_v9.ctor)
          {case "Model":
             return function () {
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
-                 _v13._0.starredProducts)));
+                 _v9._0.starredProducts)));
                  return A2($Html.nav,
                  _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
                  _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
@@ -13581,33 +13624,32 @@ Elm.View.make = function (_elm) {
                                                                            _L.fromArray([$Html$Attributes.href("#")]),
                                                                            _L.fromArray([$Html.text("Get Stitching!")]))]))]))
                                                                            ,A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("collapse navbar-collapse")]),
-                                                                           _L.fromArray([A2($Html.div,
-                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left")]),
-                                                                                        _L.fromArray([A2($Html.p,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-text navbar-collapse")]),
-                                                                                        _L.fromArray([$Html.text("Find your next project...")]))]))
-                                                                                        ,A2($Html.ul,
-                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                                        _L.fromArray([A2($Html.li,
-                                                                                                     _L.fromArray([]),
-                                                                                                     _L.fromArray([A2($Html.a,
-                                                                                                     _L.fromArray([$Html$Attributes.$class("navbar-link")
-                                                                                                                  ,$Html$Attributes.href("https://twitter.com/getstitching")]),
-                                                                                                     _L.fromArray([$Html.text("Contact")]))]))
-                                                                                                     ,A2($Html.li,
-                                                                                                     _L.fromArray([]),
-                                                                                                     _L.fromArray([A2($Html.a,
-                                                                                                     _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                                                     _L.fromArray([$Html.text("Your Favourites ")
-                                                                                                                  ,A2($Html.span,
-                                                                                                                  _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                                                  _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
+                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left hidden-xs")]),
+                                                                           _L.fromArray([A2($Html.p,
+                                                                           _L.fromArray([$Html$Attributes.$class("navbar-text")]),
+                                                                           _L.fromArray([$Html.text("Find your next project...")]))]))
+                                                                           ,A2($Html.ul,
+                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
+                                                                           _L.fromArray([A2($Html.li,
+                                                                                        _L.fromArray([]),
+                                                                                        _L.fromArray([A2($Html.a,
+                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                     ,$Html$Events.onClick($Signal.send(uiChannel)($System.Contact($System.Twitter)))
+                                                                                                     ,$Html$Attributes.href("https://twitter.com/getstitching")]),
+                                                                                        _L.fromArray([$Html.text("Contact Us")]))]))
+                                                                                        ,A2($Html.li,
+                                                                                        _L.fromArray([]),
+                                                                                        _L.fromArray([A2($Html.a,
+                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                        _L.fromArray([$Html.text("Your Favourites ")
+                                                                                                     ,A2($Html.span,
+                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 96 and 116");
+         "between lines 98 and 118");
       }();
-   };
+   });
    var notFoundView = A2($Html.h2,
    _L.fromArray([]),
    _L.fromArray([$Html.text("Not Found")]));
@@ -13617,21 +13659,21 @@ Elm.View.make = function (_elm) {
    productId,
    dataFeed) {
       return function () {
-         var _v16 = A2($System.lookupProduct,
+         var _v12 = A2($System.lookupProduct,
          productId,
          dataFeed.products);
-         switch (_v16.ctor)
+         switch (_v12.ctor)
          {case "Just":
             return A5(productDetailView,
               uiChannel,
               starredProducts,
               currentPageUrl,
-              _v16._0,
+              _v12._0,
               dataFeed);
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 178 and 180");
+         "between lines 180 and 182");
       }();
    });
    var loadingView = A2($Html.div,
@@ -13658,31 +13700,35 @@ Elm.View.make = function (_elm) {
    productFilter) {
       return function () {
          switch (productFilter.ctor)
-         {case "FilterStarred":
+         {case "FilterNoBrand":
+            return "No Brand";
+            case "FilterNoCategory":
+            return "No Category";
+            case "FilterStarred":
             return "Your Favourite Patterns";
             case "FilterWithBrandId":
             return function () {
-                 var _v22 = A2($Dict.get,
+                 var _v18 = A2($Dict.get,
                  productFilter._0,
                  dataFeed.brands);
-                 switch (_v22.ctor)
+                 switch (_v18.ctor)
                  {case "Just":
-                    return _v22._0.name;
+                    return _v18._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 61 and 64");
+                 "between lines 63 and 66");
               }();
             case "FilterWithCategoryId":
             return function () {
-                 var _v24 = A2($Dict.get,
+                 var _v20 = A2($Dict.get,
                  productFilter._0,
                  dataFeed.categories);
-                 switch (_v24.ctor)
+                 switch (_v20.ctor)
                  {case "Just":
-                    return _v24._0.name;
+                    return _v20._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 57 and 60");
+                 "between lines 59 and 62");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -13779,20 +13825,22 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 224, column 23 to 24"),
+         "on line 234, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
          model.starredProducts);
          return A2($Html.div,
          _L.fromArray([]),
-         _L.fromArray([navbarView(m)
+         _L.fromArray([A2(navbarView,
+                      uiChannel,
+                      m)
                       ,A2($Html.div,
                       _L.fromArray([$Html$Attributes.id("main-container")
                                    ,$Html$Attributes.$class("container")]),
                       _L.fromArray([function () {
-                         var _v30 = model.view;
-                         switch (_v30.ctor)
+                         var _v26 = model.view;
+                         switch (_v26.ctor)
                          {case "NoPage":
                             return A2($Html.div,
                               _L.fromArray([]),
@@ -13801,10 +13849,10 @@ Elm.View.make = function (_elm) {
                             return notFoundView;}
                          return A2(defaultRemoteDataView,
                          function () {
-                            var _v31 = model.view;
-                            switch (_v31.ctor)
+                            var _v27 = model.view;
+                            switch (_v27.ctor)
                             {case "BrandListPage":
-                               return function (_v35) {
+                               return function (_v31) {
                                     return function () {
                                        return A2($Html.h2,
                                        _L.fromArray([]),
@@ -13812,12 +13860,8 @@ Elm.View.make = function (_elm) {
                                     }();
                                  };
                                case "CategoryListPage":
-                               return function (_v37) {
-                                    return function () {
-                                       return A2($Html.h2,
-                                       _L.fromArray([]),
-                                       _L.fromArray([$Html.text("TODO")]));
-                                    }();
+                               return function (dataFeed) {
+                                    return categoryListView($Dict.values(dataFeed.categories));
                                  };
                                case "ProductListPage":
                                return function (ps) {
@@ -13826,13 +13870,13 @@ Elm.View.make = function (_elm) {
                                     _L.fromArray([A4(blurbForFilter,
                                                  uiChannel,
                                                  starredProducts,
-                                                 _v31._1,
+                                                 _v27._1,
                                                  ps)
                                                  ,A5(productsView,
                                                  uiChannel,
                                                  starredProducts,
-                                                 _v31._0,
-                                                 _v31._1,
+                                                 _v27._0,
+                                                 _v27._1,
                                                  ps)]));
                                  };
                                case "ProductPage":
@@ -13840,9 +13884,9 @@ Elm.View.make = function (_elm) {
                                  uiChannel,
                                  starredProducts,
                                  model.currentPageUrl,
-                                 _v31._0);}
+                                 _v27._0);}
                             _U.badCase($moduleName,
-                            "between lines 235 and 243");
+                            "between lines 245 and 253");
                          }(),
                          model.dataFeed);
                       }()]))]));
@@ -13865,7 +13909,9 @@ Elm.View.make = function (_elm) {
                       ,productDetailView: productDetailView
                       ,singleProductView: singleProductView
                       ,debuggingView: debuggingView
-                      ,dataFeedBlurbView: dataFeedBlurbView
+                      ,topCategories: topCategories
+                      ,categoryListView: categoryListView
+                      ,exploreCategoriesView: exploreCategoriesView
                       ,frontPageBlurb: frontPageBlurb
                       ,rootView: rootView};
    return _elm.View.values;
