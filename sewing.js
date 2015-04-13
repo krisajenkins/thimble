@@ -13484,7 +13484,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 186 and 192");
+         "between lines 187 and 193");
       }();
    };
    var shareTwitterLink = F2(function (url,
@@ -13523,7 +13523,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 145 and 152");
+         "between lines 146 and 153");
       }();
    });
    var brandLabel = F2(function (brands,
@@ -13542,7 +13542,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 130 and 134");
+         "between lines 131 and 135");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -13561,7 +13561,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 122 and 126");
+         "between lines 123 and 127");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13647,7 +13647,7 @@ Elm.View.make = function (_elm) {
                                                                                                      _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 98 and 118");
+         "between lines 99 and 119");
       }();
    });
    var notFoundView = A2($Html.h2,
@@ -13673,7 +13673,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return notFoundView;}
          _U.badCase($moduleName,
-         "between lines 180 and 182");
+         "between lines 181 and 183");
       }();
    });
    var loadingView = A2($Html.div,
@@ -13716,7 +13716,7 @@ Elm.View.make = function (_elm) {
                     return _v18._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 63 and 66");
+                 "between lines 64 and 67");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -13728,7 +13728,7 @@ Elm.View.make = function (_elm) {
                     return _v20._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 59 and 62");
+                 "between lines 60 and 63");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -13760,9 +13760,12 @@ Elm.View.make = function (_elm) {
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
                    _L.fromArray([A3($ViewCommon.productControls,
-                   uiChannel,
-                   starredProducts,
-                   product)]))]))]));
+                                uiChannel,
+                                starredProducts,
+                                product)
+                                ,A2($Html.p,
+                                _L.fromArray([]),
+                                _L.fromArray([$Html.text(product.name)]))]))]))]));
    });
    var productSummaryRowView = F3(function (uiChannel,
    starredProducts,
@@ -13825,7 +13828,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 234, column 23 to 24"),
+         "on line 235, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13886,7 +13889,7 @@ Elm.View.make = function (_elm) {
                                  model.currentPageUrl,
                                  _v27._0);}
                             _U.badCase($moduleName,
-                            "between lines 245 and 253");
+                            "between lines 246 and 254");
                          }(),
                          model.dataFeed);
                       }()]))]));
