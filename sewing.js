@@ -13631,30 +13631,32 @@ Elm.View.make = function (_elm) {
                                                                            _L.fromArray([$Html$Attributes.href("#")]),
                                                                            _L.fromArray([$Html.text("Get Stitching!")]))]))]))
                                                                            ,A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left hidden-xs")]),
-                                                                           _L.fromArray([A2($Html.p,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-text")]),
-                                                                           _L.fromArray([$Html.text("Find your next project...")]))]))
-                                                                           ,A2($Html.ul,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                           _L.fromArray([A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-link")
-                                                                                                     ,$Html$Events.onClick($Signal.send(uiChannel)($System.Contact($System.Twitter)))
-                                                                                                     ,$Html$Attributes.href("https://twitter.com/getstitching")]),
-                                                                                        _L.fromArray([$Html.text("Contact Us")]))]))
-                                                                                        ,A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                                        _L.fromArray([$Html.text("Your Favourites ")
-                                                                                                     ,A2($Html.span,
-                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
+                                                                           _L.fromArray([$Html$Attributes.$class("collapse navbar-collapse")]),
+                                                                           _L.fromArray([A2($Html.div,
+                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left")]),
+                                                                                        _L.fromArray([A2($Html.p,
+                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-text navbar-collapse")]),
+                                                                                        _L.fromArray([$Html.text("Find your next project...")]))]))
+                                                                                        ,A2($Html.ul,
+                                                                                        _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
+                                                                                        _L.fromArray([A2($Html.li,
+                                                                                                     _L.fromArray([]),
+                                                                                                     _L.fromArray([A2($Html.a,
+                                                                                                     _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                                  ,$Html$Events.onClick($Signal.send(uiChannel)($System.Contact($System.Twitter)))
+                                                                                                                  ,$Html$Attributes.href("https://twitter.com/getstitching")]),
+                                                                                                     _L.fromArray([$Html.text("Contact")]))]))
+                                                                                                     ,A2($Html.li,
+                                                                                                     _L.fromArray([]),
+                                                                                                     _L.fromArray([A2($Html.a,
+                                                                                                     _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                                     _L.fromArray([$Html.text("Your Favourites ")
+                                                                                                                  ,A2($Html.span,
+                                                                                                                  _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                                  _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 99 and 119");
+         "between lines 98 and 119");
       }();
    });
    var notFoundView = A2($Html.h2,
@@ -13723,7 +13725,7 @@ Elm.View.make = function (_elm) {
                     return _v18._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 64 and 67");
+                 "between lines 63 and 66");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -13735,7 +13737,7 @@ Elm.View.make = function (_elm) {
                     return _v20._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 60 and 63");
+                 "between lines 59 and 62");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -13766,13 +13768,10 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
-                   _L.fromArray([A2($Html.p,
-                                _L.fromArray([]),
-                                _L.fromArray([$Html.text(product.name)]))
-                                ,A3($ViewCommon.productControls,
-                                uiChannel,
-                                starredProducts,
-                                product)]))]))]));
+                   _L.fromArray([A3($ViewCommon.productControls,
+                   uiChannel,
+                   starredProducts,
+                   product)]))]))]));
    });
    var productSummaryRowView = F3(function (uiChannel,
    starredProducts,
