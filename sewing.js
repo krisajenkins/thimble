@@ -13451,11 +13451,9 @@ Elm.View.make = function (_elm) {
             c.categoryId))]),
             _L.fromArray([$Html.text(c.name)]));
          };
-         return $ViewCommon.simpleListGroupView(item)(A2($List.sortBy,
-         function (_) {
-            return _.name;
-         },
-         categories));
+         return A2($ViewCommon.simpleListGroupView,
+         item,
+         categories);
       }();
    };
    var brandListView = function (brands) {
@@ -13467,11 +13465,9 @@ Elm.View.make = function (_elm) {
             b.brandId))]),
             _L.fromArray([$Html.text(b.name)]));
          };
-         return $ViewCommon.simpleListGroupView(item)(A2($List.sortBy,
-         function (_) {
-            return _.name;
-         },
-         brands));
+         return A2($ViewCommon.simpleListGroupView,
+         item,
+         brands);
       }();
    };
    var topCategories = _L.fromArray(["wedding"
@@ -13876,11 +13872,19 @@ Elm.View.make = function (_elm) {
                                     switch (_v30.ctor)
                                     {case "BrandListPage":
                                        return function (dataFeed) {
-                                            return brandListView($Dict.values(dataFeed.brands));
+                                            return brandListView(A2($List.sortBy,
+                                            function (_) {
+                                               return _.name;
+                                            },
+                                            $Dict.values(dataFeed.brands)));
                                          };
                                        case "CategoryListPage":
                                        return function (dataFeed) {
-                                            return categoryListView($Dict.values(dataFeed.categories));
+                                            return categoryListView(A2($List.sortBy,
+                                            function (_) {
+                                               return _.name;
+                                            },
+                                            $Dict.values(dataFeed.categories)));
                                          };
                                        case "ProductListPage":
                                        return function (ps) {
