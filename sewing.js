@@ -13439,7 +13439,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 219 and 225");
+         "between lines 220 and 226");
       }();
    };
    var categoryListView = function (categories) {
@@ -13533,7 +13533,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 140 and 147");
+         "between lines 141 and 148");
       }();
    });
    var brandLabel = F2(function (brands,
@@ -13552,7 +13552,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 125 and 129");
+         "between lines 126 and 130");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -13571,7 +13571,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 117 and 121");
+         "between lines 118 and 122");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -13635,7 +13635,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $ViewCommon.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 175 and 177");
+         "between lines 176 and 178");
       }();
    });
    var navbarView = F2(function (uiChannel,
@@ -13680,7 +13680,7 @@ Elm.View.make = function (_elm) {
                                                                                                      _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 93 and 113");
+         "between lines 94 and 114");
       }();
    });
    var frontPageHeadingView = F3(function (uiChannel,
@@ -13799,6 +13799,10 @@ Elm.View.make = function (_elm) {
    productFilter,
    dataFeed) {
       return function () {
+         var productCount = $List.length(A3($System.filterProducts,
+         starredProducts,
+         productFilter,
+         dataFeed.products));
          var name = A2(nameForProductFilter,
          dataFeed,
          productFilter);
@@ -13811,7 +13815,13 @@ Elm.View.make = function (_elm) {
          _L.fromArray([]),
          _L.fromArray([A2($Html.h1,
                       _L.fromArray([]),
-                      _L.fromArray([$Html.text(name)]))
+                      _L.fromArray([$Html.text(A2($Basics._op["++"],
+                      name,
+                      A2($Basics._op["++"],
+                      " (",
+                      A2($Basics._op["++"],
+                      $Basics.toString(productCount),
+                      ")"))))]))
                       ,A3(productSummaryRowView,
                       uiChannel,
                       starredProducts,
@@ -13895,13 +13905,13 @@ Elm.View.make = function (_elm) {
                                          _v26._0.currentPageUrl,
                                          _v30._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 239 and 247");
+                                    "between lines 240 and 248");
                                  }(),
                                  _v26._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 229 and 248");
+         "between lines 230 and 249");
       }();
    });
    _elm.View.values = {_op: _op
