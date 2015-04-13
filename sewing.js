@@ -1941,7 +1941,30 @@ Elm.Exts.Maybe.make = function (_elm) {
    _P = _N.Ports.make(_elm),
    $moduleName = "Exts.Maybe",
    $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm);
+   var mapMaybe = F2(function (f,
+   xs) {
+      return function () {
+         switch (xs.ctor)
+         {case "::": return function () {
+                 var _v3 = f(xs._0);
+                 switch (_v3.ctor)
+                 {case "Just":
+                    return A2($List._op["::"],
+                      _v3._0,
+                      A2(mapMaybe,f,xs._1));
+                    case "Nothing":
+                    return A2(mapMaybe,f,xs._1);}
+                 _U.badCase($moduleName,
+                 "between lines 25 and 27");
+              }();
+            case "[]":
+            return _L.fromArray([]);}
+         _U.badCase($moduleName,
+         "between lines 23 and 27");
+      }();
+   });
    var maybeNumber = function (x) {
       return function () {
          switch (x.ctor)
@@ -1963,7 +1986,8 @@ Elm.Exts.Maybe.make = function (_elm) {
    _elm.Exts.Maybe.values = {_op: _op
                             ,isJust: isJust
                             ,maybeString: maybeString
-                            ,maybeNumber: maybeNumber};
+                            ,maybeNumber: maybeNumber
+                            ,mapMaybe: mapMaybe};
    return _elm.Exts.Maybe.values;
 };
 Elm.Exts = Elm.Exts || {};
@@ -13376,6 +13400,7 @@ Elm.View.make = function (_elm) {
    $Basics = Elm.Basics.make(_elm),
    $Dict = Elm.Dict.make(_elm),
    $Exts$Html$Bootstrap = Elm.Exts.Html.Bootstrap.make(_elm),
+   $Exts$Maybe = Elm.Exts.Maybe.make(_elm),
    $Exts$RemoteData = Elm.Exts.RemoteData.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
@@ -13406,46 +13431,28 @@ Elm.View.make = function (_elm) {
          A2($List.map,item,categories));
       }();
    };
-   var topCategories = _L.fromArray([{_: {}
-                                     ,categoryId: "wedding"
-                                     ,name: "Wedding"}
-                                    ,{_: {}
-                                     ,categoryId: "vintage"
-                                     ,name: "Vintage"}
-                                    ,{_: {}
-                                     ,categoryId: "full-outfits"
-                                     ,name: "Full Outfits"}
-                                    ,{_: {}
-                                     ,categoryId: "jackets"
-                                     ,name: "Jackets"}
-                                    ,{_: {}
-                                     ,categoryId: "skirts"
-                                     ,name: "Skirts"}
-                                    ,{_: {}
-                                     ,categoryId: "trousers"
-                                     ,name: "Trousers"}
-                                    ,{_: {}
-                                     ,categoryId: "corsets"
-                                     ,name: "Corsets"}
-                                    ,{_: {}
-                                     ,categoryId: "capes"
-                                     ,name: "Capes"}
-                                    ,{_: {}
-                                     ,categoryId: "costumes"
-                                     ,name: "Costumes"}
-                                    ,{_: {}
-                                     ,categoryId: "children"
-                                     ,name: "Children"}
-                                    ,{_: {}
-                                     ,categoryId: "plus-sizes"
-                                     ,name: "Plus Sizes"}]);
+   var topCategories = _L.fromArray(["wedding"
+                                    ,"vintage"
+                                    ,"full-outfits"
+                                    ,"jackets"
+                                    ,"skirts"
+                                    ,"trousers"
+                                    ,"corsets"
+                                    ,"capes"
+                                    ,"costumes"
+                                    ,"children"
+                                    ,"plus-sizes"]);
    var exploreCategoriesView = function (dataFeed) {
       return A2($Html.div,
       _L.fromArray([]),
       _L.fromArray([A2($Html.h2,
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("Top Categories")]))
-                   ,categoryListView(topCategories)]));
+                   ,categoryListView(A2($Exts$Maybe.mapMaybe,
+                   A2($Basics.flip,
+                   $Dict.get,
+                   dataFeed.categories),
+                   topCategories))]));
    };
    var frontPageBlurb = F3(function (uiChannel,
    starredProducts,
@@ -13759,13 +13766,13 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
-                   _L.fromArray([A3($ViewCommon.productControls,
+                   _L.fromArray([A2($Html.p,
+                                _L.fromArray([]),
+                                _L.fromArray([$Html.text(product.name)]))
+                                ,A3($ViewCommon.productControls,
                                 uiChannel,
                                 starredProducts,
-                                product)
-                                ,A2($Html.p,
-                                _L.fromArray([]),
-                                _L.fromArray([$Html.text(product.name)]))]))]))]));
+                                product)]))]))]));
    });
    var productSummaryRowView = F3(function (uiChannel,
    starredProducts,
@@ -13828,7 +13835,7 @@ Elm.View.make = function (_elm) {
       return function () {
          var _raw = m,
          $ = _raw.ctor === "Model" ? _raw : _U.badCase($moduleName,
-         "on line 235, column 23 to 24"),
+         "on line 236, column 23 to 24"),
          model = $._0;
          var starredProducts = A2($Maybe.withDefault,
          $Set.empty,
@@ -13889,7 +13896,7 @@ Elm.View.make = function (_elm) {
                                  model.currentPageUrl,
                                  _v27._0);}
                             _U.badCase($moduleName,
-                            "between lines 246 and 254");
+                            "between lines 247 and 255");
                          }(),
                          model.dataFeed);
                       }()]))]));
