@@ -70,7 +70,7 @@ code {
 }
 @media (min-width: 768px) {
   .product-controls .btn + .btn {
-    margin-left: 6px;
+    margin-left: 2px;
   }
 }
 @media (max-width: 767px) {
