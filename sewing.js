@@ -4621,6 +4621,17 @@ Elm.Main.make = function (_elm) {
          return $Maybe.Nothing;
       }();
    };
+   var clamp = F2(function (factor,
+   x) {
+      return factor * (x / factor | 0);
+   });
+   var clampViewportTop = function (viewport) {
+      return _U.replace([["viewportTop"
+                         ,A2(clamp,
+                         20,
+                         viewport.viewportTop)]],
+      viewport);
+   };
    var uiChannel = $Signal.channel($System.NoOp);
    var updateFrontPageSettings = function (_v8) {
       return function () {
@@ -4929,7 +4940,9 @@ Elm.Main.make = function (_elm) {
    var actionSignal = $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeViewport,
-                                                     $Signal.dropRepeats(viewport))
+                                                     A2($Signal._op["<~"],
+                                                     clampViewportTop,
+                                                     $Signal.dropRepeats(viewport)))
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeCurrentPageUrl,
                                                      location)
@@ -5010,6 +5023,8 @@ Elm.Main.make = function (_elm) {
                       ,updateFrontPageSettings: updateFrontPageSettings
                       ,step: step
                       ,uiChannel: uiChannel
+                      ,clamp: clamp
+                      ,clampViewportTop: clampViewportTop
                       ,actionSignal: actionSignal
                       ,modelSignal: modelSignal
                       ,main: main
@@ -13789,7 +13804,7 @@ Elm.View.make = function (_elm) {
          ps));
       }();
    });
-   var productsView = F5(function (uiChannel,
+   var productListView = F5(function (uiChannel,
    starredProducts,
    n,
    productFilter,
@@ -13808,7 +13823,7 @@ Elm.View.make = function (_elm) {
          _L.fromArray([productFilter
                       ,$System.FilterWithLimit(n)]));
          return A2($Html.div,
-         _L.fromArray([]),
+         _L.fromArray([$Html$Attributes.$class("product-list")]),
          _L.fromArray([A2($Html.h1,
                       _L.fromArray([]),
                       _L.fromArray([$Html.text(A2($Basics._op["++"],
@@ -13895,7 +13910,7 @@ Elm.View.make = function (_elm) {
                                                          starredProducts,
                                                          _v30._1,
                                                          ps)
-                                                         ,A5(productsView,
+                                                         ,A5(productListView,
                                                          uiChannel,
                                                          starredProducts,
                                                          _v30._0,
@@ -13925,7 +13940,7 @@ Elm.View.make = function (_elm) {
                       ,nameForProductFilter: nameForProductFilter
                       ,frontPageHeadingView: frontPageHeadingView
                       ,productListHeadingView: productListHeadingView
-                      ,productsView: productsView
+                      ,productListView: productListView
                       ,navbarView: navbarView
                       ,categoryLabel: categoryLabel
                       ,brandLabel: brandLabel

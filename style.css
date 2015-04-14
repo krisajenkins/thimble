@@ -6,7 +6,7 @@ body {
 h1,
 h2,
 h3,
-.navbar-brand {
+.navbar {
   font-family: 'Montserrat', sans;
   color: #2c3b47;
 }
@@ -104,4 +104,7 @@ code {
 }
 .placement img {
   margin-top: 20px;
+}
+.product-list {
+  margin-bottom: 50px;
 }
