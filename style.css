@@ -62,6 +62,9 @@ code {
   margin: 50px;
   text-align: center;
 }
+.product-detail p {
+  margin: 15px 0;
+}
 .product-summary {
   margin-top: 20px;
   margin-bottom: 20px;
