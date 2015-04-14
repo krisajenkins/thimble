@@ -1,7 +1,18 @@
+body {
+  font-family: 'Domine', serif;
+  background-color: #fdfdfd;
+  color: #182027;
+}
 h1,
 h2,
-h3 {
-  font-family: 'Playfair Display', serif;
+h3,
+.navbar-brand {
+  font-family: 'Montserrat', sans;
+  color: #2c3b47;
+}
+body {
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
 h1 {
   margin: 30px 0;
@@ -10,11 +21,6 @@ h1 {
   h1 {
     margin: 20px 0;
   }
-}
-body {
-  font-family: 'Fauna One', serif;
-  padding-top: 60px;
-  padding-bottom: 20px;
 }
 .navbar .navbar-header {
   float: left;
@@ -27,6 +33,9 @@ body {
 }
 .navbar .navbar-nav > li {
   float: left;
+}
+.navbar {
+  background-image: linear-gradient(to bottom, #ffffff 0, #fdfdfd 100%);
 }
 .navbar .badge {
   background-color: #337ab7;
