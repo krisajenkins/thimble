@@ -12933,7 +12933,7 @@ Elm.System.make = function (_elm) {
    $Set = Elm.Set.make(_elm);
    var scrolledToBottom = function (v) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
-      v.pageHeight - 100) > -1;
+      v.pageHeight - 200) > -1;
    };
    var lookupProduct = function (id) {
       return $Exts$SafeList.lookup(function ($) {

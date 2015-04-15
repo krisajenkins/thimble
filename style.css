@@ -1,3 +1,6 @@
+.basic-shadow {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
 body {
   font-family: 'Domine', serif;
   background-color: #fdfdfd;
@@ -72,9 +75,9 @@ code {
 .product-summary .product-summary-image {
   margin-bottom: 10px;
   height: 200px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   background-size: contain;
   background-repeat: no-repeat;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
 }
 @media (min-width: 768px) {
   .product-summary .product-summary-image {
