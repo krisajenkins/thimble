@@ -4940,9 +4940,9 @@ Elm.Main.make = function (_elm) {
    var actionSignal = $Signal.mergeMany(_L.fromArray([$Signal.subscribe(uiChannel)
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeViewport,
-                                                     A2($Signal._op["<~"],
+                                                     $Signal.dropRepeats(A2($Signal._op["<~"],
                                                      clampViewportTop,
-                                                     $Signal.dropRepeats(viewport)))
+                                                     viewport)))
                                                      ,A2($Signal._op["<~"],
                                                      $System.ChangeCurrentPageUrl,
                                                      location)
