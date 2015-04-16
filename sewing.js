@@ -13454,7 +13454,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 220 and 226");
+         "between lines 219 and 225");
       }();
    };
    var categoryListView = function (categories) {
@@ -13536,7 +13536,6 @@ Elm.View.make = function (_elm) {
                            ,$Html$Events.onClick($Signal.send(uiChannel)(A2($System.ShareProduct,
                            $System.Twitter,
                            product.productId)))
-                           ,$Html$Attributes.target("_blank")
                            ,$Html$Attributes.href(A2(shareTwitterLink,
                            currentPageUrl._0,
                            product.name))]),
@@ -13544,7 +13543,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 141 and 148");
+         "between lines 141 and 147");
       }();
    });
    var brandLabel = F2(function (brands,
@@ -13646,7 +13645,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $ViewCommon.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 176 and 178");
+         "between lines 175 and 177");
       }();
    });
    var navbarView = F2(function (uiChannel,
@@ -13924,13 +13923,13 @@ Elm.View.make = function (_elm) {
                                          _v26._0.currentPageUrl,
                                          _v30._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 240 and 248");
+                                    "between lines 239 and 247");
                                  }(),
                                  _v26._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 230 and 249");
+         "between lines 229 and 248");
       }();
    });
    _elm.View.values = {_op: _op
