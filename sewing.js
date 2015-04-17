@@ -4663,7 +4663,7 @@ Elm.Main.make = function (_elm) {
                  return _v8._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 133 and 138");
+         "between lines 137 and 142");
       }();
    };
    var initialModel = $System.Model({_: {}
@@ -4698,7 +4698,7 @@ Elm.Main.make = function (_elm) {
                  return _v17._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 124 and 129");
+         "between lines 128 and 133");
       }();
    };
    var dataFeedQuery = A2($Signal._op["<~"],
@@ -4892,7 +4892,7 @@ Elm.Main.make = function (_elm) {
                                       break;}
                                  return _v65._1;}
                             _U.badCase($moduleName,
-                            "between lines 148 and 151");
+                            "between lines 152 and 155");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
@@ -4921,10 +4921,10 @@ Elm.Main.make = function (_elm) {
                                                      _v51._0.starredProducts)))]],
                       _v51._0));}
                  _U.badCase($moduleName,
-                 "between lines 142 and 160");
+                 "between lines 146 and 164");
               }();}
          _U.badCase($moduleName,
-         "between lines 142 and 160");
+         "between lines 146 and 164");
       }();
    });
    var locationHash = _P.portIn("locationHash",
@@ -4979,14 +4979,22 @@ Elm.Main.make = function (_elm) {
       return v.ctor === "Nothing" ? null : v._0;
    }),
    function () {
+      var isStarAction = function (action) {
+         return function () {
+            switch (action.ctor)
+            {case "StarProduct":
+               return true;}
+            return false;
+         }();
+      };
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v71) {
+      var starred = function (_v74) {
          return function () {
-            switch (_v71.ctor)
+            switch (_v74.ctor)
             {case "Model":
-               return _v71._0.starredProducts;}
+               return _v74._0.starredProducts;}
             _U.badCase($moduleName,
             "on line 97, column 27 to 44");
          }();
@@ -4995,7 +5003,12 @@ Elm.Main.make = function (_elm) {
       function ($) {
          return encodeStarred(starred($));
       },
-      modelSignal));
+      A2($Signal.sampleOn,
+      A3($Signal.keepIf,
+      isStarAction,
+      $System.NoOp,
+      actionSignal),
+      modelSignal)));
    }());
    var main = A2($Signal._op["<~"],
    $View.rootView(uiChannel),
