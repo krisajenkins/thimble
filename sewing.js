@@ -4663,7 +4663,7 @@ Elm.Main.make = function (_elm) {
                  return _v8._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 137 and 142");
+         "between lines 134 and 139");
       }();
    };
    var initialModel = $System.Model({_: {}
@@ -4698,7 +4698,7 @@ Elm.Main.make = function (_elm) {
                  return _v17._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 128 and 133");
+         "between lines 125 and 130");
       }();
    };
    var dataFeedQuery = A2($Signal._op["<~"],
@@ -4892,7 +4892,7 @@ Elm.Main.make = function (_elm) {
                                       break;}
                                  return _v65._1;}
                             _U.badCase($moduleName,
-                            "between lines 152 and 155");
+                            "between lines 149 and 152");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
@@ -4921,10 +4921,10 @@ Elm.Main.make = function (_elm) {
                                                      _v51._0.starredProducts)))]],
                       _v51._0));}
                  _U.badCase($moduleName,
-                 "between lines 146 and 164");
+                 "between lines 143 and 161");
               }();}
          _U.badCase($moduleName,
-         "between lines 146 and 164");
+         "between lines 143 and 161");
       }();
    });
    var locationHash = _P.portIn("locationHash",
@@ -4979,36 +4979,28 @@ Elm.Main.make = function (_elm) {
       return v.ctor === "Nothing" ? null : v._0;
    }),
    function () {
-      var isStarAction = function (action) {
-         return function () {
-            switch (action.ctor)
-            {case "StarProduct":
-               return true;}
-            return false;
-         }();
-      };
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v74) {
+      var starred = function (_v71) {
          return function () {
-            switch (_v74.ctor)
+            switch (_v71.ctor)
             {case "Model":
-               return _v74._0.starredProducts;}
+               return _v71._0.starredProducts;}
             _U.badCase($moduleName,
             "on line 97, column 27 to 44");
          }();
       };
-      return $Signal.dropRepeats(A2($Signal._op["<~"],
-      function ($) {
-         return encodeStarred(starred($));
-      },
+      return A2($Signal._op["<~"],
+      encodeStarred,
+      $Signal.dropRepeats(A2($Signal._op["<~"],
+      starred,
       A2($Signal.sampleOn,
-      A3($Signal.keepIf,
-      isStarAction,
+      A3($Signal.dropIf,
+      $System.isLoadStarredAction,
       $System.NoOp,
       actionSignal),
-      modelSignal)));
+      modelSignal))));
    }());
    var main = A2($Signal._op["<~"],
    $View.rootView(uiChannel),
@@ -12944,6 +12936,14 @@ Elm.System.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm);
+   var isLoadStarredAction = function (action) {
+      return function () {
+         switch (action.ctor)
+         {case "LoadStarred":
+            return true;}
+         return false;
+      }();
+   };
    var scrolledToBottom = function (v) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
       v.pageHeight - 200) > -1;
@@ -13041,8 +13041,8 @@ Elm.System.make = function (_elm) {
             return A2($List.filter,
               function (p) {
                  return function () {
-                    var _v5 = p.brandId;
-                    switch (_v5.ctor)
+                    var _v7 = p.brandId;
+                    switch (_v7.ctor)
                     {case "Just": return false;
                        case "Nothing": return true;}
                     _U.badCase($moduleName,
@@ -13066,10 +13066,10 @@ Elm.System.make = function (_elm) {
             return A2($List.filter,
               function (p) {
                  return function () {
-                    var _v7 = p.brandId;
-                    switch (_v7.ctor)
+                    var _v9 = p.brandId;
+                    switch (_v9.ctor)
                     {case "Just":
-                       return _U.eq(_v7._0,
+                       return _U.eq(_v9._0,
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
@@ -13142,7 +13142,8 @@ Elm.System.make = function (_elm) {
                         ,CategoryListPage: CategoryListPage
                         ,lookupProduct: lookupProduct
                         ,filterProducts: filterProducts
-                        ,scrolledToBottom: scrolledToBottom};
+                        ,scrolledToBottom: scrolledToBottom
+                        ,isLoadStarredAction: isLoadStarredAction};
    return _elm.System.values;
 };
 Elm.Text = Elm.Text || {};
