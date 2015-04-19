@@ -4585,7 +4585,13 @@ Elm.Main.make = function (_elm) {
    var analytics = function (action) {
       return function () {
          switch (action.ctor)
-         {case "ChangeDataFeed":
+         {case "BuyProduct":
+            return $Maybe.Just({ctor: "_Tuple4"
+                               ,_0: "Buy"
+                               ,_1: "Product"
+                               ,_2: $Maybe.Just($Basics.toString(action._0))
+                               ,_3: $Maybe.Nothing});
+            case "ChangeDataFeed":
             switch (action._0.ctor)
               {case "Failed":
                  return $Maybe.Just({ctor: "_Tuple4"
@@ -4633,34 +4639,34 @@ Elm.Main.make = function (_elm) {
       viewport);
    };
    var uiChannel = $Signal.channel($System.NoOp);
-   var updateFrontPageSettings = function (_v8) {
+   var updateFrontPageSettings = function (_v9) {
       return function () {
-         switch (_v8.ctor)
+         switch (_v9.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v11 = {ctor: "_Tuple2"
-                            ,_0: _v8._0.viewport
-                            ,_1: _v8._0.view};
-                 switch (_v11.ctor)
+                 var _v12 = {ctor: "_Tuple2"
+                            ,_0: _v9._0.viewport
+                            ,_1: _v9._0.view};
+                 switch (_v12.ctor)
                  {case "_Tuple2":
-                    switch (_v11._0.ctor)
+                    switch (_v12._0.ctor)
                       {case "Just":
-                         switch (_v11._1.ctor)
+                         switch (_v12._1.ctor)
                            {case "ProductListPage":
-                              switch (_v11._1._1.ctor)
+                              switch (_v12._1._1.ctor)
                                 {case "NoFilter":
                                    return function () {
                                         var newSettings = $Maybe.Just({_: {}
-                                                                      ,pageSize: _v11._1._0
-                                                                      ,scroll: _v11._0._0.viewportTop});
+                                                                      ,pageSize: _v12._1._0
+                                                                      ,scroll: _v12._0._0.viewportTop});
                                         return _U.replace([["frontPageSettings"
                                                            ,newSettings]],
-                                        _v8._0);
+                                        _v9._0);
                                      }();}
                                 break;}
                            break;}
                       break;}
-                 return _v8._0;
+                 return _v9._0;
               }());}
          _U.badCase($moduleName,
          "between lines 134 and 139");
@@ -4674,28 +4680,28 @@ Elm.Main.make = function (_elm) {
                                     ,view: $System.NoPage
                                     ,viewport: $Maybe.Nothing});
    var pageSize = 24;
-   var updatePageSize = function (_v17) {
+   var updatePageSize = function (_v18) {
       return function () {
-         switch (_v17.ctor)
+         switch (_v18.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v20 = {ctor: "_Tuple2"
-                            ,_0: _v17._0.viewport
-                            ,_1: _v17._0.view};
-                 switch (_v20.ctor)
+                 var _v21 = {ctor: "_Tuple2"
+                            ,_0: _v18._0.viewport
+                            ,_1: _v18._0.view};
+                 switch (_v21.ctor)
                  {case "_Tuple2":
-                    switch (_v20._0.ctor)
+                    switch (_v21._0.ctor)
                       {case "Just":
-                         switch (_v20._1.ctor)
+                         switch (_v21._1.ctor)
                            {case "ProductListPage":
-                              return $System.scrolledToBottom(_v20._0._0) ? _U.replace([["view"
+                              return $System.scrolledToBottom(_v21._0._0) ? _U.replace([["view"
                                                                                         ,A2($System.ProductListPage,
-                                                                                        _v20._1._0 + pageSize,
-                                                                                        _v20._1._1)]],
-                                _v17._0) : _v17._0;}
+                                                                                        _v21._1._0 + pageSize,
+                                                                                        _v21._1._1)]],
+                                _v18._0) : _v18._0;}
                            break;}
                       break;}
-                 return _v17._0;
+                 return _v18._0;
               }());}
          _U.badCase($moduleName,
          "between lines 125 and 130");
@@ -4717,13 +4723,13 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v28 = A2($Json$Decode.decodeString,
+                    var _v29 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v28.ctor)
+                    switch (_v29.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v28._0);}
+                       return $Set.fromList(_v29._0);}
                     _U.badCase($moduleName,
                     "between lines 90 and 93");
                  }();
@@ -4737,54 +4743,54 @@ Elm.Main.make = function (_elm) {
       decodeStarred,
       starredProductsRead);
    }();
-   var scrollWatcher = F2(function (_v31,
+   var scrollWatcher = F2(function (_v32,
    scrollWatch) {
       return function () {
-         switch (_v31.ctor)
+         switch (_v32.ctor)
          {case "Model":
             return function () {
                  var newScroll = function () {
-                    var _v34 = {ctor: "_Tuple3"
+                    var _v35 = {ctor: "_Tuple3"
                                ,_0: scrollWatch.view
-                               ,_1: _v31._0.view
-                               ,_2: _v31._0.frontPageSettings};
-                    switch (_v34.ctor)
+                               ,_1: _v32._0.view
+                               ,_2: _v32._0.frontPageSettings};
+                    switch (_v35.ctor)
                     {case "_Tuple3":
-                       switch (_v34._0.ctor)
+                       switch (_v35._0.ctor)
                          {case "ProductListPage":
-                            switch (_v34._0._1.ctor)
+                            switch (_v35._0._1.ctor)
                               {case "NoFilter":
-                                 switch (_v34._1.ctor)
+                                 switch (_v35._1.ctor)
                                    {case "ProductListPage":
-                                      switch (_v34._1._1.ctor)
+                                      switch (_v35._1._1.ctor)
                                         {case "NoFilter":
                                            return $Maybe.Nothing;}
                                         break;}
                                    break;}
                               break;}
-                         switch (_v34._1.ctor)
+                         switch (_v35._1.ctor)
                          {case "ProductListPage":
-                            switch (_v34._1._1.ctor)
+                            switch (_v35._1._1.ctor)
                               {case "NoFilter":
-                                 switch (_v34._2.ctor)
+                                 switch (_v35._2.ctor)
                                    {case "Just":
-                                      return $Maybe.Just(_v34._2._0.scroll);}
+                                      return $Maybe.Just(_v35._2._0.scroll);}
                                    break;}
                               break;}
-                         switch (_v34._0.ctor)
+                         switch (_v35._0.ctor)
                          {case "ProductPage":
-                            switch (_v34._1.ctor)
+                            switch (_v35._1.ctor)
                               {case "ProductPage":
                                  return $Maybe.Nothing;}
                               break;}
-                         switch (_v34._1.ctor)
+                         switch (_v35._1.ctor)
                          {case "ProductPage":
                             return $Maybe.Just(0);}
                          break;}
                     return $Maybe.Nothing;
                  }();
                  return _U.replace([["view"
-                                    ,_v31._0.view]
+                                    ,_v32._0.view]
                                    ,["scroll",newScroll]],
                  scrollWatch);
               }();}
@@ -4843,83 +4849,83 @@ Elm.Main.make = function (_elm) {
          hash))) : A2($String.startsWith,
          productPrefix,
          hash) ? function () {
-            var _v48 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v49 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             hash));
-            switch (_v48.ctor)
+            switch (_v49.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v48._0);}
+               return $System.ProductPage(_v49._0);}
             _U.badCase($moduleName,
             "between lines 45 and 48");
          }() : $System.NotFoundPage;
       }();
    };
    var step = F2(function (action,
-   _v51) {
+   _v52) {
       return function () {
-         switch (_v51.ctor)
+         switch (_v52.ctor)
          {case "Model":
             return function () {
                  switch (action.ctor)
                  {case "ChangeCurrentPageUrl":
                     return $System.Model(_U.replace([["currentPageUrl"
                                                      ,$Maybe.Just(action._0)]],
-                      _v51._0));
+                      _v52._0));
                     case "ChangeDataFeed":
                     return $System.Model(_U.replace([["dataFeed"
                                                      ,action._0]],
-                      _v51._0));
+                      _v52._0));
                     case "ChangeView":
                     return function () {
                          var newView = function () {
-                            var _v65 = {ctor: "_Tuple2"
-                                       ,_0: _v51._0.frontPageSettings
+                            var _v66 = {ctor: "_Tuple2"
+                                       ,_0: _v52._0.frontPageSettings
                                        ,_1: decodeHash(action._0)};
-                            switch (_v65.ctor)
+                            switch (_v66.ctor)
                             {case "_Tuple2":
-                               switch (_v65._0.ctor)
+                               switch (_v66._0.ctor)
                                  {case "Just":
-                                    switch (_v65._1.ctor)
+                                    switch (_v66._1.ctor)
                                       {case "ProductListPage":
-                                         switch (_v65._1._1.ctor)
+                                         switch (_v66._1._1.ctor)
                                            {case "NoFilter":
                                               return A2($System.ProductListPage,
-                                                _v65._0._0.pageSize,
+                                                _v66._0._0.pageSize,
                                                 $System.NoFilter);}
                                            break;}
                                       break;}
-                                 return _v65._1;}
+                                 return _v66._1;}
                             _U.badCase($moduleName,
                             "between lines 149 and 152");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
-                         _v51._0));
+                         _v52._0));
                       }();
                     case "ChangeViewport":
                     return updateFrontPageSettings(updatePageSize($System.Model(_U.replace([["viewport"
                                                                                             ,$Maybe.Just(action._0)]],
-                      _v51._0))));
+                      _v52._0))));
                     case "Contact":
-                    return $System.Model(_v51._0);
+                    return $System.Model(_v52._0);
                     case "LoadStarred":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(action._0)]],
-                      _v51._0));
+                      _v52._0));
                     case "NoOp":
-                    return $System.Model(_v51._0);
+                    return $System.Model(_v52._0);
                     case "ShareProduct":
-                    return $System.Model(_v51._0);
+                    return $System.Model(_v52._0);
                     case "StarProduct":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(A2(action._0 ? $Set.insert : $Set.remove,
                                                      action._1,
                                                      A2($Maybe.withDefault,
                                                      $Set.empty,
-                                                     _v51._0.starredProducts)))]],
-                      _v51._0));}
+                                                     _v52._0.starredProducts)))]],
+                      _v52._0));}
                  _U.badCase($moduleName,
                  "between lines 143 and 161");
               }();}
@@ -4982,11 +4988,11 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v71) {
+      var starred = function (_v72) {
          return function () {
-            switch (_v71.ctor)
+            switch (_v72.ctor)
             {case "Model":
-               return _v71._0.starredProducts;}
+               return _v72._0.starredProducts;}
             _U.badCase($moduleName,
             "on line 97, column 27 to 44");
          }();
@@ -12987,6 +12993,10 @@ Elm.System.make = function (_elm) {
       return {ctor: "Contact"
              ,_0: a};
    };
+   var BuyProduct = function (a) {
+      return {ctor: "BuyProduct"
+             ,_0: a};
+   };
    var ShareProduct = F2(function (a,
    b) {
       return {ctor: "ShareProduct"
@@ -13046,7 +13056,7 @@ Elm.System.make = function (_elm) {
                     {case "Just": return false;
                        case "Nothing": return true;}
                     _U.badCase($moduleName,
-                    "between lines 75 and 77");
+                    "between lines 76 and 78");
                  }();
               },
               products);
@@ -13073,7 +13083,7 @@ Elm.System.make = function (_elm) {
                          productsFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 78 and 80");
+                    "between lines 79 and 81");
                  }();
               },
               products);
@@ -13102,7 +13112,7 @@ Elm.System.make = function (_elm) {
             case "NoFilter":
             return products;}
          _U.badCase($moduleName,
-         "between lines 68 and 80");
+         "between lines 69 and 81");
       }();
    });
    var FilterWithLimit = function (a) {
@@ -13130,6 +13140,7 @@ Elm.System.make = function (_elm) {
                         ,ChangeView: ChangeView
                         ,StarProduct: StarProduct
                         ,ShareProduct: ShareProduct
+                        ,BuyProduct: BuyProduct
                         ,Contact: Contact
                         ,ChangeViewport: ChangeViewport
                         ,ChangeCurrentPageUrl: ChangeCurrentPageUrl
@@ -14013,10 +14024,12 @@ Elm.ViewCommon.make = function (_elm) {
    _L.fromArray([$Html$Attributes.$class("loading")
                 ,$Html$Attributes.src("loading.gif")]),
    _L.fromArray([]))]));
-   var buyButton = function (p) {
+   var buyButton = F2(function (uiChannel,
+   p) {
       return A2($Html.a,
       _L.fromArray([$Html$Attributes.href(p.clickUrl)
                    ,$Html$Attributes.$class("btn btn-sm btn-success")
+                   ,$Html$Events.onClick($Signal.send(uiChannel)($System.BuyProduct(p.productId)))
                    ,$Html$Attributes.target("_blank")]),
       _L.fromArray([$Html.text(A2($Basics._op["++"],
       "£",
@@ -14024,7 +14037,7 @@ Elm.ViewCommon.make = function (_elm) {
       2,
       _U.chr(","),
       p.price)))]));
-   };
+   });
    var starButton = F3(function (uiChannel,
    starredProducts,
    p) {
@@ -14061,7 +14074,9 @@ Elm.ViewCommon.make = function (_elm) {
    product) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("product-controls")]),
-      _L.fromArray([buyButton(product)
+      _L.fromArray([A2(buyButton,
+                   uiChannel,
+                   product)
                    ,A3(starButton,
                    uiChannel,
                    starredProducts,
