@@ -15377,7 +15377,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 222 and 228");
+         "between lines 223 and 229");
       }();
    };
    var categoryListView = function (categories) {
@@ -15468,7 +15468,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 144 and 150");
+         "between lines 145 and 151");
       }();
    });
    var brandLabel = F2(function (brands,
@@ -15487,7 +15487,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 129 and 133");
+         "between lines 130 and 134");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15506,7 +15506,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 121 and 125");
+         "between lines 122 and 126");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15570,7 +15570,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $ViewCommon.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 178 and 180");
+         "between lines 179 and 181");
       }();
    });
    var navbarView = F2(function (uiChannel,
@@ -15617,21 +15617,23 @@ Elm.View.make = function (_elm) {
                                                                                                      _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 97 and 117");
+         "between lines 98 and 118");
       }();
    });
    var frontPageHeadingView = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
-      return $Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                   _L.fromArray([$Html$Attributes.$class("col-md-3")]),
-                                                   _L.fromArray([exploreCategoriesView(dataFeed)]))
-                                                   ,A2($Html.div,
-                                                   _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
-                                                   _L.fromArray([A3($Placement.currentPlacementView,
-                                                   uiChannel,
-                                                   starredProducts,
-                                                   dataFeed)]))]));
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("row hidden-xs hidden-sm")]),
+      _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("col-md-3")]),
+                   _L.fromArray([exploreCategoriesView(dataFeed)]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
+                   _L.fromArray([A3($Placement.currentPlacementView,
+                   uiChannel,
+                   starredProducts,
+                   dataFeed)]))]));
    });
    var productListHeadingView = F4(function (uiChannel,
    starredProducts,
@@ -15690,7 +15692,7 @@ Elm.View.make = function (_elm) {
    starredProducts,
    product) {
       return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("col-md-2 col-sm-3 col-xs-6 product-summary")
+      _L.fromArray([$Html$Attributes.$class("col-md-2 col-sm-3 col-xs-4 product-summary")
                    ,$Html$Attributes.key($Basics.toString(product.productId))]),
       _L.fromArray([A2($Html.div,
       _L.fromArray([]),
@@ -15865,13 +15867,13 @@ Elm.View.make = function (_elm) {
                                          _v29._0.currentPageUrl,
                                          _v33._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 242 and 250");
+                                    "between lines 243 and 251");
                                  }(),
                                  _v29._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 232 and 251");
+         "between lines 233 and 252");
       }();
    });
    _elm.View.values = {_op: _op

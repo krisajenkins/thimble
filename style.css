@@ -73,11 +73,11 @@ code {
   margin-bottom: 20px;
 }
 .product-summary .product-summary-image {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   height: 200px;
   background-size: contain;
   background-repeat: no-repeat;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  background-position: center;
 }
 @media (min-width: 768px) {
   .product-summary .product-summary-image {
