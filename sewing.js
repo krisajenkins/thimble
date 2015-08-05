@@ -16,6 +16,10 @@ Elm.Array.make = function (_elm) {
    $Native$Array = Elm.Native.Array.make(_elm);
    var append = $Native$Array.append;
    var length = $Native$Array.length;
+   var isEmpty = function (array) {
+      return _U.eq(length(array),
+      0);
+   };
    var slice = $Native$Array.slice;
    var set = $Native$Array.set;
    var get = F2(function (i,
@@ -72,6 +76,7 @@ Elm.Array.make = function (_elm) {
                        ,repeat: repeat
                        ,initialize: initialize
                        ,fromList: fromList
+                       ,isEmpty: isEmpty
                        ,length: length
                        ,push: push
                        ,append: append
@@ -503,7 +508,7 @@ Elm.Color.make = function (_elm) {
                         ,saturation: s};
               }();}
          _U.badCase($moduleName,
-         "between lines 114 and 121");
+         "between lines 114 and 118");
       }();
    };
    var HSLA = F4(function (a,
@@ -559,7 +564,7 @@ Elm.Color.make = function (_elm) {
                  color._3);
               }();}
          _U.badCase($moduleName,
-         "between lines 105 and 111");
+         "between lines 105 and 108");
       }();
    };
    var grayscale = function (p) {
@@ -917,7 +922,7 @@ Elm.Dict.make = function (_elm) {
               A3(foldr,f,acc,t._4)),
               t._3);}
          _U.badCase($moduleName,
-         "between lines 408 and 416");
+         "between lines 417 and 421");
       }();
    });
    var keys = function (dict) {
@@ -973,7 +978,7 @@ Elm.Dict.make = function (_elm) {
               A3(foldl,f,acc,dict._3)),
               dict._4);}
          _U.badCase($moduleName,
-         "between lines 397 and 405");
+         "between lines 406 and 410");
       }();
    });
    var isBBlack = function (dict) {
@@ -997,7 +1002,7 @@ Elm.Dict.make = function (_elm) {
             case "Remove": return "Remove";
             case "Same": return "Same";}
          _U.badCase($moduleName,
-         "between lines 173 and 179");
+         "between lines 182 and 185");
       }();
    };
    var Same = {ctor: "Same"};
@@ -1027,10 +1032,10 @@ Elm.Dict.make = function (_elm) {
                       targetKey,
                       dict._3);}
                  _U.badCase($moduleName,
-                 "between lines 129 and 135");
+                 "between lines 129 and 132");
               }();}
          _U.badCase($moduleName,
-         "between lines 124 and 135");
+         "between lines 124 and 132");
       }();
    });
    var member = F2(function (key,
@@ -1057,7 +1062,7 @@ Elm.Dict.make = function (_elm) {
                         ,_1: dict._2};}
               return max(dict._4);}
          _U.badCase($moduleName,
-         "between lines 100 and 121");
+         "between lines 100 and 108");
       }();
    };
    var min = function (dict) {
@@ -1111,6 +1116,9 @@ Elm.Dict.make = function (_elm) {
    var LBBlack = {ctor: "LBBlack"};
    var LBlack = {ctor: "LBlack"};
    var empty = RBEmpty(LBlack);
+   var isEmpty = function (dict) {
+      return _U.eq(dict,empty);
+   };
    var map = F2(function (f,dict) {
       return function () {
          switch (dict.ctor)
@@ -1126,7 +1134,7 @@ Elm.Dict.make = function (_elm) {
               A2(map,f,dict._3),
               A2(map,f,dict._4));}
          _U.badCase($moduleName,
-         "between lines 385 and 394");
+         "between lines 394 and 399");
       }();
    });
    var showNColor = function (c) {
@@ -1175,7 +1183,7 @@ Elm.Dict.make = function (_elm) {
                    dict._4);}
               break;}
          _U.badCase($moduleName,
-         "between lines 145 and 157");
+         "between lines 154 and 162");
       }();
    };
    var blackish = function (t) {
@@ -1186,7 +1194,7 @@ Elm.Dict.make = function (_elm) {
             return _U.eq(t._0,
               Black) || _U.eq(t._0,BBlack);}
          _U.badCase($moduleName,
-         "between lines 330 and 332");
+         "between lines 339 and 341");
       }();
    };
    var blacken = function (t) {
@@ -1201,7 +1209,7 @@ Elm.Dict.make = function (_elm) {
               t._3,
               t._4);}
          _U.badCase($moduleName,
-         "between lines 369 and 371");
+         "between lines 378 and 380");
       }();
    };
    var Red = {ctor: "Red"};
@@ -1214,7 +1222,7 @@ Elm.Dict.make = function (_elm) {
             case "NBlack": return Red;
             case "Red": return Black;}
          _U.badCase($moduleName,
-         "between lines 235 and 239");
+         "between lines 244 and 248");
       }();
    };
    var lessBlack = function (color) {
@@ -1226,7 +1234,7 @@ Elm.Dict.make = function (_elm) {
             return $Native$Debug.crash("Can\'t make a negative black node less black!");
             case "Red": return NBlack;}
          _U.badCase($moduleName,
-         "between lines 244 and 248");
+         "between lines 253 and 257");
       }();
    };
    var lessBlackTree = function (dict) {
@@ -1244,7 +1252,7 @@ Elm.Dict.make = function (_elm) {
               dict._3,
               dict._4);}
          _U.badCase($moduleName,
-         "between lines 253 and 255");
+         "between lines 262 and 264");
       }();
    };
    var redden = function (t) {
@@ -1259,7 +1267,7 @@ Elm.Dict.make = function (_elm) {
               t._3,
               t._4);}
          _U.badCase($moduleName,
-         "between lines 377 and 382");
+         "between lines 386 and 388");
       }();
    };
    var balance_node = function (t) {
@@ -1461,7 +1469,7 @@ Elm.Dict.make = function (_elm) {
               r._3,
               r._4));}
          _U.badCase($moduleName,
-         "between lines 314 and 319");
+         "between lines 323 and 328");
       }();
    });
    var rem = F3(function (c,l,r) {
@@ -1482,7 +1490,7 @@ Elm.Dict.make = function (_elm) {
                               case "Red":
                               return RBEmpty(LBlack);}
                            _U.badCase($moduleName,
-                           "between lines 273 and 277");
+                           "between lines 282 and 286");
                         }();
                       case "RBNode":
                       return function () {
@@ -1572,7 +1580,7 @@ Elm.Dict.make = function (_elm) {
                    break;}
               break;}
          _U.badCase($moduleName,
-         "between lines 271 and 300");
+         "between lines 280 and 309");
       }();
    });
    var update = F3(function (k,
@@ -1602,7 +1610,7 @@ Elm.Dict.make = function (_elm) {
                                       ,_0: Same
                                       ,_1: empty};}
                             _U.badCase($moduleName,
-                            "between lines 185 and 189");
+                            "between lines 194 and 198");
                          }();}
                     break;
                   case "RBNode":
@@ -1631,7 +1639,7 @@ Elm.Dict.make = function (_elm) {
                                          dict._3,
                                          dict._4)};}
                                _U.badCase($moduleName,
-                               "between lines 192 and 197");
+                               "between lines 201 and 206");
                             }();
                           case "GT": return function () {
                                var $ = up(dict._4),
@@ -1667,7 +1675,7 @@ Elm.Dict.make = function (_elm) {
                                             dict._3,
                                             newRight)};}
                                   _U.badCase($moduleName,
-                                  "between lines 206 and 211");
+                                  "between lines 215 and 220");
                                }();
                             }();
                           case "LT": return function () {
@@ -1704,14 +1712,14 @@ Elm.Dict.make = function (_elm) {
                                             newLeft,
                                             dict._4)};}
                                   _U.badCase($moduleName,
-                                  "between lines 199 and 204");
+                                  "between lines 208 and 213");
                                }();
                             }();}
                        _U.badCase($moduleName,
-                       "between lines 190 and 211");
+                       "between lines 199 and 220");
                     }();}
                _U.badCase($moduleName,
-               "between lines 183 and 211");
+               "between lines 192 and 220");
             }();
          };
          var $ = up(dict),
@@ -1726,7 +1734,7 @@ Elm.Dict.make = function (_elm) {
                case "Same":
                return updatedDict;}
             _U.badCase($moduleName,
-            "between lines 213 and 219");
+            "between lines 222 and 225");
          }();
       }();
    });
@@ -1743,7 +1751,7 @@ Elm.Dict.make = function (_elm) {
       return A3(insert,
       key,
       value,
-      RBEmpty(LBlack));
+      empty);
    });
    var union = F2(function (t1,
    t2) {
@@ -1763,7 +1771,7 @@ Elm.Dict.make = function (_elm) {
                  _v214._1,
                  dict);}
             _U.badCase($moduleName,
-            "on line 457, column 38 to 59");
+            "on line 466, column 38 to 59");
          }();
       }),
       empty,
@@ -1821,7 +1829,7 @@ Elm.Dict.make = function (_elm) {
                                               value,
                                               _v220._1)};}
                _U.badCase($moduleName,
-               "between lines 478 and 480");
+               "between lines 487 and 489");
             }();
          });
          return A3(foldl,
@@ -1852,6 +1860,7 @@ Elm.Dict.make = function (_elm) {
                       ,singleton: singleton
                       ,insert: insert
                       ,update: update
+                      ,isEmpty: isEmpty
                       ,get: get
                       ,remove: remove
                       ,member: member
@@ -1870,6 +1879,72 @@ Elm.Dict.make = function (_elm) {
    return _elm.Dict.values;
 };
 Elm.Exts = Elm.Exts || {};
+Elm.Exts.Dict = Elm.Exts.Dict || {};
+Elm.Exts.Dict.make = function (_elm) {
+   "use strict";
+   _elm.Exts = _elm.Exts || {};
+   _elm.Exts.Dict = _elm.Exts.Dict || {};
+   if (_elm.Exts.Dict.values)
+   return _elm.Exts.Dict.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Exts.Dict",
+   $Basics = Elm.Basics.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var groupBy = function (f) {
+      return function () {
+         var reducer = F3(function (g,
+         x,
+         d) {
+            return function () {
+               var key = g(x);
+               var newValue = A2($List._op["::"],
+               x,
+               A2($Maybe.withDefault,
+               _L.fromArray([]),
+               A2($Dict.get,key,d)));
+               return A3($Dict.insert,
+               key,
+               newValue,
+               d);
+            }();
+         });
+         return A2($List.foldl,
+         reducer(f),
+         $Dict.empty);
+      }();
+   };
+   var frequency = function (xs) {
+      return $Dict.map(function (_v0) {
+         return function () {
+            return $List.length;
+         }();
+      })(A2(groupBy,
+      $Basics.identity,
+      xs));
+   };
+   var indexBy = function (f) {
+      return A2($List.foldl,
+      function (x) {
+         return A2($Dict.insert,
+         f(x),
+         x);
+      },
+      $Dict.empty);
+   };
+   _elm.Exts.Dict.values = {_op: _op
+                           ,indexBy: indexBy
+                           ,groupBy: groupBy
+                           ,frequency: frequency};
+   return _elm.Exts.Dict.values;
+};
+Elm.Exts = Elm.Exts || {};
 Elm.Exts.Html = Elm.Exts.Html || {};
 Elm.Exts.Html.Bootstrap = Elm.Exts.Html.Bootstrap || {};
 Elm.Exts.Html.Bootstrap.make = function (_elm) {
@@ -1884,8 +1959,13 @@ Elm.Exts.Html.Bootstrap.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Exts.Html.Bootstrap",
+   $Basics = Elm.Basics.make(_elm),
    $Html = Elm.Html.make(_elm),
-   $Html$Attributes = Elm.Html.Attributes.make(_elm);
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var empty = A2($Html.span,
    _L.fromArray([]),
    _L.fromArray([]));
@@ -1927,7 +2007,10 @@ Elm.Exts.Json.Encode.make = function (_elm) {
    $Basics = Elm.Basics.make(_elm),
    $Json$Encode = Elm.Json.Encode.make(_elm),
    $List = Elm.List.make(_elm),
-   $Set = Elm.Set.make(_elm);
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var set = function (encodeElement) {
       return function ($) {
          return $Json$Encode.list($List.map(encodeElement)($List.sort($Set.toList($))));
@@ -1952,28 +2035,14 @@ Elm.Exts.Maybe.make = function (_elm) {
    $moduleName = "Exts.Maybe",
    $Basics = Elm.Basics.make(_elm),
    $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm);
-   var mapMaybe = F2(function (f,
-   xs) {
-      return function () {
-         switch (xs.ctor)
-         {case "::": return function () {
-                 var _v3 = f(xs._0);
-                 switch (_v3.ctor)
-                 {case "Just":
-                    return A2($List._op["::"],
-                      _v3._0,
-                      A2(mapMaybe,f,xs._1));
-                    case "Nothing":
-                    return A2(mapMaybe,f,xs._1);}
-                 _U.badCase($moduleName,
-                 "between lines 28 and 30");
-              }();
-            case "[]":
-            return _L.fromArray([]);}
-         _U.badCase($moduleName,
-         "between lines 26 and 30");
-      }();
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var maybe = F2(function ($default,
+   f) {
+      return function ($) {
+         return $Maybe.withDefault($default)($Maybe.map(f)($));
+      };
    });
    var maybeNumber = function (x) {
       return function () {
@@ -1982,7 +2051,7 @@ Elm.Exts.Maybe.make = function (_elm) {
             return $Basics.toString(x._0);
             case "Nothing": return "";}
          _U.badCase($moduleName,
-         "between lines 20 and 22");
+         "between lines 27 and 29");
       }();
    };
    var maybeString = $Maybe.withDefault("");
@@ -2001,69 +2070,8 @@ Elm.Exts.Maybe.make = function (_elm) {
                             ,isNothing: isNothing
                             ,maybeString: maybeString
                             ,maybeNumber: maybeNumber
-                            ,mapMaybe: mapMaybe};
+                            ,maybe: maybe};
    return _elm.Exts.Maybe.values;
-};
-Elm.Exts = Elm.Exts || {};
-Elm.Exts.SafeList = Elm.Exts.SafeList || {};
-Elm.Exts.SafeList.make = function (_elm) {
-   "use strict";
-   _elm.Exts = _elm.Exts || {};
-   _elm.Exts.SafeList = _elm.Exts.SafeList || {};
-   if (_elm.Exts.SafeList.values)
-   return _elm.Exts.SafeList.values;
-   var _op = {},
-   _N = Elm.Native,
-   _U = _N.Utils.make(_elm),
-   _L = _N.List.make(_elm),
-   $moduleName = "Exts.SafeList",
-   $Basics = Elm.Basics.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm);
-   var lookup = F2(function (f,
-   xs) {
-      return $List.head(A2($List.filter,
-      f,
-      xs));
-   });
-   _elm.Exts.SafeList.values = {_op: _op
-                               ,lookup: lookup};
-   return _elm.Exts.SafeList.values;
-};
-Elm.Exts = Elm.Exts || {};
-Elm.Exts.Set = Elm.Exts.Set || {};
-Elm.Exts.Set.make = function (_elm) {
-   "use strict";
-   _elm.Exts = _elm.Exts || {};
-   _elm.Exts.Set = _elm.Exts.Set || {};
-   if (_elm.Exts.Set.values)
-   return _elm.Exts.Set.values;
-   var _op = {},
-   _N = Elm.Native,
-   _U = _N.Utils.make(_elm),
-   _L = _N.List.make(_elm),
-   $moduleName = "Exts.Set",
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Set = Elm.Set.make(_elm);
-   var uniqueItems = F2(function (accessor,
-   data) {
-      return $Set.fromList(A2($List.filterMap,
-      accessor,
-      data));
-   });
-   var select = F2(function (f,
-   keys) {
-      return $List.filter(function (x) {
-         return A2($Set.member,
-         f(x),
-         keys);
-      });
-   });
-   _elm.Exts.Set.values = {_op: _op
-                          ,select: select
-                          ,uniqueItems: uniqueItems};
-   return _elm.Exts.Set.values;
 };
 Elm.Exts = Elm.Exts || {};
 Elm.Exts.String = Elm.Exts.String || {};
@@ -2078,6 +2086,11 @@ Elm.Exts.String.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Exts.String",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm);
    var removePrefix = F2(function (prefix,
    s) {
@@ -2103,7 +2116,12 @@ Elm.Exts.Tuple.make = function (_elm) {
    _N = Elm.Native,
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
-   $moduleName = "Exts.Tuple";
+   $moduleName = "Exts.Tuple",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var indexedPair = F2(function (f,
    x) {
       return {ctor: "_Tuple2"
@@ -2231,7 +2249,7 @@ Elm.Graphics.Collage.make = function (_elm) {
                               ,["y",f.y + _v0._1]],
               f);}
          _U.badCase($moduleName,
-         "on line 226, column 7 to 35");
+         "on line 226, column 3 to 37");
       }();
    });
    var form = function (f) {
@@ -2914,7 +2932,7 @@ Elm.Graphics.Element.make = function (_elm) {
                  maxOrZero(ws),
                  $List.sum(hs));}
             _U.badCase($moduleName,
-            "between lines 362 and 373");
+            "between lines 362 and 368");
          }();
       }();
    });
@@ -3013,7 +3031,12 @@ Elm.Html.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Html",
+   $Basics = Elm.Basics.make(_elm),
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
    $VirtualDom = Elm.VirtualDom.make(_elm);
    var fromElement = $VirtualDom.fromElement;
    var toElement = $VirtualDom.toElement;
@@ -3241,6 +3264,9 @@ Elm.Html.Attributes.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $Json$Encode = Elm.Json.Encode.make(_elm),
    $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm),
    $VirtualDom = Elm.VirtualDom.make(_elm);
    var attribute = $VirtualDom.attribute;
@@ -3865,8 +3891,12 @@ Elm.Html.Events.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Html.Events",
+   $Basics = Elm.Basics.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $VirtualDom = Elm.VirtualDom.make(_elm);
    var keyCode = A2($Json$Decode._op[":="],
@@ -3955,8 +3985,13 @@ Elm.HtmlUtils.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "HtmlUtils",
+   $Basics = Elm.Basics.make(_elm),
    $Html = Elm.Html.make(_elm),
-   $Html$Attributes = Elm.Html.Attributes.make(_elm);
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var htmlError = function (s) {
       return A2($Html.div,
       _L.fromArray([$Html$Attributes.$class("alert alert-danger")]),
@@ -3977,6 +4012,9 @@ Elm.Http.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Http",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
    $Native$Http = Elm.Native.Http.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
@@ -4149,9 +4187,23 @@ Elm.Json.Decode.make = function (_elm) {
    };
    var Decoder = {ctor: "Decoder"};
    _elm.Json.Decode.values = {_op: _op
-                             ,Decoder: Decoder
-                             ,map: map
                              ,decodeString: decodeString
+                             ,decodeValue: decodeValue
+                             ,string: string
+                             ,$int: $int
+                             ,$float: $float
+                             ,bool: bool
+                             ,$null: $null
+                             ,list: list
+                             ,array: array
+                             ,tuple1: tuple1
+                             ,tuple2: tuple2
+                             ,tuple3: tuple3
+                             ,tuple4: tuple4
+                             ,tuple5: tuple5
+                             ,tuple6: tuple6
+                             ,tuple7: tuple7
+                             ,tuple8: tuple8
                              ,at: at
                              ,object1: object1
                              ,object2: object2
@@ -4163,29 +4215,15 @@ Elm.Json.Decode.make = function (_elm) {
                              ,object8: object8
                              ,keyValuePairs: keyValuePairs
                              ,dict: dict
-                             ,oneOf: oneOf
-                             ,string: string
-                             ,$float: $float
-                             ,$int: $int
-                             ,bool: bool
-                             ,list: list
-                             ,array: array
-                             ,$null: $null
                              ,maybe: maybe
-                             ,value: value
-                             ,decodeValue: decodeValue
-                             ,customDecoder: customDecoder
-                             ,andThen: andThen
+                             ,oneOf: oneOf
+                             ,map: map
                              ,fail: fail
                              ,succeed: succeed
-                             ,tuple1: tuple1
-                             ,tuple2: tuple2
-                             ,tuple3: tuple3
-                             ,tuple4: tuple4
-                             ,tuple5: tuple5
-                             ,tuple6: tuple6
-                             ,tuple7: tuple7
-                             ,tuple8: tuple8};
+                             ,andThen: andThen
+                             ,value: value
+                             ,customDecoder: customDecoder
+                             ,Decoder: Decoder};
    return _elm.Json.Decode.values;
 };
 Elm.Json = Elm.Json || {};
@@ -4203,8 +4241,85 @@ Elm.Json.Decode.Extra.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Json.Decode.Extra",
+   $Basics = Elm.Basics.make(_elm),
    $Date = Elm.Date.make(_elm),
-   $Json$Decode = Elm.Json.Decode.make(_elm);
+   $Dict = Elm.Dict.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var lazy = function (getDecoder) {
+      return $Json$Decode.customDecoder($Json$Decode.value)(function (rawValue) {
+         return A2($Json$Decode.decodeValue,
+         getDecoder({ctor: "_Tuple0"}),
+         rawValue);
+      });
+   };
+   var maybeNull = function (decoder) {
+      return $Json$Decode.oneOf(_L.fromArray([$Json$Decode.$null($Maybe.Nothing)
+                                             ,A2($Json$Decode.map,
+                                             $Maybe.Just,
+                                             decoder)]));
+   };
+   var withDefault = F2(function (fallback,
+   decoder) {
+      return A2($Json$Decode.andThen,
+      $Json$Decode.maybe(decoder),
+      function ($) {
+         return $Json$Decode.succeed($Maybe.withDefault(fallback)($));
+      });
+   });
+   var decodeDictFromTuples = F2(function (keyDecoder,
+   tuples) {
+      return function () {
+         switch (tuples.ctor)
+         {case "::":
+            switch (tuples._0.ctor)
+              {case "_Tuple2":
+                 return function () {
+                      var _v5 = A2($Json$Decode.decodeString,
+                      keyDecoder,
+                      tuples._0._0);
+                      switch (_v5.ctor)
+                      {case "Err":
+                         return $Json$Decode.fail(_v5._0);
+                         case "Ok":
+                         return A2($Json$Decode.andThen,
+                           A2(decodeDictFromTuples,
+                           keyDecoder,
+                           tuples._1),
+                           function ($) {
+                              return $Json$Decode.succeed(A2($Dict.insert,
+                              _v5._0,
+                              tuples._0._1)($));
+                           });}
+                      _U.badCase($moduleName,
+                      "between lines 134 and 140");
+                   }();}
+              break;
+            case "[]":
+            return $Json$Decode.succeed($Dict.empty);}
+         _U.badCase($moduleName,
+         "between lines 129 and 140");
+      }();
+   });
+   var dict2 = F2(function (keyDecoder,
+   valueDecoder) {
+      return A2($Json$Decode.andThen,
+      $Json$Decode.dict(valueDecoder),
+      function ($) {
+         return decodeDictFromTuples(keyDecoder)($Dict.toList($));
+      });
+   });
+   var set = function (decoder) {
+      return A2($Json$Decode.andThen,
+      $Json$Decode.list(decoder),
+      function ($) {
+         return $Json$Decode.succeed($Set.fromList($));
+      });
+   };
    var date = A2($Json$Decode.customDecoder,
    $Json$Decode.string,
    $Date.fromString);
@@ -4219,8 +4334,13 @@ Elm.Json.Decode.Extra.make = function (_elm) {
       });
    });
    _elm.Json.Decode.Extra.values = {_op: _op
+                                   ,date: date
                                    ,apply: apply
-                                   ,date: date};
+                                   ,set: set
+                                   ,dict2: dict2
+                                   ,withDefault: withDefault
+                                   ,maybeNull: maybeNull
+                                   ,lazy: lazy};
    return _elm.Json.Decode.Extra.values;
 };
 Elm.Json = Elm.Json || {};
@@ -4249,16 +4369,16 @@ Elm.Json.Encode.make = function (_elm) {
    var encode = $Native$Json.encode;
    var Value = {ctor: "Value"};
    _elm.Json.Encode.values = {_op: _op
-                             ,Value: Value
                              ,encode: encode
                              ,string: string
                              ,$int: $int
                              ,$float: $float
                              ,bool: bool
                              ,$null: $null
-                             ,object: object
+                             ,list: list
                              ,array: array
-                             ,list: list};
+                             ,object: object
+                             ,Value: Value};
    return _elm.Json.Encode.values;
 };
 Elm.List = Elm.List || {};
@@ -4378,7 +4498,7 @@ Elm.List.make = function (_elm) {
             case "[]":
             return $Maybe.Nothing;}
          _U.badCase($moduleName,
-         "between lines 87 and 95");
+         "between lines 87 and 89");
       }();
    };
    var head = function (list) {
@@ -4389,7 +4509,7 @@ Elm.List.make = function (_elm) {
             case "[]":
             return $Maybe.Nothing;}
          _U.badCase($moduleName,
-         "between lines 75 and 84");
+         "between lines 75 and 77");
       }();
    };
    _op["::"] = $Native$List.cons;
@@ -4428,7 +4548,7 @@ Elm.List.make = function (_elm) {
             return A2(_op["::"],_v15._0,xs);
             case "Nothing": return xs;}
          _U.badCase($moduleName,
-         "between lines 179 and 186");
+         "between lines 179 and 181");
       }();
    });
    var filterMap = F2(function (f,
@@ -4575,7 +4695,7 @@ Elm.List.make = function (_elm) {
             case "[]":
             return _L.fromArray([]);}
          _U.badCase($moduleName,
-         "between lines 350 and 361");
+         "between lines 350 and 356");
       }();
    });
    _elm.List.values = {_op: _op
@@ -4634,6 +4754,7 @@ Elm.Main.make = function (_elm) {
    $Http = Elm.Http.make(_elm),
    $Json$Decode = Elm.Json.Decode.make(_elm),
    $Json$Encode = Elm.Json.Encode.make(_elm),
+   $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
@@ -4664,36 +4785,26 @@ Elm.Main.make = function (_elm) {
                            ,_1: _v0._0.view};
                  switch (_v3.ctor)
                  {case "_Tuple2":
-                    switch (_v3._0.ctor)
-                      {case "Just":
-                         switch (_v3._1.ctor)
-                           {case "ProductListPage":
-                              switch (_v3._1._1.ctor)
-                                {case "NoFilter":
-                                   return function () {
-                                        var newSettings = $Maybe.Just({_: {}
-                                                                      ,pageSize: _v3._1._0
-                                                                      ,scroll: _v3._0._0.viewportTop});
-                                        return _U.replace([["frontPageSettings"
-                                                           ,newSettings]],
-                                        _v0._0);
-                                     }();}
-                                break;}
+                    switch (_v3._1.ctor)
+                      {case "ProductListPage":
+                         switch (_v3._1._1.ctor)
+                           {case "NoFilter":
+                              return function () {
+                                   var newSettings = $Maybe.Just({_: {}
+                                                                 ,pageSize: _v3._1._0
+                                                                 ,scroll: _v3._0.viewportTop});
+                                   return _U.replace([["frontPageSettings"
+                                                      ,newSettings]],
+                                   _v0._0);
+                                }();}
                            break;}
                       break;}
                  return _v0._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 152 and 157");
+         "between lines 153 and 158");
       }();
    };
-   var initialModel = $System.Model({_: {}
-                                    ,currentPageUrl: $Maybe.Nothing
-                                    ,dataFeed: $Http.NotAsked
-                                    ,frontPageSettings: $Maybe.Nothing
-                                    ,starredProducts: $Maybe.Nothing
-                                    ,view: $System.NoPage
-                                    ,viewport: $Maybe.Nothing});
    var pageSize = 24;
    var dataFeedQuery = A2($Signal._op["<~"],
    $Http.mapResult($Json$Decode.decodeString($Schema.decodeDataFeed)),
@@ -4710,20 +4821,20 @@ Elm.Main.make = function (_elm) {
             switch (maybeString.ctor)
             {case "Just":
                return function () {
-                    var _v11 = A2($Json$Decode.decodeString,
+                    var _v10 = A2($Json$Decode.decodeString,
                     $Json$Decode.list($Json$Decode.$int),
                     maybeString._0);
-                    switch (_v11.ctor)
+                    switch (_v10.ctor)
                     {case "Err": return $Set.empty;
                        case "Ok":
-                       return $Set.fromList(_v11._0);}
+                       return $Set.fromList(_v10._0);}
                     _U.badCase($moduleName,
-                    "between lines 108 and 111");
+                    "between lines 107 and 110");
                  }();
                case "Nothing":
                return $Set.empty;}
             _U.badCase($moduleName,
-            "between lines 106 and 111");
+            "between lines 105 and 110");
          }();
       };
       return A2($Signal._op["<~"],
@@ -4779,86 +4890,83 @@ Elm.Main.make = function (_elm) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
       v.pageHeight - 200) > -1;
    };
-   var updatePageSize = function (_v24) {
+   var updatePageSize = function (_v23) {
       return function () {
-         switch (_v24.ctor)
+         switch (_v23.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v27 = {ctor: "_Tuple2"
-                            ,_0: _v24._0.viewport
-                            ,_1: _v24._0.view};
-                 switch (_v27.ctor)
+                 var _v26 = {ctor: "_Tuple2"
+                            ,_0: _v23._0.viewport
+                            ,_1: _v23._0.view};
+                 switch (_v26.ctor)
                  {case "_Tuple2":
-                    switch (_v27._0.ctor)
-                      {case "Just":
-                         switch (_v27._1.ctor)
-                           {case "ProductListPage":
-                              return scrolledToBottom(_v27._0._0) ? _U.replace([["view"
-                                                                                ,A2($System.ProductListPage,
-                                                                                _v27._1._0 + pageSize,
-                                                                                _v27._1._1)]],
-                                _v24._0) : _v24._0;}
-                           break;}
+                    switch (_v26._1.ctor)
+                      {case "ProductListPage":
+                         return scrolledToBottom(_v26._0) ? _U.replace([["view"
+                                                                        ,A2($System.ProductListPage,
+                                                                        _v26._1._0 + pageSize,
+                                                                        _v26._1._1)]],
+                           _v23._0) : _v23._0;}
                       break;}
-                 return _v24._0;
+                 return _v23._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 143 and 148");
+         "between lines 144 and 149");
       }();
    };
-   var scrollWatcher = F2(function (_v33,
+   var scrollWatcher = F2(function (_v31,
    scrollWatch) {
       return function () {
-         switch (_v33.ctor)
+         switch (_v31.ctor)
          {case "Model":
             return function () {
                  var newScroll = function () {
-                    var _v36 = {ctor: "_Tuple3"
+                    var _v34 = {ctor: "_Tuple3"
                                ,_0: scrollWatch.view
-                               ,_1: _v33._0.view
-                               ,_2: _v33._0.frontPageSettings};
-                    switch (_v36.ctor)
+                               ,_1: _v31._0.view
+                               ,_2: _v31._0.frontPageSettings};
+                    switch (_v34.ctor)
                     {case "_Tuple3":
-                       switch (_v36._0.ctor)
+                       switch (_v34._0.ctor)
                          {case "ProductListPage":
-                            switch (_v36._0._1.ctor)
+                            switch (_v34._0._1.ctor)
                               {case "NoFilter":
-                                 switch (_v36._1.ctor)
+                                 switch (_v34._1.ctor)
                                    {case "ProductListPage":
-                                      switch (_v36._1._1.ctor)
+                                      switch (_v34._1._1.ctor)
                                         {case "NoFilter":
                                            return $Maybe.Nothing;}
                                         break;}
                                    break;}
                               break;}
-                         switch (_v36._1.ctor)
+                         switch (_v34._1.ctor)
                          {case "ProductListPage":
-                            switch (_v36._1._1.ctor)
+                            switch (_v34._1._1.ctor)
                               {case "NoFilter":
-                                 switch (_v36._2.ctor)
+                                 switch (_v34._2.ctor)
                                    {case "Just":
-                                      return $Maybe.Just(_v36._2._0.scroll);}
+                                      return $Maybe.Just(_v34._2._0.scroll);}
                                    break;}
                               break;}
-                         switch (_v36._0.ctor)
+                         switch (_v34._0.ctor)
                          {case "ProductPage":
-                            switch (_v36._1.ctor)
+                            switch (_v34._1.ctor)
                               {case "ProductPage":
                                  return $Maybe.Nothing;}
                               break;}
-                         switch (_v36._1.ctor)
+                         switch (_v34._1.ctor)
                          {case "ProductPage":
                             return $Maybe.Just(0);}
                          break;}
                     return $Maybe.Nothing;
                  }();
                  return _U.replace([["view"
-                                    ,_v33._0.view]
+                                    ,_v31._0.view]
                                    ,["scroll",newScroll]],
                  scrollWatch);
               }();}
          _U.badCase($moduleName,
-         "between lines 64 and 72");
+         "between lines 63 and 71");
       }();
    });
    var ScrollWatch = F2(function (a,
@@ -4876,7 +4984,19 @@ Elm.Main.make = function (_elm) {
                                                                                                          ,viewportTop: typeof v.viewportTop === "number" ? v.viewportTop : _U.badPort("a number",
                                                                                                          v.viewportTop)
                                                                                                          ,viewportHeight: typeof v.viewportHeight === "number" ? v.viewportHeight : _U.badPort("a number",
-                                                                                                         v.viewportHeight)} : _U.badPort("an object with fields \'pageHeight\', \'viewportTop\', \'viewportHeight\'",
+                                                                                                         v.viewportHeight)} : _U.badPort("an object with fields `pageHeight`, `viewportTop`, `viewportHeight`",
+      v);
+   });
+   var initialViewport = Elm.Native.Port.make(_elm).inbound("initialViewport",
+   "System.Viewport",
+   function (v) {
+      return typeof v === "object" && "pageHeight" in v && "viewportTop" in v && "viewportHeight" in v ? {_: {}
+                                                                                                         ,pageHeight: typeof v.pageHeight === "number" ? v.pageHeight : _U.badPort("a number",
+                                                                                                         v.pageHeight)
+                                                                                                         ,viewportTop: typeof v.viewportTop === "number" ? v.viewportTop : _U.badPort("a number",
+                                                                                                         v.viewportTop)
+                                                                                                         ,viewportHeight: typeof v.viewportHeight === "number" ? v.viewportHeight : _U.badPort("a number",
+                                                                                                         v.viewportHeight)} : _U.badPort("an object with fields `pageHeight`, `viewportTop`, `viewportHeight`",
       v);
    });
    var decodeHash = function (hash) {
@@ -4913,88 +5033,88 @@ Elm.Main.make = function (_elm) {
          hash))) : A2($String.startsWith,
          productPrefix,
          hash) ? function () {
-            var _v50 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v48 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             hash));
-            switch (_v50.ctor)
+            switch (_v48.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v50._0);}
+               return $System.ProductPage(_v48._0);}
             _U.badCase($moduleName,
-            "between lines 42 and 45");
+            "between lines 40 and 43");
          }() : $System.NotFoundPage;
       }();
    };
    var step = F2(function (action,
-   _v53) {
+   _v51) {
       return function () {
-         switch (_v53.ctor)
+         switch (_v51.ctor)
          {case "Model":
             return function () {
                  switch (action.ctor)
                  {case "ChangeCurrentPageUrl":
                     return $System.Model(_U.replace([["currentPageUrl"
-                                                     ,$Maybe.Just(action._0)]],
-                      _v53._0));
+                                                     ,action._0]],
+                      _v51._0));
                     case "ChangeDataFeed":
                     return $System.Model(_U.replace([["dataFeed"
                                                      ,action._0]],
-                      _v53._0));
+                      _v51._0));
                     case "ChangeView":
                     return function () {
                          var newView = function () {
-                            var _v67 = {ctor: "_Tuple2"
-                                       ,_0: _v53._0.frontPageSettings
+                            var _v65 = {ctor: "_Tuple2"
+                                       ,_0: _v51._0.frontPageSettings
                                        ,_1: decodeHash(action._0)};
-                            switch (_v67.ctor)
+                            switch (_v65.ctor)
                             {case "_Tuple2":
-                               switch (_v67._0.ctor)
+                               switch (_v65._0.ctor)
                                  {case "Just":
-                                    switch (_v67._1.ctor)
+                                    switch (_v65._1.ctor)
                                       {case "ProductListPage":
-                                         switch (_v67._1._1.ctor)
+                                         switch (_v65._1._1.ctor)
                                            {case "NoFilter":
                                               return A2($System.ProductListPage,
-                                                _v67._0._0.pageSize,
+                                                _v65._0._0.pageSize,
                                                 $System.NoFilter);}
                                            break;}
                                       break;}
-                                 return _v67._1;}
+                                 return _v65._1;}
                             _U.badCase($moduleName,
-                            "between lines 167 and 170");
+                            "between lines 168 and 171");
                          }();
                          return $System.Model(_U.replace([["view"
                                                           ,newView]],
-                         _v53._0));
+                         _v51._0));
                       }();
                     case "ChangeViewport":
                     return updateFrontPageSettings(updatePageSize($System.Model(_U.replace([["viewport"
-                                                                                            ,$Maybe.Just(action._0)]],
-                      _v53._0))));
+                                                                                            ,action._0]],
+                      _v51._0))));
                     case "Contact":
-                    return $System.Model(_v53._0);
+                    return $System.Model(_v51._0);
                     case "LoadStarred":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(action._0)]],
-                      _v53._0));
+                      _v51._0));
                     case "NoOp":
-                    return $System.Model(_v53._0);
+                    return $System.Model(_v51._0);
                     case "ShareProduct":
-                    return $System.Model(_v53._0);
+                    return $System.Model(_v51._0);
                     case "StarProduct":
                     return $System.Model(_U.replace([["starredProducts"
                                                      ,$Maybe.Just(A2(action._0 ? $Set.insert : $Set.remove,
                                                      action._1,
                                                      A2($Maybe.withDefault,
                                                      $Set.empty,
-                                                     _v53._0.starredProducts)))]],
-                      _v53._0));}
+                                                     _v51._0.starredProducts)))]],
+                      _v51._0));}
                  _U.badCase($moduleName,
-                 "between lines 161 and 179");
+                 "between lines 162 and 180");
               }();}
          _U.badCase($moduleName,
-         "between lines 161 and 179");
+         "between lines 162 and 180");
       }();
    });
    var locationHash = Elm.Native.Port.make(_elm).inboundSignal("locationHash",
@@ -5037,6 +5157,19 @@ Elm.Main.make = function (_elm) {
    $Signal.dropRepeats(A2($Signal._op["<~"],
    analytics,
    actionSignal)));
+   var initialLocation = Elm.Native.Port.make(_elm).inbound("initialLocation",
+   "String",
+   function (v) {
+      return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
+      v);
+   });
+   var initialModel = $System.Model({_: {}
+                                    ,currentPageUrl: initialLocation
+                                    ,dataFeed: $Http.NotAsked
+                                    ,frontPageSettings: $Maybe.Nothing
+                                    ,starredProducts: $Maybe.Nothing
+                                    ,view: $System.NoPage
+                                    ,viewport: initialViewport});
    var modelSignal = A3($Signal.foldp,
    step,
    initialModel,
@@ -5064,13 +5197,13 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v73) {
+      var starred = function (_v71) {
          return function () {
-            switch (_v73.ctor)
+            switch (_v71.ctor)
             {case "Model":
-               return _v73._0.starredProducts;}
+               return _v71._0.starredProducts;}
             _U.badCase($moduleName,
-            "on line 115, column 27 to 44");
+            "on line 114, column 27 to 44");
          }();
       };
       return A2($Signal._op["<~"],
@@ -5120,10 +5253,14 @@ Elm.Markdown.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Markdown",
+   $Basics = Elm.Basics.make(_elm),
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
-   $Native$Markdown = Elm.Native.Markdown.make(_elm);
+   $Native$Markdown = Elm.Native.Markdown.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var toElementWith = $Native$Markdown.toElementWith;
    var toHtmlWith = $Native$Markdown.toHtmlWith;
    var defaultOptions = {_: {}
@@ -5178,7 +5315,7 @@ Elm.Maybe.make = function (_elm) {
             case "Nothing":
             return $default;}
          _U.badCase($moduleName,
-         "between lines 45 and 56");
+         "between lines 45 and 47");
       }();
    });
    var Nothing = {ctor: "Nothing"};
@@ -5191,11 +5328,11 @@ Elm.Maybe.make = function (_elm) {
                     case "Nothing":
                     return oneOf(maybes._1);}
                  _U.badCase($moduleName,
-                 "between lines 64 and 73");
+                 "between lines 64 and 66");
               }();
             case "[]": return Nothing;}
          _U.badCase($moduleName,
-         "between lines 59 and 73");
+         "between lines 59 and 66");
       }();
    };
    var andThen = F2(function (maybeValue,
@@ -5220,7 +5357,7 @@ Elm.Maybe.make = function (_elm) {
             return Just(f(maybe._0));
             case "Nothing": return Nothing;}
          _U.badCase($moduleName,
-         "between lines 76 and 107");
+         "between lines 76 and 78");
       }();
    });
    _elm.Maybe.values = {_op: _op
@@ -8688,87 +8825,100 @@ Elm.Native.Markdown = Elm.Native.Markdown || {};
 
 // definition
 Elm.Native.Markdown.make = function(localRuntime) {
-    'use strict';
+	'use strict';
 
-    // attempt to short-circuit
-    if ('values' in Elm.Native.Markdown)
-    {
-        return Elm.Native.Markdown.values;
-    }
+	// attempt to short-circuit
+	if ('values' in Elm.Native.Markdown)
+	{
+		return Elm.Native.Markdown.values;
+	}
 
-    var Element = Elm.Native.Graphics.Element.make(localRuntime);
+	var Element = Elm.Native.Graphics.Element.make(localRuntime);
 
-    /**
-     * marked - a markdown parser
-     * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
-     * https://github.com/chjj/marked
-     */
-    (function(){var block={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:noop,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:noop,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:noop,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};block.bullet=/(?:[*+-]|\d+\.)/;block.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;block.item=replace(block.item,"gm")(/bull/g,block.bullet)();block.list=replace(block.list)(/bull/g,block.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+block.def.source+")")();block.blockquote=replace(block.blockquote)("def",block.def)();block._tag="(?!(?:"+"a|em|strong|small|s|cite|q|dfn|abbr|data|time|code"+"|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo"+"|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b";block.html=replace(block.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,block._tag)();block.paragraph=replace(block.paragraph)("hr",block.hr)("heading",block.heading)("lheading",block.lheading)("blockquote",block.blockquote)("tag","<"+block._tag)("def",block.def)();block.normal=merge({},block);block.gfm=merge({},block.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/});block.gfm.paragraph=replace(block.paragraph)("(?!","(?!"+block.gfm.fences.source.replace("\\1","\\2")+"|"+block.list.source.replace("\\1","\\3")+"|")();block.tables=merge({},block.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/});function Lexer(options){this.tokens=[];this.tokens.links={};this.options=options||marked.defaults;this.rules=block.normal;if(this.options.gfm){if(this.options.tables){this.rules=block.tables}else{this.rules=block.gfm}}}Lexer.rules=block;Lexer.lex=function(src,options){var lexer=new Lexer(options);return lexer.lex(src)};Lexer.prototype.lex=function(src){src=src.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n");return this.token(src,true)};Lexer.prototype.token=function(src,top,bq){var src=src.replace(/^ +$/gm,""),next,loose,cap,bull,b,item,space,i,l;while(src){if(cap=this.rules.newline.exec(src)){src=src.substring(cap[0].length);if(cap[0].length>1){this.tokens.push({type:"space"})}}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);cap=cap[0].replace(/^ {4}/gm,"");this.tokens.push({type:"code",text:!this.options.pedantic?cap.replace(/\n+$/,""):cap});continue}if(cap=this.rules.fences.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"code",lang:cap[2],text:cap[3]});continue}if(cap=this.rules.heading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[1].length,text:cap[2]});continue}if(top&&(cap=this.rules.nptable.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].split(/ *\| */)}this.tokens.push(item);continue}if(cap=this.rules.lheading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[2]==="="?1:2,text:cap[1]});continue}if(cap=this.rules.hr.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"hr"});continue}if(cap=this.rules.blockquote.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"blockquote_start"});cap=cap[0].replace(/^ *> ?/gm,"");this.token(cap,top,true);this.tokens.push({type:"blockquote_end"});continue}if(cap=this.rules.list.exec(src)){src=src.substring(cap[0].length);bull=cap[2];this.tokens.push({type:"list_start",ordered:bull.length>1});cap=cap[0].match(this.rules.item);next=false;l=cap.length;i=0;for(;i<l;i++){item=cap[i];space=item.length;item=item.replace(/^ *([*+-]|\d+\.) +/,"");if(~item.indexOf("\n ")){space-=item.length;item=!this.options.pedantic?item.replace(new RegExp("^ {1,"+space+"}","gm"),""):item.replace(/^ {1,4}/gm,"")}if(this.options.smartLists&&i!==l-1){b=block.bullet.exec(cap[i+1])[0];if(bull!==b&&!(bull.length>1&&b.length>1)){src=cap.slice(i+1).join("\n")+src;i=l-1}}loose=next||/\n\n(?!\s*$)/.test(item);if(i!==l-1){next=item.charAt(item.length-1)==="\n";if(!loose)loose=next}this.tokens.push({type:loose?"loose_item_start":"list_item_start"});this.token(item,false,bq);this.tokens.push({type:"list_item_end"})}this.tokens.push({type:"list_end"});continue}if(cap=this.rules.html.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:cap[1]==="pre"||cap[1]==="script"||cap[1]==="style",text:cap[0]});continue}if(!bq&&top&&(cap=this.rules.def.exec(src))){src=src.substring(cap[0].length);this.tokens.links[cap[1].toLowerCase()]={href:cap[2],title:cap[3]};continue}if(top&&(cap=this.rules.table.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/(?: *\| *)?\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */)}this.tokens.push(item);continue}if(top&&(cap=this.rules.paragraph.exec(src))){src=src.substring(cap[0].length);this.tokens.push({type:"paragraph",text:cap[1].charAt(cap[1].length-1)==="\n"?cap[1].slice(0,-1):cap[1]});continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"text",text:cap[0]});continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return this.tokens};var inline={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:noop,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:noop,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};inline._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;inline._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;inline.link=replace(inline.link)("inside",inline._inside)("href",inline._href)();inline.reflink=replace(inline.reflink)("inside",inline._inside)();inline.normal=merge({},inline);inline.pedantic=merge({},inline.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/});inline.gfm=merge({},inline.normal,{escape:replace(inline.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:replace(inline.text)("]|","~]|")("|","|https?://|")()});inline.breaks=merge({},inline.gfm,{br:replace(inline.br)("{2,}","*")(),text:replace(inline.gfm.text)("{2,}","*")()});function InlineLexer(links,options){this.options=options||marked.defaults;this.links=links;this.rules=inline.normal;this.renderer=this.options.renderer||new Renderer;this.renderer.options=this.options;if(!this.links){throw new Error("Tokens array requires a `links` property.")}if(this.options.gfm){if(this.options.breaks){this.rules=inline.breaks}else{this.rules=inline.gfm}}else if(this.options.pedantic){this.rules=inline.pedantic}}InlineLexer.rules=inline;InlineLexer.output=function(src,links,options){var inline=new InlineLexer(links,options);return inline.output(src)};InlineLexer.prototype.output=function(src){var out="",link,text,href,cap;while(src){if(cap=this.rules.escape.exec(src)){src=src.substring(cap[0].length);out+=cap[1];continue}if(cap=this.rules.autolink.exec(src)){src=src.substring(cap[0].length);if(cap[2]==="@"){text=cap[1].charAt(6)===":"?this.mangle(cap[1].substring(7)):this.mangle(cap[1]);href=this.mangle("mailto:")+text}else{text=escape(cap[1]);href=text}out+=this.renderer.link(href,null,text);continue}if(!this.inLink&&(cap=this.rules.url.exec(src))){src=src.substring(cap[0].length);text=escape(cap[1]);href=text;out+=this.renderer.link(href,null,text);continue}if(cap=this.rules.tag.exec(src)){if(!this.inLink&&/^<a /i.test(cap[0])){this.inLink=true}else if(this.inLink&&/^<\/a>/i.test(cap[0])){this.inLink=false}src=src.substring(cap[0].length);out+=this.options.sanitize?escape(cap[0]):cap[0];continue}if(cap=this.rules.link.exec(src)){src=src.substring(cap[0].length);this.inLink=true;out+=this.outputLink(cap,{href:cap[2],title:cap[3]});this.inLink=false;continue}if((cap=this.rules.reflink.exec(src))||(cap=this.rules.nolink.exec(src))){src=src.substring(cap[0].length);link=(cap[2]||cap[1]).replace(/\s+/g," ");link=this.links[link.toLowerCase()];if(!link||!link.href){out+=cap[0].charAt(0);src=cap[0].substring(1)+src;continue}this.inLink=true;out+=this.outputLink(cap,link);this.inLink=false;continue}if(cap=this.rules.strong.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.strong(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.em.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.em(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.codespan(escape(cap[2],true));continue}if(cap=this.rules.br.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.br();continue}if(cap=this.rules.del.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.del(this.output(cap[1]));continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);out+=escape(this.smartypants(cap[0]));continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return out};InlineLexer.prototype.outputLink=function(cap,link){var href=escape(link.href),title=link.title?escape(link.title):null;return cap[0].charAt(0)!=="!"?this.renderer.link(href,title,this.output(cap[1])):this.renderer.image(href,title,escape(cap[1]))};InlineLexer.prototype.smartypants=function(text){if(!this.options.smartypants)return text;return text.replace(/--/g,"—").replace(/(^|[-\u2014/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…")};InlineLexer.prototype.mangle=function(text){var out="",l=text.length,i=0,ch;for(;i<l;i++){ch=text.charCodeAt(i);if(Math.random()>.5){ch="x"+ch.toString(16)}out+="&#"+ch+";"}return out};function Renderer(options){this.options=options||{}}Renderer.prototype.code=function(code,lang,escaped){if(this.options.highlight){var out=this.options.highlight(code,lang);if(out!=null&&out!==code){escaped=true;code=out}}if(!lang){return"<pre><code>"+(escaped?code:escape(code,true))+"\n</code></pre>"}return'<pre><code class="'+this.options.langPrefix+escape(lang,true)+'">'+(escaped?code:escape(code,true))+"\n</code></pre>\n"};Renderer.prototype.blockquote=function(quote){return"<blockquote>\n"+quote+"</blockquote>\n"};Renderer.prototype.html=function(html){return html};Renderer.prototype.heading=function(text,level,raw){return"<h"+level+' id="'+this.options.headerPrefix+raw.toLowerCase().replace(/[^\w]+/g,"-")+'">'+text+"</h"+level+">\n"};Renderer.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"};Renderer.prototype.list=function(body,ordered){var type=ordered?"ol":"ul";return"<"+type+">\n"+body+"</"+type+">\n"};Renderer.prototype.listitem=function(text){return"<li>"+text+"</li>\n"};Renderer.prototype.paragraph=function(text){return"<p>"+text+"</p>\n"};Renderer.prototype.table=function(header,body){return"<table>\n"+"<thead>\n"+header+"</thead>\n"+"<tbody>\n"+body+"</tbody>\n"+"</table>\n"};Renderer.prototype.tablerow=function(content){return"<tr>\n"+content+"</tr>\n"};Renderer.prototype.tablecell=function(content,flags){var type=flags.header?"th":"td";var tag=flags.align?"<"+type+' style="text-align:'+flags.align+'">':"<"+type+">";return tag+content+"</"+type+">\n"};Renderer.prototype.strong=function(text){return"<strong>"+text+"</strong>"};Renderer.prototype.em=function(text){return"<em>"+text+"</em>"};Renderer.prototype.codespan=function(text){return"<code>"+text+"</code>"};Renderer.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"};Renderer.prototype.del=function(text){return"<del>"+text+"</del>"};Renderer.prototype.link=function(href,title,text){if(this.options.sanitize){try{var prot=decodeURIComponent(unescape(href)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(prot.indexOf("javascript:")===0){return""}}var out='<a href="'+href+'"';if(title){out+=' title="'+title+'"'}out+=">"+text+"</a>";return out};Renderer.prototype.image=function(href,title,text){var out='<img src="'+href+'" alt="'+text+'"';if(title){out+=' title="'+title+'"'}out+=this.options.xhtml?"/>":">";return out};function Parser(options){this.tokens=[];this.token=null;this.options=options||marked.defaults;this.options.renderer=this.options.renderer||new Renderer;this.renderer=this.options.renderer;this.renderer.options=this.options}Parser.parse=function(src,options,renderer){var parser=new Parser(options,renderer);return parser.parse(src)};Parser.prototype.parse=function(src){this.inline=new InlineLexer(src.links,this.options,this.renderer);this.tokens=src.reverse();var out="";while(this.next()){out+=this.tok()}return out};Parser.prototype.next=function(){return this.token=this.tokens.pop()};Parser.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0};Parser.prototype.parseText=function(){var body=this.token.text;while(this.peek().type==="text"){body+="\n"+this.next().text}return this.inline.output(body)};Parser.prototype.tok=function(){switch(this.token.type){case"space":{return""}case"hr":{return this.renderer.hr()}case"heading":{return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text)}case"code":{return this.renderer.code(this.token.text,this.token.lang,this.token.escaped)}case"table":{var header="",body="",i,row,cell,flags,j;cell="";for(i=0;i<this.token.header.length;i++){flags={header:true,align:this.token.align[i]};cell+=this.renderer.tablecell(this.inline.output(this.token.header[i]),{header:true,align:this.token.align[i]})}header+=this.renderer.tablerow(cell);for(i=0;i<this.token.cells.length;i++){row=this.token.cells[i];cell="";for(j=0;j<row.length;j++){cell+=this.renderer.tablecell(this.inline.output(row[j]),{header:false,align:this.token.align[j]})}body+=this.renderer.tablerow(cell)}return this.renderer.table(header,body)}case"blockquote_start":{var body="";while(this.next().type!=="blockquote_end"){body+=this.tok()}return this.renderer.blockquote(body)}case"list_start":{var body="",ordered=this.token.ordered;while(this.next().type!=="list_end"){body+=this.tok()}return this.renderer.list(body,ordered)}case"list_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.token.type==="text"?this.parseText():this.tok()}return this.renderer.listitem(body)}case"loose_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.tok()}return this.renderer.listitem(body)}case"html":{var html=!this.token.pre&&!this.options.pedantic?this.inline.output(this.token.text):this.token.text;return this.renderer.html(html)}case"paragraph":{return this.renderer.paragraph(this.inline.output(this.token.text))}case"text":{return this.renderer.paragraph(this.parseText())}}};function escape(html,encode){return html.replace(!encode?/&(?!#?\w+;)/g:/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function unescape(html){return html.replace(/&([#\w]+);/g,function(_,n){n=n.toLowerCase();if(n==="colon")return":";if(n.charAt(0)==="#"){return n.charAt(1)==="x"?String.fromCharCode(parseInt(n.substring(2),16)):String.fromCharCode(+n.substring(1))}return""})}function replace(regex,opt){regex=regex.source;opt=opt||"";return function self(name,val){if(!name)return new RegExp(regex,opt);val=val.source||val;val=val.replace(/(^|[^\[])\^/g,"$1");regex=regex.replace(name,val);return self}}function noop(){}noop.exec=noop;function merge(obj){var i=1,target,key;for(;i<arguments.length;i++){target=arguments[i];for(key in target){if(Object.prototype.hasOwnProperty.call(target,key)){obj[key]=target[key]}}}return obj}function marked(src,opt,callback){if(callback||typeof opt==="function"){if(!callback){callback=opt;opt=null}opt=merge({},marked.defaults,opt||{});var highlight=opt.highlight,tokens,pending,i=0;try{tokens=Lexer.lex(src,opt)}catch(e){return callback(e)}pending=tokens.length;var done=function(err){if(err){opt.highlight=highlight;return callback(err)}var out;try{out=Parser.parse(tokens,opt)}catch(e){err=e}opt.highlight=highlight;return err?callback(err):callback(null,out)};if(!highlight||highlight.length<3){return done()}delete opt.highlight;if(!pending)return done();for(;i<tokens.length;i++){(function(token){if(token.type!=="code"){return--pending||done()}return highlight(token.text,token.lang,function(err,code){if(err)return done(err);if(code==null||code===token.text){return--pending||done()}token.text=code;token.escaped=true;--pending||done()})})(tokens[i])}return}try{if(opt)opt=merge({},marked.defaults,opt);return Parser.parse(Lexer.lex(src,opt),opt)}catch(e){e.message+="\nPlease report this to https://github.com/chjj/marked.";if((opt||marked.defaults).silent){return"<p>An error occured:</p><pre>"+escape(e.message+"",true)+"</pre>"}throw e}}marked.options=marked.setOptions=function(opt){merge(marked.defaults,opt);return marked};marked.defaults={gfm:true,tables:true,breaks:false,pedantic:false,sanitize:false,smartLists:false,silent:false,highlight:null,langPrefix:"lang-",smartypants:false,headerPrefix:"",renderer:new Renderer,xhtml:false};marked.Parser=Parser;marked.parser=Parser.parse;marked.Renderer=Renderer;marked.Lexer=Lexer;marked.lexer=Lexer.lex;marked.InlineLexer=InlineLexer;marked.inlineLexer=InlineLexer.output;marked.parse=marked;if(typeof module!=="undefined"&&typeof exports==="object"){module.exports=marked}else if(typeof define==="function"&&define.amd){define(function(){return marked})}else{this.marked=marked}}).call(function(){return this||(typeof window!=="undefined"?window:global)}());
+	/**
+	 * marked - a markdown parser
+	 * Copyright (c) 2011-2014, Christopher Jeffrey. (MIT Licensed)
+	 * https://github.com/chjj/marked
+	 */
+	(function(){var block={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:noop,hr:/^( *[-*_]){3,} *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *#* *(?:\n+|$)/,nptable:noop,lheading:/^([^\n]+)\n *(=|-){2,} *(?:\n+|$)/,blockquote:/^( *>[^\n]+(\n(?!def)[^\n]+)*\n*)+/,list:/^( *)(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:/^ *(?:comment|closed|closing) *(?:\n{2,}|\s*$)/,def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +["(]([^\n]+)[")])? *(?:\n+|$)/,table:noop,paragraph:/^((?:[^\n]+\n?(?!hr|heading|lheading|blockquote|tag|def))+)\n*/,text:/^[^\n]+/};block.bullet=/(?:[*+-]|\d+\.)/;block.item=/^( *)(bull) [^\n]*(?:\n(?!\1bull )[^\n]*)*/;block.item=replace(block.item,"gm")(/bull/g,block.bullet)();block.list=replace(block.list)(/bull/g,block.bullet)("hr","\\n+(?=\\1?(?:[-*_] *){3,}(?:\\n+|$))")("def","\\n+(?="+block.def.source+")")();block.blockquote=replace(block.blockquote)("def",block.def)();block._tag="(?!(?:"+"a|em|strong|small|s|cite|q|dfn|abbr|data|time|code"+"|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo"+"|span|br|wbr|ins|del|img)\\b)\\w+(?!:/|[^\\w\\s@]*@)\\b";block.html=replace(block.html)("comment",/<!--[\s\S]*?-->/)("closed",/<(tag)[\s\S]+?<\/\1>/)("closing",/<tag(?:"[^"]*"|'[^']*'|[^'">])*?>/)(/tag/g,block._tag)();block.paragraph=replace(block.paragraph)("hr",block.hr)("heading",block.heading)("lheading",block.lheading)("blockquote",block.blockquote)("tag","<"+block._tag)("def",block.def)();block.normal=merge({},block);block.gfm=merge({},block.normal,{fences:/^ *(`{3,}|~{3,}) *(\S+)? *\n([\s\S]+?)\s*\1 *(?:\n+|$)/,paragraph:/^/});block.gfm.paragraph=replace(block.paragraph)("(?!","(?!"+block.gfm.fences.source.replace("\\1","\\2")+"|"+block.list.source.replace("\\1","\\3")+"|")();block.tables=merge({},block.gfm,{nptable:/^ *(\S.*\|.*)\n *([-:]+ *\|[-| :]*)\n((?:.*\|.*(?:\n|$))*)\n*/,table:/^ *\|(.+)\n *\|( *[-:]+[-| :]*)\n((?: *\|.*(?:\n|$))*)\n*/});function Lexer(options){this.tokens=[];this.tokens.links={};this.options=options||marked.defaults;this.rules=block.normal;if(this.options.gfm){if(this.options.tables){this.rules=block.tables}else{this.rules=block.gfm}}}Lexer.rules=block;Lexer.lex=function(src,options){var lexer=new Lexer(options);return lexer.lex(src)};Lexer.prototype.lex=function(src){src=src.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n");return this.token(src,true)};Lexer.prototype.token=function(src,top,bq){var src=src.replace(/^ +$/gm,""),next,loose,cap,bull,b,item,space,i,l;while(src){if(cap=this.rules.newline.exec(src)){src=src.substring(cap[0].length);if(cap[0].length>1){this.tokens.push({type:"space"})}}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);cap=cap[0].replace(/^ {4}/gm,"");this.tokens.push({type:"code",text:!this.options.pedantic?cap.replace(/\n+$/,""):cap});continue}if(cap=this.rules.fences.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"code",lang:cap[2],text:cap[3]});continue}if(cap=this.rules.heading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[1].length,text:cap[2]});continue}if(top&&(cap=this.rules.nptable.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].split(/ *\| */)}this.tokens.push(item);continue}if(cap=this.rules.lheading.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"heading",depth:cap[2]==="="?1:2,text:cap[1]});continue}if(cap=this.rules.hr.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"hr"});continue}if(cap=this.rules.blockquote.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"blockquote_start"});cap=cap[0].replace(/^ *> ?/gm,"");this.token(cap,top,true);this.tokens.push({type:"blockquote_end"});continue}if(cap=this.rules.list.exec(src)){src=src.substring(cap[0].length);bull=cap[2];this.tokens.push({type:"list_start",ordered:bull.length>1});cap=cap[0].match(this.rules.item);next=false;l=cap.length;i=0;for(;i<l;i++){item=cap[i];space=item.length;item=item.replace(/^ *([*+-]|\d+\.) +/,"");if(~item.indexOf("\n ")){space-=item.length;item=!this.options.pedantic?item.replace(new RegExp("^ {1,"+space+"}","gm"),""):item.replace(/^ {1,4}/gm,"")}if(this.options.smartLists&&i!==l-1){b=block.bullet.exec(cap[i+1])[0];if(bull!==b&&!(bull.length>1&&b.length>1)){src=cap.slice(i+1).join("\n")+src;i=l-1}}loose=next||/\n\n(?!\s*$)/.test(item);if(i!==l-1){next=item.charAt(item.length-1)==="\n";if(!loose)loose=next}this.tokens.push({type:loose?"loose_item_start":"list_item_start"});this.token(item,false,bq);this.tokens.push({type:"list_item_end"})}this.tokens.push({type:"list_end"});continue}if(cap=this.rules.html.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:cap[1]==="pre"||cap[1]==="script"||cap[1]==="style",text:cap[0]});continue}if(!bq&&top&&(cap=this.rules.def.exec(src))){src=src.substring(cap[0].length);this.tokens.links[cap[1].toLowerCase()]={href:cap[2],title:cap[3]};continue}if(top&&(cap=this.rules.table.exec(src))){src=src.substring(cap[0].length);item={type:"table",header:cap[1].replace(/^ *| *\| *$/g,"").split(/ *\| */),align:cap[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:cap[3].replace(/(?: *\| *)?\n$/,"").split("\n")};for(i=0;i<item.align.length;i++){if(/^ *-+: *$/.test(item.align[i])){item.align[i]="right"}else if(/^ *:-+: *$/.test(item.align[i])){item.align[i]="center"}else if(/^ *:-+ *$/.test(item.align[i])){item.align[i]="left"}else{item.align[i]=null}}for(i=0;i<item.cells.length;i++){item.cells[i]=item.cells[i].replace(/^ *\| *| *\| *$/g,"").split(/ *\| */)}this.tokens.push(item);continue}if(top&&(cap=this.rules.paragraph.exec(src))){src=src.substring(cap[0].length);this.tokens.push({type:"paragraph",text:cap[1].charAt(cap[1].length-1)==="\n"?cap[1].slice(0,-1):cap[1]});continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);this.tokens.push({type:"text",text:cap[0]});continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return this.tokens};var inline={escape:/^\\([\\`*{}\[\]()#+\-.!_>])/,autolink:/^<([^ >]+(@|:\/)[^ >]+)>/,url:noop,tag:/^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,link:/^!?\[(inside)\]\(href\)/,reflink:/^!?\[(inside)\]\s*\[([^\]]*)\]/,nolink:/^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,strong:/^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,em:/^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,code:/^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,br:/^ {2,}\n(?!\s*$)/,del:noop,text:/^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/};inline._inside=/(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;inline._href=/\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;inline.link=replace(inline.link)("inside",inline._inside)("href",inline._href)();inline.reflink=replace(inline.reflink)("inside",inline._inside)();inline.normal=merge({},inline);inline.pedantic=merge({},inline.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/});inline.gfm=merge({},inline.normal,{escape:replace(inline.escape)("])","~|])")(),url:/^(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/,del:/^~~(?=\S)([\s\S]*?\S)~~/,text:replace(inline.text)("]|","~]|")("|","|https?://|")()});inline.breaks=merge({},inline.gfm,{br:replace(inline.br)("{2,}","*")(),text:replace(inline.gfm.text)("{2,}","*")()});function InlineLexer(links,options){this.options=options||marked.defaults;this.links=links;this.rules=inline.normal;this.renderer=this.options.renderer||new Renderer;this.renderer.options=this.options;if(!this.links){throw new Error("Tokens array requires a `links` property.")}if(this.options.gfm){if(this.options.breaks){this.rules=inline.breaks}else{this.rules=inline.gfm}}else if(this.options.pedantic){this.rules=inline.pedantic}}InlineLexer.rules=inline;InlineLexer.output=function(src,links,options){var inline=new InlineLexer(links,options);return inline.output(src)};InlineLexer.prototype.output=function(src){var out="",link,text,href,cap;while(src){if(cap=this.rules.escape.exec(src)){src=src.substring(cap[0].length);out+=cap[1];continue}if(cap=this.rules.autolink.exec(src)){src=src.substring(cap[0].length);if(cap[2]==="@"){text=cap[1].charAt(6)===":"?this.mangle(cap[1].substring(7)):this.mangle(cap[1]);href=this.mangle("mailto:")+text}else{text=escape(cap[1]);href=text}out+=this.renderer.link(href,null,text);continue}if(!this.inLink&&(cap=this.rules.url.exec(src))){src=src.substring(cap[0].length);text=escape(cap[1]);href=text;out+=this.renderer.link(href,null,text);continue}if(cap=this.rules.tag.exec(src)){if(!this.inLink&&/^<a /i.test(cap[0])){this.inLink=true}else if(this.inLink&&/^<\/a>/i.test(cap[0])){this.inLink=false}src=src.substring(cap[0].length);out+=this.options.sanitize?escape(cap[0]):cap[0];continue}if(cap=this.rules.link.exec(src)){src=src.substring(cap[0].length);this.inLink=true;out+=this.outputLink(cap,{href:cap[2],title:cap[3]});this.inLink=false;continue}if((cap=this.rules.reflink.exec(src))||(cap=this.rules.nolink.exec(src))){src=src.substring(cap[0].length);link=(cap[2]||cap[1]).replace(/\s+/g," ");link=this.links[link.toLowerCase()];if(!link||!link.href){out+=cap[0].charAt(0);src=cap[0].substring(1)+src;continue}this.inLink=true;out+=this.outputLink(cap,link);this.inLink=false;continue}if(cap=this.rules.strong.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.strong(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.em.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.em(this.output(cap[2]||cap[1]));continue}if(cap=this.rules.code.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.codespan(escape(cap[2],true));continue}if(cap=this.rules.br.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.br();continue}if(cap=this.rules.del.exec(src)){src=src.substring(cap[0].length);out+=this.renderer.del(this.output(cap[1]));continue}if(cap=this.rules.text.exec(src)){src=src.substring(cap[0].length);out+=escape(this.smartypants(cap[0]));continue}if(src){throw new Error("Infinite loop on byte: "+src.charCodeAt(0))}}return out};InlineLexer.prototype.outputLink=function(cap,link){var href=escape(link.href),title=link.title?escape(link.title):null;return cap[0].charAt(0)!=="!"?this.renderer.link(href,title,this.output(cap[1])):this.renderer.image(href,title,escape(cap[1]))};InlineLexer.prototype.smartypants=function(text){if(!this.options.smartypants)return text;return text.replace(/--/g,"—").replace(/(^|[-\u2014/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…")};InlineLexer.prototype.mangle=function(text){var out="",l=text.length,i=0,ch;for(;i<l;i++){ch=text.charCodeAt(i);if(Math.random()>.5){ch="x"+ch.toString(16)}out+="&#"+ch+";"}return out};function Renderer(options){this.options=options||{}}Renderer.prototype.code=function(code,lang,escaped){if(this.options.highlight){var out=this.options.highlight(code,lang);if(out!=null&&out!==code){escaped=true;code=out}}if(!lang){return"<pre><code>"+(escaped?code:escape(code,true))+"\n</code></pre>"}return'<pre><code class="'+this.options.langPrefix+escape(lang,true)+'">'+(escaped?code:escape(code,true))+"\n</code></pre>\n"};Renderer.prototype.blockquote=function(quote){return"<blockquote>\n"+quote+"</blockquote>\n"};Renderer.prototype.html=function(html){return html};Renderer.prototype.heading=function(text,level,raw){return"<h"+level+' id="'+this.options.headerPrefix+raw.toLowerCase().replace(/[^\w]+/g,"-")+'">'+text+"</h"+level+">\n"};Renderer.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"};Renderer.prototype.list=function(body,ordered){var type=ordered?"ol":"ul";return"<"+type+">\n"+body+"</"+type+">\n"};Renderer.prototype.listitem=function(text){return"<li>"+text+"</li>\n"};Renderer.prototype.paragraph=function(text){return"<p>"+text+"</p>\n"};Renderer.prototype.table=function(header,body){return"<table>\n"+"<thead>\n"+header+"</thead>\n"+"<tbody>\n"+body+"</tbody>\n"+"</table>\n"};Renderer.prototype.tablerow=function(content){return"<tr>\n"+content+"</tr>\n"};Renderer.prototype.tablecell=function(content,flags){var type=flags.header?"th":"td";var tag=flags.align?"<"+type+' style="text-align:'+flags.align+'">':"<"+type+">";return tag+content+"</"+type+">\n"};Renderer.prototype.strong=function(text){return"<strong>"+text+"</strong>"};Renderer.prototype.em=function(text){return"<em>"+text+"</em>"};Renderer.prototype.codespan=function(text){return"<code>"+text+"</code>"};Renderer.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"};Renderer.prototype.del=function(text){return"<del>"+text+"</del>"};Renderer.prototype.link=function(href,title,text){if(this.options.sanitize){try{var prot=decodeURIComponent(unescape(href)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return""}if(prot.indexOf("javascript:")===0){return""}}var out='<a href="'+href+'"';if(title){out+=' title="'+title+'"'}out+=">"+text+"</a>";return out};Renderer.prototype.image=function(href,title,text){var out='<img src="'+href+'" alt="'+text+'"';if(title){out+=' title="'+title+'"'}out+=this.options.xhtml?"/>":">";return out};function Parser(options){this.tokens=[];this.token=null;this.options=options||marked.defaults;this.options.renderer=this.options.renderer||new Renderer;this.renderer=this.options.renderer;this.renderer.options=this.options}Parser.parse=function(src,options,renderer){var parser=new Parser(options,renderer);return parser.parse(src)};Parser.prototype.parse=function(src){this.inline=new InlineLexer(src.links,this.options,this.renderer);this.tokens=src.reverse();var out="";while(this.next()){out+=this.tok()}return out};Parser.prototype.next=function(){return this.token=this.tokens.pop()};Parser.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0};Parser.prototype.parseText=function(){var body=this.token.text;while(this.peek().type==="text"){body+="\n"+this.next().text}return this.inline.output(body)};Parser.prototype.tok=function(){switch(this.token.type){case"space":{return""}case"hr":{return this.renderer.hr()}case"heading":{return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,this.token.text)}case"code":{return this.renderer.code(this.token.text,this.token.lang,this.token.escaped)}case"table":{var header="",body="",i,row,cell,flags,j;cell="";for(i=0;i<this.token.header.length;i++){flags={header:true,align:this.token.align[i]};cell+=this.renderer.tablecell(this.inline.output(this.token.header[i]),{header:true,align:this.token.align[i]})}header+=this.renderer.tablerow(cell);for(i=0;i<this.token.cells.length;i++){row=this.token.cells[i];cell="";for(j=0;j<row.length;j++){cell+=this.renderer.tablecell(this.inline.output(row[j]),{header:false,align:this.token.align[j]})}body+=this.renderer.tablerow(cell)}return this.renderer.table(header,body)}case"blockquote_start":{var body="";while(this.next().type!=="blockquote_end"){body+=this.tok()}return this.renderer.blockquote(body)}case"list_start":{var body="",ordered=this.token.ordered;while(this.next().type!=="list_end"){body+=this.tok()}return this.renderer.list(body,ordered)}case"list_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.token.type==="text"?this.parseText():this.tok()}return this.renderer.listitem(body)}case"loose_item_start":{var body="";while(this.next().type!=="list_item_end"){body+=this.tok()}return this.renderer.listitem(body)}case"html":{var html=!this.token.pre&&!this.options.pedantic?this.inline.output(this.token.text):this.token.text;return this.renderer.html(html)}case"paragraph":{return this.renderer.paragraph(this.inline.output(this.token.text))}case"text":{return this.renderer.paragraph(this.parseText())}}};function escape(html,encode){return html.replace(!encode?/&(?!#?\w+;)/g:/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;")}function unescape(html){return html.replace(/&([#\w]+);/g,function(_,n){n=n.toLowerCase();if(n==="colon")return":";if(n.charAt(0)==="#"){return n.charAt(1)==="x"?String.fromCharCode(parseInt(n.substring(2),16)):String.fromCharCode(+n.substring(1))}return""})}function replace(regex,opt){regex=regex.source;opt=opt||"";return function self(name,val){if(!name)return new RegExp(regex,opt);val=val.source||val;val=val.replace(/(^|[^\[])\^/g,"$1");regex=regex.replace(name,val);return self}}function noop(){}noop.exec=noop;function merge(obj){var i=1,target,key;for(;i<arguments.length;i++){target=arguments[i];for(key in target){if(Object.prototype.hasOwnProperty.call(target,key)){obj[key]=target[key]}}}return obj}function marked(src,opt,callback){if(callback||typeof opt==="function"){if(!callback){callback=opt;opt=null}opt=merge({},marked.defaults,opt||{});var highlight=opt.highlight,tokens,pending,i=0;try{tokens=Lexer.lex(src,opt)}catch(e){return callback(e)}pending=tokens.length;var done=function(err){if(err){opt.highlight=highlight;return callback(err)}var out;try{out=Parser.parse(tokens,opt)}catch(e){err=e}opt.highlight=highlight;return err?callback(err):callback(null,out)};if(!highlight||highlight.length<3){return done()}delete opt.highlight;if(!pending)return done();for(;i<tokens.length;i++){(function(token){if(token.type!=="code"){return--pending||done()}return highlight(token.text,token.lang,function(err,code){if(err)return done(err);if(code==null||code===token.text){return--pending||done()}token.text=code;token.escaped=true;--pending||done()})})(tokens[i])}return}try{if(opt)opt=merge({},marked.defaults,opt);return Parser.parse(Lexer.lex(src,opt),opt)}catch(e){e.message+="\nPlease report this to https://github.com/chjj/marked.";if((opt||marked.defaults).silent){return"<p>An error occured:</p><pre>"+escape(e.message+"",true)+"</pre>"}throw e}}marked.options=marked.setOptions=function(opt){merge(marked.defaults,opt);return marked};marked.defaults={gfm:true,tables:true,breaks:false,pedantic:false,sanitize:false,smartLists:false,silent:false,highlight:null,langPrefix:"lang-",smartypants:false,headerPrefix:"",renderer:new Renderer,xhtml:false};marked.Parser=Parser;marked.parser=Parser.parse;marked.Renderer=Renderer;marked.Lexer=Lexer;marked.lexer=Lexer.lex;marked.InlineLexer=InlineLexer;marked.inlineLexer=InlineLexer.output;marked.parse=marked;if(typeof module!=="undefined"&&typeof exports==="object"){module.exports=marked}else if(typeof define==="function"&&define.amd){define(function(){return marked})}else{this.marked=marked}}).call(function(){return this||(typeof window!=="undefined"?window:global)}());
 
-    marked.setOptions({
-        highlight: function (code, lang) {
-            if (typeof hljs !== 'undefined'
-                && lang
-                && hljs.listLanguages().indexOf(lang) >= 0)
-            {
-                return hljs.highlight(lang, code, true).value;
-            }
-            return code;
-        }
-    });
+	marked.setOptions({
+		highlight: function (code, lang) {
+			if (typeof hljs !== 'undefined'
+				&& lang
+				&& hljs.listLanguages().indexOf(lang) >= 0)
+			{
+				return hljs.highlight(lang, code, true).value;
+			}
+			return code;
+		}
+	});
 
-    function formatOptions(options) {
-        var gfm = options.githubFlavored;
-        if (gfm.ctor === 'Just')
-        {
-            return {
-                gfm: true,
-                tables: gfm.tables,
-                breaks: gfm.breaks,
-                sanitize: options.sanitize,
-                smartypants: options.smartypants
-            };
-        }
-        else
-        {
-            return {
-                gfm: false,
-                tables: false,
-                breaks: false,
-                sanitize: options.sanitize,
-                smartypants: options.smartypants
-            };
-        }
-    }
+	function formatOptions(options) {
+		var gfm = options.githubFlavored;
+		if (gfm.ctor === 'Just')
+		{
+			return {
+				gfm: true,
+				tables: gfm.tables,
+				breaks: gfm.breaks,
+				sanitize: options.sanitize,
+				smartypants: options.smartypants
+			};
+		}
+		else
+		{
+			return {
+				gfm: false,
+				tables: false,
+				breaks: false,
+				sanitize: options.sanitize,
+				smartypants: options.smartypants
+			};
+		}
+	}
 
-    function toHtmlWith(options, rawMarkdown) {
-        var widget = {
-            type: "Widget",
+	function toHtmlWith(options, rawMarkdown)
+	{
+		return new MarkdownWidget(options, rawMarkdown);
+	}
 
-            init: function () {
-                var html = marked(rawMarkdown, formatOptions(options));
-                var div = document.createElement('div');
-                div.innerHTML = html;
-                return div;
-            },
+	function MarkdownWidget(options, rawMarkdown)
+	{
+		this.options = options;
+		this.markdown = rawMarkdown;
+	}
 
-            update: function (previous, node) {
-                var html = marked(rawMarkdown, formatOptions(options));
-                node.innerHTML = html;
-                return node;
-            }
-        };
-        return widget;
-    }
+	MarkdownWidget.prototype.type = "Widget";
 
-    function toElementWith(options, rawMarkdown) {
-        return Element.markdown(marked(rawMarkdown, formatOptions(options)));
-    }
+	MarkdownWidget.prototype.init = function init()
+	{
+		var html = marked(this.markdown, formatOptions(this.options));
+		var div = document.createElement('div');
+		div.innerHTML = html;
+		return div;
+	};
 
-    return Elm.Native.Markdown.values = {
-        toHtmlWith: F2(toHtmlWith),
-        toElementWith: F2(toElementWith)
-    };
+	MarkdownWidget.prototype.update = function update(previous, node)
+	{
+		if (this.markdown !== previous.markdown || this.options != previous.options)
+		{
+			var html = marked(this.markdown, formatOptions(this.options));
+			node.innerHTML = html;
+		}
+		return node;
+	};
+
+
+	function toElementWith(options, rawMarkdown)
+	{
+		return Element.markdown(marked(rawMarkdown, formatOptions(options)));
+	}
+
+	return Elm.Native.Markdown.values = {
+		toHtmlWith: F2(toHtmlWith),
+		toElementWith: F2(toElementWith)
+	};
 };
 Elm.Native.Port = {};
 Elm.Native.Port.make = function(localRuntime) {
@@ -8842,7 +8992,7 @@ Elm.Native.Port.make = function(localRuntime) {
 				"Regarding the port named '" + name + "' with type:\n\n" +
 				"    " + type.split('\n').join('\n        ') + "\n\n" +
 				"You just sent the value:\n\n" +
-				"    " + JSON.stringify(arg.value) + "\n\n" +
+				"    " + JSON.stringify(value) + "\n\n" +
 				"but it cannot be converted to the necessary type.\n" +
 				e.message
 			);
@@ -9676,9 +9826,7 @@ Elm.Native.Show.make = function(localRuntime) {
 		}
 		if (type === 'object' && 'notify' in v && 'id' in v)
 		{
-			return 'initialValue' in v
-				? '<Signal>'
-				: '<Stream>';
+			return '<Signal>';
 		}
 		return "<internal structure>";
 	};
@@ -13669,6 +13817,10 @@ Elm.Number.Format.make = function (_elm) {
    _L = _N.List.make(_elm),
    $moduleName = "Number.Format",
    $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm),
    $String$Split = Elm.String.Split.make(_elm);
    var prettyInt = F2(function (sep,
@@ -13715,104 +13867,6 @@ Elm.Number.Format.make = function (_elm) {
                                ,prettyInt: prettyInt};
    return _elm.Number.Format.values;
 };
-Elm.Placement = Elm.Placement || {};
-Elm.Placement.make = function (_elm) {
-   "use strict";
-   _elm.Placement = _elm.Placement || {};
-   if (_elm.Placement.values)
-   return _elm.Placement.values;
-   var _op = {},
-   _N = Elm.Native,
-   _U = _N.Utils.make(_elm),
-   _L = _N.List.make(_elm),
-   $moduleName = "Placement",
-   $Basics = Elm.Basics.make(_elm),
-   $Exts$Html$Bootstrap = Elm.Exts.Html.Bootstrap.make(_elm),
-   $Html = Elm.Html.make(_elm),
-   $Html$Attributes = Elm.Html.Attributes.make(_elm),
-   $Markdown = Elm.Markdown.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Schema = Elm.Schema.make(_elm),
-   $Set = Elm.Set.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $System = Elm.System.make(_elm),
-   $ViewCommon = Elm.ViewCommon.make(_elm);
-   var placement3 = {ctor: "_Tuple2"
-                    ,_0: 468353082
-                    ,_1: "\nSimplicity Women\'s Knit Dress and Tunic, 1251\n"};
-   var placement2 = {ctor: "_Tuple2"
-                    ,_0: 468354536
-                    ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts, as I strode in in my mighty coffeecape?\n"};
-   var placement1 = {ctor: "_Tuple2"
-                    ,_0: 468355587
-                    ,_1: "\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n"};
-   var validPlacementView = F4(function (uiChannel,
-   starredProducts,
-   product,
-   copy) {
-      return A2($Html.div,
-      _L.fromArray([$Html$Attributes.$class("placement")]),
-      _L.fromArray([A2($Html.h2,
-                   _L.fromArray([]),
-                   _L.fromArray([$Html.text("We\'re Craving...")]))
-                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-5 pull-right")]),
-                                                          _L.fromArray([A2($Html.a,
-                                                                       _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
-                                                                       "#/product/",
-                                                                       $Basics.toString(product.productId)))]),
-                                                                       _L.fromArray([A2($Html.img,
-                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
-                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
-                                                                       _L.fromArray([]))]))
-                                                                       ,A3($ViewCommon.productControls,
-                                                                       uiChannel,
-                                                                       starredProducts,
-                                                                       product)]))
-                                                          ,A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-7")]),
-                                                          _L.fromArray([A2($Html.h3,
-                                                                       _L.fromArray([]),
-                                                                       _L.fromArray([$Html.text(product.name)]))
-                                                                       ,copy]))]))]));
-   });
-   var placementView = F4(function (_v0,
-   uiChannel,
-   starredProducts,
-   dataFeed) {
-      return function () {
-         switch (_v0.ctor)
-         {case "_Tuple2":
-            return function () {
-                 var _v4 = A2($System.lookupProduct,
-                 _v0._0,
-                 dataFeed.products);
-                 switch (_v4.ctor)
-                 {case "Just":
-                    return A4(validPlacementView,
-                      uiChannel,
-                      starredProducts,
-                      _v4._0,
-                      $Markdown.toHtml(_v0._1));
-                    case "Nothing":
-                    return $Exts$Html$Bootstrap.empty;}
-                 _U.badCase($moduleName,
-                 "between lines 17 and 19");
-              }();}
-         _U.badCase($moduleName,
-         "between lines 17 and 19");
-      }();
-   });
-   var currentPlacementView = placementView(placement2);
-   _elm.Placement.values = {_op: _op
-                           ,placementView: placementView
-                           ,validPlacementView: validPlacementView
-                           ,currentPlacementView: currentPlacementView
-                           ,placement1: placement1
-                           ,placement2: placement2
-                           ,placement3: placement3};
-   return _elm.Placement.values;
-};
 Elm.Result = Elm.Result || {};
 Elm.Result.make = function (_elm) {
    "use strict";
@@ -13833,7 +13887,7 @@ Elm.Result.make = function (_elm) {
             case "Ok":
             return $Maybe.Just(result._0);}
          _U.badCase($moduleName,
-         "between lines 164 and 177");
+         "between lines 164 and 166");
       }();
    };
    var Err = function (a) {
@@ -13848,7 +13902,7 @@ Elm.Result.make = function (_elm) {
             case "Ok":
             return callback(result._0);}
          _U.badCase($moduleName,
-         "between lines 126 and 145");
+         "between lines 126 and 128");
       }();
    });
    var Ok = function (a) {
@@ -13862,7 +13916,7 @@ Elm.Result.make = function (_elm) {
             case "Ok":
             return Ok(func(ra._0));}
          _U.badCase($moduleName,
-         "between lines 41 and 52");
+         "between lines 41 and 43");
       }();
    });
    var map2 = F3(function (func,
@@ -14016,7 +14070,7 @@ Elm.Result.make = function (_elm) {
                  return Err(_v39._4._0);}
               break;}
          _U.badCase($moduleName,
-         "between lines 82 and 123");
+         "between lines 82 and 88");
       }();
    });
    var formatError = F2(function (f,
@@ -14028,7 +14082,7 @@ Elm.Result.make = function (_elm) {
             case "Ok":
             return Ok(result._0);}
          _U.badCase($moduleName,
-         "between lines 148 and 161");
+         "between lines 148 and 150");
       }();
    });
    var fromMaybe = F2(function (err,
@@ -14074,7 +14128,9 @@ Elm.Schema.make = function (_elm) {
    $Json$Decode = Elm.Json.Decode.make(_elm),
    $Json$Decode$Extra = Elm.Json.Decode.Extra.make(_elm),
    $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm);
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var Category = F2(function (a,
    b) {
       return {_: {}
@@ -14111,27 +14167,39 @@ Elm.Schema.make = function (_elm) {
    A2($Json$Decode._op[":="],
    "height",
    $Json$Decode.maybe($Json$Decode.$int)));
-   var Product = F9(function (a,
-   b,
-   c,
-   d,
-   e,
-   f,
-   g,
-   h,
-   i) {
-      return {_: {}
-             ,bestImage: g
-             ,brandId: h
-             ,categoryIds: i
-             ,clickUrl: e
-             ,description: c
-             ,largeImage: f
-             ,name: b
-             ,price: d
-             ,productId: a};
-   });
+   var Product = function (a) {
+      return function (b) {
+         return function (c) {
+            return function (d) {
+               return function (e) {
+                  return function (f) {
+                     return function (g) {
+                        return function (h) {
+                           return function (i) {
+                              return function (j) {
+                                 return {_: {}
+                                        ,bestImage: g
+                                        ,brandId: h
+                                        ,categoryIds: i
+                                        ,clickUrl: e
+                                        ,description: c
+                                        ,featured: j
+                                        ,largeImage: f
+                                        ,name: b
+                                        ,price: d
+                                        ,productId: a};
+                              };
+                           };
+                        };
+                     };
+                  };
+               };
+            };
+         };
+      };
+   };
    var decodeProduct = A2($Json$Decode$Extra.apply,
+   A2($Json$Decode$Extra.apply,
    A2($Json$Decode$Extra.apply,
    A2($Json$Decode$Extra.apply,
    A2($Json$Decode$Extra.apply,
@@ -14167,7 +14235,10 @@ Elm.Schema.make = function (_elm) {
    $Json$Decode.maybe($Json$Decode.string))),
    A2($Json$Decode._op[":="],
    "categoryIds",
-   $Json$Decode.list($Json$Decode.string)));
+   $Json$Decode.list($Json$Decode.string))),
+   A2($Json$Decode._op[":="],
+   "featured",
+   $Json$Decode.bool));
    var Brand = F2(function (a,b) {
       return {_: {}
              ,brandId: a
@@ -14290,6 +14361,7 @@ Elm.Set.make = function (_elm) {
    var intersect = $Dict.intersect;
    var union = $Dict.union;
    var member = $Dict.member;
+   var isEmpty = $Dict.isEmpty;
    var remove = $Dict.remove;
    var insert = function (k) {
       return A2($Dict.insert,
@@ -14318,6 +14390,7 @@ Elm.Set.make = function (_elm) {
                      ,singleton: singleton
                      ,insert: insert
                      ,remove: remove
+                     ,isEmpty: isEmpty
                      ,member: member
                      ,foldl: foldl
                      ,foldr: foldr
@@ -14433,7 +14506,7 @@ Elm.Signal.make = function (_elm) {
             case "[]":
             return $Debug.crash("mergeMany was given an empty list!");}
          _U.badCase($moduleName,
-         "between lines 177 and 197");
+         "between lines 177 and 182");
       }();
    };
    var foldp = $Native$Signal.foldp;
@@ -14591,6 +14664,9 @@ Elm.String.Split.make = function (_elm) {
    $moduleName = "String.Split",
    $Basics = Elm.Basics.make(_elm),
    $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
    $String = Elm.String.make(_elm);
    var chunksOfRight = F2(function (k,
    s) {
@@ -14650,12 +14726,13 @@ Elm.System.make = function (_elm) {
    $moduleName = "System",
    $Basics = Elm.Basics.make(_elm),
    $Exts$Maybe = Elm.Exts.Maybe.make(_elm),
-   $Exts$SafeList = Elm.Exts.SafeList.make(_elm),
    $Http = Elm.Http.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
-   $Set = Elm.Set.make(_elm);
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var isLoadStarredAction = function (action) {
       return function () {
          switch (action.ctor)
@@ -14665,13 +14742,15 @@ Elm.System.make = function (_elm) {
       }();
    };
    var lookupProduct = function (id) {
-      return $Exts$SafeList.lookup(function ($) {
-         return F2(function (x,y) {
-            return _U.eq(x,y);
-         })(id)(function (_) {
-            return _.productId;
-         }($));
-      });
+      return function ($) {
+         return $List.head($List.filter(function ($) {
+            return F2(function (x,y) {
+               return _U.eq(x,y);
+            })(id)(function (_) {
+               return _.productId;
+            }($));
+         })($));
+      };
    };
    var CategoryListPage = {ctor: "CategoryListPage"};
    var BrandListPage = {ctor: "BrandListPage"};
@@ -14782,7 +14861,7 @@ Elm.System.make = function (_elm) {
                          productFilter._0);
                        case "Nothing": return false;}
                     _U.badCase($moduleName,
-                    "between lines 73 and 75");
+                    "between lines 69 and 71");
                  }();
               };
             case "FilterWithCategoryId":
@@ -14806,7 +14885,7 @@ Elm.System.make = function (_elm) {
                  }();
               };}
          _U.badCase($moduleName,
-         "between lines 66 and 75");
+         "between lines 62 and 71");
       }();
    });
    var FilterWithLimit = function (a) {
@@ -15316,7 +15395,12 @@ Elm.Uri.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Uri",
-   $Native$Uri = Elm.Native.Uri.make(_elm);
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Native$Uri = Elm.Native.Uri.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
    var encodeUriComponent = $Native$Uri.encodeUriComponent;
    var encodeUri = $Native$Uri.encodeUri;
    _elm.Uri.values = {_op: _op
@@ -15337,6 +15421,7 @@ Elm.View.make = function (_elm) {
    $moduleName = "View",
    $Basics = Elm.Basics.make(_elm),
    $Dict = Elm.Dict.make(_elm),
+   $Exts$Dict = Elm.Exts.Dict.make(_elm),
    $Exts$Html$Bootstrap = Elm.Exts.Html.Bootstrap.make(_elm),
    $Exts$Maybe = Elm.Exts.Maybe.make(_elm),
    $Html = Elm.Html.make(_elm),
@@ -15346,13 +15431,17 @@ Elm.View.make = function (_elm) {
    $Http = Elm.Http.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
-   $Placement = Elm.Placement.make(_elm),
+   $Number$Format = Elm.Number.Format.make(_elm),
+   $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $System = Elm.System.make(_elm),
    $Uri = Elm.Uri.make(_elm),
-   $ViewCommon = Elm.ViewCommon.make(_elm);
+   $View$Common = Elm.View.Common.make(_elm),
+   $View$Navigation = Elm.View.Navigation.make(_elm),
+   $View$Placement = Elm.View.Placement.make(_elm),
+   $View$Static = Elm.View.Static.make(_elm);
    var debuggingView = function (_v0) {
       return function () {
          switch (_v0.ctor)
@@ -15377,59 +15466,36 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 223 and 229");
+         "between lines 175 and 181");
       }();
    };
-   var categoryListView = function (categories) {
-      return function () {
-         var item = function (c) {
-            return A2($Html.a,
-            _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
-            "#/category/",
-            c.categoryId))]),
-            _L.fromArray([$Html.text(c.name)]));
-         };
-         return A2($ViewCommon.simpleListGroupView,
-         item,
-         categories);
-      }();
+   var brandHistogram = function (dataFeed) {
+      return $Exts$Dict.frequency(A2($List.filterMap,
+      function (_) {
+         return _.brandId;
+      },
+      dataFeed.products));
    };
-   var brandListView = function (brands) {
-      return function () {
-         var item = function (b) {
-            return A2($Html.a,
-            _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
-            "#/brand/",
-            b.brandId))]),
-            _L.fromArray([$Html.text(b.name)]));
-         };
-         return A2($ViewCommon.simpleListGroupView,
-         item,
-         brands);
-      }();
+   var categoryHistogram = function (dataFeed) {
+      return $Exts$Dict.frequency(A2($List.concatMap,
+      function (_) {
+         return _.categoryIds;
+      },
+      dataFeed.products));
    };
-   var topCategories = _L.fromArray(["wedding"
-                                    ,"vintage"
-                                    ,"full-outfits"
-                                    ,"jackets"
-                                    ,"skirts"
-                                    ,"trousers"
-                                    ,"corsets"
-                                    ,"capes"
-                                    ,"costumes"
-                                    ,"children"
-                                    ,"plus-sizes"]);
    var exploreCategoriesView = function (dataFeed) {
       return A2($Html.div,
       _L.fromArray([]),
       _L.fromArray([A2($Html.h2,
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("Top Categories")]))
-                   ,categoryListView(A2($Exts$Maybe.mapMaybe,
+                   ,A2($View$Navigation.categoryListView,
+                   categoryHistogram(dataFeed),
+                   A2($List.filterMap,
                    A2($Basics.flip,
                    $Dict.get,
                    dataFeed.categories),
-                   topCategories))]));
+                   $View$Static.topCategories))]));
    };
    var shareTwitterLink = F2(function (url,
    body) {
@@ -15448,65 +15514,58 @@ Elm.View.make = function (_elm) {
       body))))));
    });
    var twitterButton = F3(function (uiChannel,
-   currentPageUrl,
+   linkUrl,
    product) {
-      return function () {
-         switch (currentPageUrl.ctor)
-         {case "Just": return A2($Html.p,
-              _L.fromArray([]),
-              _L.fromArray([A2($Html.a,
-              _L.fromArray([$Html$Attributes.$class("btn btn-info btn-block")
-                           ,A2($Html$Events.onClick,
-                           uiChannel,
-                           A2($System.ShareProduct,
-                           $System.Twitter,
-                           product.productId))
-                           ,$Html$Attributes.href(A2(shareTwitterLink,
-                           currentPageUrl._0,
-                           product.name))]),
-              _L.fromArray([$Html.text("Tweet This!")]))]));
-            case "Nothing":
-            return $Exts$Html$Bootstrap.empty;}
-         _U.badCase($moduleName,
-         "between lines 145 and 151");
-      }();
+      return A2($Html.p,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.a,
+      _L.fromArray([$Html$Attributes.$class("btn btn-info btn-block")
+                   ,A2($Html$Events.onClick,
+                   uiChannel,
+                   A2($System.ShareProduct,
+                   $System.Twitter,
+                   product.productId))
+                   ,$Html$Attributes.href(A2(shareTwitterLink,
+                   linkUrl,
+                   product.name))]),
+      _L.fromArray([$Html.text("Tweet This!")]))]));
    });
    var brandLabel = F2(function (brands,
    brandId) {
       return function () {
-         var _v5 = A2($Dict.get,
+         var _v3 = A2($Dict.get,
          brandId,
          brands);
-         switch (_v5.ctor)
+         switch (_v3.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/brand/",
-                           _v5._0.brandId))]),
-              _L.fromArray([$Html.text(_v5._0.name)]));
+                           _v3._0.brandId))]),
+              _L.fromArray([$Html.text(_v3._0.name)]));
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 130 and 134");
+         "between lines 106 and 110");
       }();
    });
    var categoryLabel = F2(function (categories,
    categoryId) {
       return function () {
-         var _v7 = A2($Dict.get,
+         var _v5 = A2($Dict.get,
          categoryId,
          categories);
-         switch (_v7.ctor)
+         switch (_v5.ctor)
          {case "Just": return A2($Html.a,
               _L.fromArray([$Html$Attributes.$class("btn btn-sm btn-default btn-block category-label")
                            ,$Html$Attributes.href(A2($Basics._op["++"],
                            "#/category/",
-                           _v7._0.categoryId))]),
-              _L.fromArray([$Html.text(_v7._0.name)]));
+                           _v5._0.categoryId))]),
+              _L.fromArray([$Html.text(_v5._0.name)]));
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 122 and 126");
+         "between lines 98 and 102");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15531,13 +15590,21 @@ Elm.View.make = function (_elm) {
                                                           _L.fromArray([]))]))]))
                                                           ,A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12\n                        col-sm-5\n                        col-md-4")]),
-                                                          _L.fromArray([A3($ViewCommon.productControls,
+                                                          _L.fromArray([A3($View$Common.productControls,
                                                                        uiChannel,
                                                                        starredProducts,
                                                                        product)
                                                                        ,A2($Html.p,
                                                                        _L.fromArray([]),
                                                                        _L.fromArray([$Html.text(product.description)]))
+                                                                       ,A2($Html.p,
+                                                                       _L.fromArray([]),
+                                                                       _L.fromArray([$Html.text(A2($Basics._op["++"],
+                                                                       "Price: £",
+                                                                       A3($Number$Format.pretty,
+                                                                       2,
+                                                                       _U.chr(","),
+                                                                       product.price)))]))
                                                                        ,A3(twitterButton,
                                                                        uiChannel,
                                                                        currentPageUrl,
@@ -15556,70 +15623,26 @@ Elm.View.make = function (_elm) {
    productId,
    dataFeed) {
       return function () {
-         var _v9 = A2($System.lookupProduct,
+         var _v7 = A2($System.lookupProduct,
          productId,
          dataFeed.products);
-         switch (_v9.ctor)
+         switch (_v7.ctor)
          {case "Just":
             return A5(productDetailView,
               uiChannel,
               starredProducts,
               currentPageUrl,
-              _v9._0,
+              _v7._0,
               dataFeed);
             case "Nothing":
-            return $ViewCommon.notFoundView;}
+            return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 179 and 181");
+         "between lines 154 and 156");
       }();
    });
-   var navbarView = F2(function (uiChannel,
-   _v11) {
-      return function () {
-         switch (_v11.ctor)
-         {case "Model":
-            return function () {
-                 var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
-                 $Set.empty,
-                 _v11._0.starredProducts)));
-                 return A2($Html.nav,
-                 _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
-                 _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-header")]),
-                                                                           _L.fromArray([A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-brand")]),
-                                                                           _L.fromArray([A2($Html.a,
-                                                                           _L.fromArray([$Html$Attributes.href("#")]),
-                                                                           _L.fromArray([$Html.text("Get Stitching!")]))]))]))
-                                                                           ,A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left hidden-xs")]),
-                                                                           _L.fromArray([A2($Html.p,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-text")]),
-                                                                           _L.fromArray([$Html.text("Find your next project...")]))]))
-                                                                           ,A2($Html.ul,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                           _L.fromArray([A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-link hidden-xs")
-                                                                                                     ,A2($Html$Events.onClick,
-                                                                                                     uiChannel,
-                                                                                                     $System.Contact($System.Twitter))
-                                                                                                     ,$Html$Attributes.href("https://twitter.com/getstitching")]),
-                                                                                        _L.fromArray([$Html.text("Contact Us")]))]))
-                                                                                        ,A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                                        _L.fromArray([$Html.text("Saved Patterns ")
-                                                                                                     ,A2($Html.span,
-                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
-              }();}
-         _U.badCase($moduleName,
-         "between lines 98 and 118");
-      }();
-   });
+   var boolSort = function (x) {
+      return x ? 0 : 1;
+   };
    var frontPageHeadingView = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
@@ -15630,7 +15653,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([exploreCategoriesView(dataFeed)]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
-                   _L.fromArray([A3($Placement.currentPlacementView,
+                   _L.fromArray([A3($View$Placement.currentPlacementView,
                    uiChannel,
                    starredProducts,
                    dataFeed)]))]));
@@ -15661,27 +15684,27 @@ Elm.View.make = function (_elm) {
             return "Your Favourites";
             case "FilterWithBrandId":
             return function () {
-                 var _v18 = A2($Dict.get,
+                 var _v13 = A2($Dict.get,
                  productFilter._0,
                  dataFeed.brands);
-                 switch (_v18.ctor)
+                 switch (_v13.ctor)
                  {case "Just":
-                    return _v18._0.name;
+                    return _v13._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 67 and 70");
+                 "between lines 64 and 67");
               }();
             case "FilterWithCategoryId":
             return function () {
-                 var _v20 = A2($Dict.get,
+                 var _v15 = A2($Dict.get,
                  productFilter._0,
                  dataFeed.categories);
-                 switch (_v20.ctor)
+                 switch (_v15.ctor)
                  {case "Just":
-                    return _v20._0.name;
+                    return _v15._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 63 and 66");
+                 "between lines 60 and 63");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -15712,7 +15735,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
-                   _L.fromArray([A3($ViewCommon.productControls,
+                   _L.fromArray([A3($View$Common.productControls,
                    uiChannel,
                    starredProducts,
                    product)]))]))]));
@@ -15732,48 +15755,25 @@ Elm.View.make = function (_elm) {
          ps));
       }();
    });
-   var defaultRemoteDataView = F2(function (view,
-   data) {
-      return function () {
-         switch (data.ctor)
-         {case "Failure":
-            return $HtmlUtils.htmlError($Basics.toString(data._1));
-            case "NotAsked":
-            return $ViewCommon.loadingView;
-            case "Success":
-            return view(data._0);
-            case "Waiting":
-            return $ViewCommon.loadingView;}
-         _U.badCase($moduleName,
-         "between lines 31 and 35");
-      }();
-   });
-   var bimapMaybe = F3(function ($default,
-   f,
-   maybe) {
-      return function () {
-         switch (maybe.ctor)
-         {case "Just":
-            return f(maybe._0);
-            case "Nothing":
-            return $default;}
-         _U.badCase($moduleName,
-         "between lines 25 and 27");
-      }();
-   });
    var productListView = F5(function (uiChannel,
    pageSize,
    starredProducts,
    productFilter,
    dataFeed) {
       return function () {
-         var filteredProducts = A2($List.filter,
+         var filteredProducts = A2($List.sortBy,
+         function ($) {
+            return boolSort(function (_) {
+               return _.featured;
+            }($));
+         },
+         A2($List.filter,
          A2($System.filterProduct,
          starredProducts,
          productFilter),
-         dataFeed.products);
+         dataFeed.products));
          var productCount = $List.length(filteredProducts);
-         var windowedProducts = A4(bimapMaybe,
+         var windowedProducts = A4($Exts$Maybe.maybe,
          $Basics.identity,
          $List.take,
          pageSize,
@@ -15798,51 +15798,63 @@ Elm.View.make = function (_elm) {
                       windowedProducts)]));
       }();
    });
-   var rootView = F2(function (uiChannel,
-   _v29) {
+   var defaultRemoteDataView = F2(function (view,
+   data) {
       return function () {
-         switch (_v29.ctor)
+         switch (data.ctor)
+         {case "Failure":
+            return $HtmlUtils.htmlError($Basics.toString(data._1));
+            case "NotAsked":
+            return $View$Common.loadingView;
+            case "Success":
+            return view(data._0);
+            case "Waiting":
+            return $View$Common.loadingView;}
+         _U.badCase($moduleName,
+         "between lines 28 and 32");
+      }();
+   });
+   var rootView = F2(function (uiChannel,
+   _v22) {
+      return function () {
+         switch (_v22.ctor)
          {case "Model":
             return function () {
                  var starredProducts = A2($Maybe.withDefault,
                  $Set.empty,
-                 _v29._0.starredProducts);
+                 _v22._0.starredProducts);
                  return A2($Html.div,
                  _L.fromArray([]),
-                 _L.fromArray([A2(navbarView,
+                 _L.fromArray([A2($View$Navigation.navbarView,
                               uiChannel,
-                              $System.Model(_v29._0))
+                              $System.Model(_v22._0))
                               ,A2($Html.div,
                               _L.fromArray([$Html$Attributes.id("main-container")
-                                           ,$Html$Attributes.$class("container")]),
+                                           ,$Html$Attributes.$class("container-fluid")]),
                               _L.fromArray([function () {
-                                 var _v32 = _v29._0.view;
-                                 switch (_v32.ctor)
+                                 var _v25 = _v22._0.view;
+                                 switch (_v25.ctor)
                                  {case "NoPage":
                                     return A2($Html.div,
                                       _L.fromArray([]),
                                       _L.fromArray([]));
                                     case "NotFoundPage":
-                                    return $ViewCommon.notFoundView;}
+                                    return $View$Common.notFoundView;}
                                  return A2(defaultRemoteDataView,
                                  function () {
-                                    var _v33 = _v29._0.view;
-                                    switch (_v33.ctor)
+                                    var _v26 = _v22._0.view;
+                                    switch (_v26.ctor)
                                     {case "BrandListPage":
                                        return function (dataFeed) {
-                                            return brandListView(A2($List.sortBy,
-                                            function (_) {
-                                               return _.name;
-                                            },
-                                            $Dict.values(dataFeed.brands)));
+                                            return A2($View$Navigation.brandListPage,
+                                            brandHistogram(dataFeed),
+                                            dataFeed.brands);
                                          };
                                        case "CategoryListPage":
                                        return function (dataFeed) {
-                                            return categoryListView(A2($List.sortBy,
-                                            function (_) {
-                                               return _.name;
-                                            },
-                                            $Dict.values(dataFeed.categories)));
+                                            return A2($View$Navigation.categoryListPage,
+                                            categoryHistogram(dataFeed),
+                                            dataFeed.categories);
                                          };
                                        case "ProductListPage":
                                        return function (ps) {
@@ -15851,89 +15863,91 @@ Elm.View.make = function (_elm) {
                                             _L.fromArray([A4(productListHeadingView,
                                                          uiChannel,
                                                          starredProducts,
-                                                         _v33._1,
+                                                         _v26._1,
                                                          ps)
                                                          ,A5(productListView,
                                                          uiChannel,
-                                                         $Maybe.Just(_v33._0),
+                                                         $Maybe.Just(_v26._0),
                                                          starredProducts,
-                                                         _v33._1,
+                                                         _v26._1,
                                                          ps)]));
                                          };
                                        case "ProductPage":
                                        return A4(singleProductView,
                                          uiChannel,
                                          starredProducts,
-                                         _v29._0.currentPageUrl,
-                                         _v33._0);}
+                                         _v22._0.currentPageUrl,
+                                         _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 243 and 251");
+                                    "between lines 195 and 202");
                                  }(),
-                                 _v29._0.dataFeed);
+                                 _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 233 and 252");
+         "between lines 185 and 203");
       }();
    });
    _elm.View.values = {_op: _op
-                      ,bimapMaybe: bimapMaybe
                       ,defaultRemoteDataView: defaultRemoteDataView
                       ,productSummaryView: productSummaryView
                       ,productSummaryRowView: productSummaryRowView
                       ,nameForProductFilter: nameForProductFilter
                       ,frontPageHeadingView: frontPageHeadingView
                       ,productListHeadingView: productListHeadingView
+                      ,boolSort: boolSort
                       ,productListView: productListView
-                      ,navbarView: navbarView
                       ,categoryLabel: categoryLabel
                       ,brandLabel: brandLabel
                       ,shareTwitterLink: shareTwitterLink
                       ,twitterButton: twitterButton
                       ,productDetailView: productDetailView
                       ,singleProductView: singleProductView
-                      ,topCategories: topCategories
-                      ,brandListView: brandListView
-                      ,categoryListView: categoryListView
+                      ,categoryHistogram: categoryHistogram
+                      ,brandHistogram: brandHistogram
                       ,exploreCategoriesView: exploreCategoriesView
                       ,debuggingView: debuggingView
                       ,rootView: rootView};
    return _elm.View.values;
 };
-Elm.ViewCommon = Elm.ViewCommon || {};
-Elm.ViewCommon.make = function (_elm) {
+Elm.View = Elm.View || {};
+Elm.View.Common = Elm.View.Common || {};
+Elm.View.Common.make = function (_elm) {
    "use strict";
-   _elm.ViewCommon = _elm.ViewCommon || {};
-   if (_elm.ViewCommon.values)
-   return _elm.ViewCommon.values;
+   _elm.View = _elm.View || {};
+   _elm.View.Common = _elm.View.Common || {};
+   if (_elm.View.Common.values)
+   return _elm.View.Common.values;
    var _op = {},
    _N = Elm.Native,
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
-   $moduleName = "ViewCommon",
+   $moduleName = "View.Common",
    $Basics = Elm.Basics.make(_elm),
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
    $List = Elm.List.make(_elm),
-   $Number$Format = Elm.Number.Format.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $System = Elm.System.make(_elm);
-   var simpleListGroupView = F2(function (itemView,
-   items) {
+   var simpleListGroupView = function (items) {
       return function () {
-         var listItem = function (c) {
+         var listItemView = function (item) {
             return A2($Html.li,
             _L.fromArray([$Html$Attributes.$class("list-group-item")]),
-            _L.fromArray([itemView(c)]));
+            _L.fromArray([item]));
          };
          return A2($Html.ul,
          _L.fromArray([$Html$Attributes.$class("list-group")]),
-         A2($List.map,listItem,items));
+         A2($List.map,
+         listItemView,
+         items));
       }();
-   });
+   };
    var notFoundView = A2($Html.h2,
    _L.fromArray([]),
    _L.fromArray([$Html.text("Not Found")]));
@@ -15952,12 +15966,7 @@ Elm.ViewCommon.make = function (_elm) {
                    uiChannel,
                    $System.BuyProduct(p.productId))
                    ,$Html$Attributes.target("_blank")]),
-      _L.fromArray([$Html.text(A2($Basics._op["++"],
-      "£",
-      A3($Number$Format.pretty,
-      2,
-      _U.chr(","),
-      p.price)))]));
+      _L.fromArray([$Html.text("Buy")]));
    });
    var starButton = F3(function (uiChannel,
    starredProducts,
@@ -16003,14 +16012,374 @@ Elm.ViewCommon.make = function (_elm) {
                    starredProducts,
                    product)]));
    });
-   _elm.ViewCommon.values = {_op: _op
-                            ,starButton: starButton
-                            ,buyButton: buyButton
-                            ,productControls: productControls
-                            ,loadingView: loadingView
-                            ,notFoundView: notFoundView
-                            ,simpleListGroupView: simpleListGroupView};
-   return _elm.ViewCommon.values;
+   _elm.View.Common.values = {_op: _op
+                             ,starButton: starButton
+                             ,buyButton: buyButton
+                             ,productControls: productControls
+                             ,loadingView: loadingView
+                             ,notFoundView: notFoundView
+                             ,simpleListGroupView: simpleListGroupView};
+   return _elm.View.Common.values;
+};
+Elm.View = Elm.View || {};
+Elm.View.Navigation = Elm.View.Navigation || {};
+Elm.View.Navigation.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   _elm.View.Navigation = _elm.View.Navigation || {};
+   if (_elm.View.Navigation.values)
+   return _elm.View.Navigation.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "View.Navigation",
+   $Basics = Elm.Basics.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Exts$Html$Bootstrap = Elm.Exts.Html.Bootstrap.make(_elm),
+   $Exts$Maybe = Elm.Exts.Maybe.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $Html$Events = Elm.Html.Events.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Schema = Elm.Schema.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $System = Elm.System.make(_elm);
+   var listGroupView = F5(function (frequencies,
+   idFn,
+   uriFn,
+   nameFn,
+   xs) {
+      return function () {
+         var showCount = function (c) {
+            return A2($Html.span,
+            _L.fromArray([$Html$Attributes.$class("badge")]),
+            _L.fromArray([$Html.text($Basics.toString(c))]));
+         };
+         var item = function (x) {
+            return function () {
+               var count = A2($Maybe.andThen,
+               x,
+               function ($) {
+                  return A2($Basics.flip,
+                  $Dict.get,
+                  frequencies)(idFn($));
+               });
+               return A2($Html.a,
+               _L.fromArray([$Html$Attributes.classList(_L.fromArray([{ctor: "_Tuple2"
+                                                                      ,_0: "list-group-item"
+                                                                      ,_1: true}
+                                                                     ,{ctor: "_Tuple2"
+                                                                      ,_0: "list-group-item-info"
+                                                                      ,_1: $Exts$Maybe.isNothing(x)}]))
+                            ,$Html$Attributes.href(uriFn(x))]),
+               _L.fromArray([$Html.text(nameFn(x))
+                            ,A3($Exts$Maybe.maybe,
+                            $Exts$Html$Bootstrap.empty,
+                            showCount,
+                            count)]));
+            }();
+         };
+         return A2($Html.div,
+         _L.fromArray([$Html$Attributes.$class("list-group")]),
+         A2($List.map,item,xs));
+      }();
+   });
+   var uriForBrand = function (m) {
+      return A2($Basics._op["++"],
+      "#/brand",
+      A3($Exts$Maybe.maybe,
+      "",
+      function (b) {
+         return A2($Basics._op["++"],
+         "/",
+         b.brandId);
+      },
+      m));
+   };
+   var brandListView = F2(function (frequencies,
+   brands) {
+      return A5(listGroupView,
+      frequencies,
+      function (_) {
+         return _.brandId;
+      },
+      uriForBrand,
+      A2($Exts$Maybe.maybe,
+      "All...",
+      function (_) {
+         return _.name;
+      }),
+      A2($Basics._op["++"],
+      A2($List.map,
+      $Maybe.Just,
+      brands),
+      _L.fromArray([$Maybe.Nothing])));
+   });
+   var brandListPage = F2(function (histogram,
+   brands) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.h2,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("All Brands")]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("row")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("col-xs-12 col-md-4")]),
+                   _L.fromArray([A2(brandListView,
+                   histogram,
+                   A2($List.sortBy,
+                   function (_) {
+                      return _.name;
+                   },
+                   $Dict.values(brands)))]))]))]));
+   });
+   var uriForCategory = function (m) {
+      return A2($Basics._op["++"],
+      "#/category",
+      A3($Exts$Maybe.maybe,
+      "",
+      function (c) {
+         return A2($Basics._op["++"],
+         "/",
+         c.categoryId);
+      },
+      m));
+   };
+   var categoryListView = F2(function (frequencies,
+   categories) {
+      return A5(listGroupView,
+      frequencies,
+      function (_) {
+         return _.categoryId;
+      },
+      uriForCategory,
+      A2($Exts$Maybe.maybe,
+      "All...",
+      function (_) {
+         return _.name;
+      }),
+      A2($Basics._op["++"],
+      A2($List.map,
+      $Maybe.Just,
+      categories),
+      _L.fromArray([$Maybe.Nothing])));
+   });
+   var categoryListPage = F2(function (histogram,
+   categories) {
+      return A2($Html.div,
+      _L.fromArray([]),
+      _L.fromArray([A2($Html.h2,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("All Categories")]))
+                   ,A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("row")]),
+                   _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("col-xs-12 col-md-4")]),
+                   _L.fromArray([A2(categoryListView,
+                   histogram,
+                   A2($List.sortBy,
+                   function (_) {
+                      return _.name;
+                   },
+                   $Dict.values(categories)))]))]))]));
+   });
+   var navbarView = F2(function (uiChannel,
+   _v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "Model":
+            return function () {
+                 var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
+                 $Set.empty,
+                 _v0._0.starredProducts)));
+                 return A2($Html.nav,
+                 _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
+                 _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
+                                                                           _L.fromArray([$Html$Attributes.$class("navbar-header")]),
+                                                                           _L.fromArray([A2($Html.div,
+                                                                           _L.fromArray([$Html$Attributes.$class("navbar-brand")]),
+                                                                           _L.fromArray([A2($Html.a,
+                                                                           _L.fromArray([$Html$Attributes.href("#")]),
+                                                                           _L.fromArray([$Html.text("Get Stitching!")]))]))]))
+                                                                           ,A2($Html.div,
+                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left hidden-xs")]),
+                                                                           _L.fromArray([A2($Html.p,
+                                                                           _L.fromArray([$Html$Attributes.$class("navbar-text")]),
+                                                                           _L.fromArray([$Html.text("Find your next project...")]))]))
+                                                                           ,A2($Html.ul,
+                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
+                                                                           _L.fromArray([A2($Html.li,
+                                                                                        _L.fromArray([]),
+                                                                                        _L.fromArray([A2($Html.a,
+                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-link hidden-xs")
+                                                                                                     ,A2($Html$Events.onClick,
+                                                                                                     uiChannel,
+                                                                                                     $System.Contact($System.Twitter))
+                                                                                                     ,$Html$Attributes.href("https://twitter.com/getstitching")]),
+                                                                                        _L.fromArray([$Html.text("Contact Us")]))]))
+                                                                                        ,A2($Html.li,
+                                                                                        _L.fromArray([]),
+                                                                                        _L.fromArray([A2($Html.a,
+                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                        _L.fromArray([$Html.text("Saved Patterns ")
+                                                                                                     ,A2($Html.span,
+                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 17 and 37");
+      }();
+   });
+   _elm.View.Navigation.values = {_op: _op
+                                 ,navbarView: navbarView
+                                 ,uriForCategory: uriForCategory
+                                 ,uriForBrand: uriForBrand
+                                 ,listGroupView: listGroupView
+                                 ,brandListView: brandListView
+                                 ,categoryListView: categoryListView
+                                 ,categoryListPage: categoryListPage
+                                 ,brandListPage: brandListPage};
+   return _elm.View.Navigation.values;
+};
+Elm.View = Elm.View || {};
+Elm.View.Placement = Elm.View.Placement || {};
+Elm.View.Placement.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   _elm.View.Placement = _elm.View.Placement || {};
+   if (_elm.View.Placement.values)
+   return _elm.View.Placement.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "View.Placement",
+   $Basics = Elm.Basics.make(_elm),
+   $Exts$Html$Bootstrap = Elm.Exts.Html.Bootstrap.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $Html$Attributes = Elm.Html.Attributes.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Markdown = Elm.Markdown.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Schema = Elm.Schema.make(_elm),
+   $Set = Elm.Set.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $System = Elm.System.make(_elm),
+   $View$Common = Elm.View.Common.make(_elm);
+   var placement3 = {ctor: "_Tuple2"
+                    ,_0: 468353082
+                    ,_1: "\nSimplicity Women\'s Knit Dress and Tunic, 1251\n"};
+   var placement2 = {ctor: "_Tuple2"
+                    ,_0: 468354536
+                    ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts, as I strode in in my mighty coffeecape?\n"};
+   var placement1 = {ctor: "_Tuple2"
+                    ,_0: 468355587
+                    ,_1: "\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n"};
+   var validPlacementView = F4(function (uiChannel,
+   starredProducts,
+   product,
+   copy) {
+      return A2($Html.div,
+      _L.fromArray([$Html$Attributes.$class("placement")]),
+      _L.fromArray([A2($Html.h2,
+                   _L.fromArray([]),
+                   _L.fromArray([$Html.text("We\'re Craving...")]))
+                   ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-5 pull-right")]),
+                                                          _L.fromArray([A2($Html.a,
+                                                                       _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
+                                                                       "#/product/",
+                                                                       $Basics.toString(product.productId)))]),
+                                                                       _L.fromArray([A2($Html.img,
+                                                                       _L.fromArray([$Html$Attributes.$class("img-responsive")
+                                                                                    ,$Html$Attributes.src(product.bestImage.url)]),
+                                                                       _L.fromArray([]))]))
+                                                                       ,A3($View$Common.productControls,
+                                                                       uiChannel,
+                                                                       starredProducts,
+                                                                       product)]))
+                                                          ,A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-7")]),
+                                                          _L.fromArray([A2($Html.h3,
+                                                                       _L.fromArray([]),
+                                                                       _L.fromArray([$Html.text(product.name)]))
+                                                                       ,copy]))]))]));
+   });
+   var placementView = F4(function (_v0,
+   uiChannel,
+   starredProducts,
+   dataFeed) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var _v4 = A2($System.lookupProduct,
+                 _v0._0,
+                 dataFeed.products);
+                 switch (_v4.ctor)
+                 {case "Just":
+                    return A4(validPlacementView,
+                      uiChannel,
+                      starredProducts,
+                      _v4._0,
+                      $Markdown.toHtml(_v0._1));
+                    case "Nothing":
+                    return $Exts$Html$Bootstrap.empty;}
+                 _U.badCase($moduleName,
+                 "between lines 17 and 19");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 17 and 19");
+      }();
+   });
+   var currentPlacementView = placementView(placement2);
+   _elm.View.Placement.values = {_op: _op
+                                ,placementView: placementView
+                                ,validPlacementView: validPlacementView
+                                ,currentPlacementView: currentPlacementView
+                                ,placement1: placement1
+                                ,placement2: placement2
+                                ,placement3: placement3};
+   return _elm.View.Placement.values;
+};
+Elm.View = Elm.View || {};
+Elm.View.Static = Elm.View.Static || {};
+Elm.View.Static.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   _elm.View.Static = _elm.View.Static || {};
+   if (_elm.View.Static.values)
+   return _elm.View.Static.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "View.Static",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var topCategories = _L.fromArray(["wedding"
+                                    ,"vintage"
+                                    ,"full-outfits"
+                                    ,"dresses"
+                                    ,"jackets"
+                                    ,"skirts"
+                                    ,"tops"
+                                    ,"trousers"
+                                    ,"corsets"
+                                    ,"capes"
+                                    ,"costumes"]);
+   _elm.View.Static.values = {_op: _op
+                             ,topCategories: topCategories};
+   return _elm.View.Static.values;
 };
 Elm.VirtualDom = Elm.VirtualDom || {};
 Elm.VirtualDom.make = function (_elm) {
@@ -16023,9 +16392,13 @@ Elm.VirtualDom.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "VirtualDom",
+   $Basics = Elm.Basics.make(_elm),
    $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Json$Decode = Elm.Json.Decode.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
    $Native$VirtualDom = Elm.Native.VirtualDom.make(_elm),
+   $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var lazy3 = $Native$VirtualDom.lazy3;
    var lazy2 = $Native$VirtualDom.lazy2;

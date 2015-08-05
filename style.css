@@ -84,6 +84,22 @@ code {
     height: 210px;
   }
 }
+.product-controls {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.product-controls .btn {
+  -moz-flex-grow: 1;
+  -ms-flex-grow: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+}
 @media (min-width: 768px) {
   .product-controls .btn + .btn {
     margin-left: 2px;

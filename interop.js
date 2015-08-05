@@ -61,8 +61,10 @@
 
     var app = Elm.fullscreen(
         Elm.Main,
-        {location : document.location.toString(),
+        {initialLocation : document.location.toString(),
+         location : document.location.toString(),
          locationHash : document.location.hash,
+         initialViewport: getViewport(),
          viewport: getViewport(),
          starredProductsRead: ""
         });
