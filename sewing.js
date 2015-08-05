@@ -16338,7 +16338,7 @@ Elm.View.Placement.make = function (_elm) {
          "between lines 17 and 19");
       }();
    });
-   var currentPlacementView = placementView(placement2);
+   var currentPlacementView = placementView(placement1);
    _elm.View.Placement.values = {_op: _op
                                 ,placementView: placementView
                                 ,validPlacementView: validPlacementView
