@@ -16277,7 +16277,7 @@ Elm.View.Placement.make = function (_elm) {
                     ,_1: "\nSimplicity Women\'s Knit Dress and Tunic, 1251\n"};
    var placement2 = {ctor: "_Tuple2"
                     ,_0: 468354536
-                    ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion Cape\", makes me realise I need more special occassions in my life, and at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if that would compel coffeeshops to give me free caffeine boosts, as I strode in in my mighty coffeecape?\n"};
+                    ,_1: "\nThis is the best thing in the world. The name, \"Special Occasion\nCape\", makes me realise I need more special occassions in my life,\nand at least one cape to wear for them.\n\nI wonder if I can make one in a coffeecup-themed fabric? I wonder if\nthat would compel coffeeshops to give me free caffeine boosts, as I\nstrode in in my mighty coffeecape?\n"};
    var placement1 = {ctor: "_Tuple2"
                     ,_0: 468355587
                     ,_1: "\nI love the contrast collar on this jacket. I\'ve been working my way up\nto my first jacket for weeks, and when I saw this I knew the time had\ncome.\n\nI can think of a dozen ways to play with contrasting fabric, but for\nmy first attempt I\'m going play it safe and go _fairly_ similar to the\ndesign shown on the left of the packet. Probably with a darker main\nfabric and a _slightly_ less busy contrast.\n"};
