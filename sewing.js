@@ -3974,6 +3974,35 @@ Elm.Html.Events.make = function (_elm) {
                              ,keyCode: keyCode};
    return _elm.Html.Events.values;
 };
+Elm.Html = Elm.Html || {};
+Elm.Html.Lazy = Elm.Html.Lazy || {};
+Elm.Html.Lazy.make = function (_elm) {
+   "use strict";
+   _elm.Html = _elm.Html || {};
+   _elm.Html.Lazy = _elm.Html.Lazy || {};
+   if (_elm.Html.Lazy.values)
+   return _elm.Html.Lazy.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Html.Lazy",
+   $Basics = Elm.Basics.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $VirtualDom = Elm.VirtualDom.make(_elm);
+   var lazy3 = $VirtualDom.lazy3;
+   var lazy2 = $VirtualDom.lazy2;
+   var lazy = $VirtualDom.lazy;
+   _elm.Html.Lazy.values = {_op: _op
+                           ,lazy: lazy
+                           ,lazy2: lazy2
+                           ,lazy3: lazy3};
+   return _elm.Html.Lazy.values;
+};
 Elm.HtmlUtils = Elm.HtmlUtils || {};
 Elm.HtmlUtils.make = function (_elm) {
    "use strict";
@@ -15427,6 +15456,7 @@ Elm.View.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
+   $Html$Lazy = Elm.Html.Lazy.make(_elm),
    $HtmlUtils = Elm.HtmlUtils.make(_elm),
    $Http = Elm.Http.make(_elm),
    $List = Elm.List.make(_elm),
@@ -15466,7 +15496,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 175 and 181");
+         "between lines 176 and 182");
       }();
    };
    var brandHistogram = function (dataFeed) {
@@ -15546,7 +15576,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 106 and 110");
+         "between lines 107 and 111");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15565,7 +15595,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 98 and 102");
+         "between lines 99 and 103");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15637,7 +15667,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 154 and 156");
+         "between lines 155 and 157");
       }();
    });
    var boolSort = function (x) {
@@ -15650,7 +15680,9 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.$class("row hidden-xs hidden-sm")]),
       _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-3")]),
-                   _L.fromArray([exploreCategoriesView(dataFeed)]))
+                   _L.fromArray([A2($Html$Lazy.lazy,
+                   exploreCategoriesView,
+                   dataFeed)]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
                    _L.fromArray([A3($View$Placement.currentPlacementView,
@@ -15692,7 +15724,7 @@ Elm.View.make = function (_elm) {
                     return _v13._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 64 and 67");
+                 "between lines 65 and 68");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -15704,7 +15736,7 @@ Elm.View.make = function (_elm) {
                     return _v15._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 60 and 63");
+                 "between lines 61 and 64");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -15811,7 +15843,7 @@ Elm.View.make = function (_elm) {
             case "Waiting":
             return $View$Common.loadingView;}
          _U.badCase($moduleName,
-         "between lines 28 and 32");
+         "between lines 29 and 33");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -15879,13 +15911,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 195 and 202");
+                                    "between lines 196 and 203");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 185 and 203");
+         "between lines 186 and 204");
       }();
    });
    _elm.View.values = {_op: _op
