@@ -16058,7 +16058,9 @@ Elm.View.Common.make = function (_elm) {
          _L.fromArray([A2($Html.span,
                       _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
                       _L.fromArray([]))
-                      ,$Html.text(starred ? " Saved" : " Save")]));
+                      ,A2($Html.span,
+                      _L.fromArray([$Html$Attributes.$class("hidden-xs")]),
+                      _L.fromArray([$Html.text(starred ? " Saved" : " Save")]))]));
       }();
    });
    var productControls = F3(function (uiChannel,
