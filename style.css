@@ -127,6 +127,7 @@ code {
 }
 .placement img {
   margin-top: 20px;
+  width: 100%;
 }
 .product-list {
   margin-bottom: 200px;

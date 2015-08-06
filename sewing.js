@@ -16353,7 +16353,7 @@ Elm.View.Placement.make = function (_elm) {
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("We\'re Craving...")]))
                    ,$Exts$Html$Bootstrap.row(_L.fromArray([A2($Html.div,
-                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-5 pull-right")]),
+                                                          _L.fromArray([$Html$Attributes.$class("col-xs-12 col-sm-5 col-lg-4 pull-right")]),
                                                           _L.fromArray([A2($Html.a,
                                                                        _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
                                                                        "#/product/",
