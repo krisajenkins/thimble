@@ -15496,7 +15496,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 176 and 182");
+         "between lines 178 and 184");
       }();
    };
    var brandHistogram = function (dataFeed) {
@@ -15576,7 +15576,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 107 and 111");
+         "between lines 109 and 113");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15595,7 +15595,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 99 and 103");
+         "between lines 101 and 105");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15667,12 +15667,13 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 155 and 157");
+         "between lines 157 and 159");
       }();
    });
    var boolSort = function (x) {
       return x ? 0 : 1;
    };
+   var lExploreCategoriesView = $Html$Lazy.lazy(exploreCategoriesView);
    var frontPageHeadingView = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
@@ -15680,9 +15681,7 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.$class("row hidden-xs hidden-sm")]),
       _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-3")]),
-                   _L.fromArray([A2($Html$Lazy.lazy,
-                   exploreCategoriesView,
-                   dataFeed)]))
+                   _L.fromArray([lExploreCategoriesView(dataFeed)]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
                    _L.fromArray([A3($View$Placement.currentPlacementView,
@@ -15911,13 +15910,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 196 and 203");
+                                    "between lines 198 and 205");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 186 and 204");
+         "between lines 188 and 206");
       }();
    });
    _elm.View.values = {_op: _op
@@ -15925,6 +15924,7 @@ Elm.View.make = function (_elm) {
                       ,productSummaryView: productSummaryView
                       ,productSummaryRowView: productSummaryRowView
                       ,nameForProductFilter: nameForProductFilter
+                      ,lExploreCategoriesView: lExploreCategoriesView
                       ,frontPageHeadingView: frontPageHeadingView
                       ,productListHeadingView: productListHeadingView
                       ,boolSort: boolSort
