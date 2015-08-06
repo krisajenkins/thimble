@@ -1897,6 +1897,27 @@ Elm.Exts.Dict.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
+   var frequency = function () {
+      var updater = function (m) {
+         return function () {
+            switch (m.ctor)
+            {case "Just":
+               return $Maybe.Just(m._0 + 1);
+               case "Nothing":
+               return $Maybe.Just(0);}
+            _U.badCase($moduleName,
+            "between lines 41 and 44");
+         }();
+      };
+      var reducer = function (x) {
+         return A2($Dict.update,
+         x,
+         updater);
+      };
+      return A2($List.foldl,
+      reducer,
+      $Dict.empty);
+   }();
    var groupBy = function (f) {
       return function () {
          var reducer = F3(function (g,
@@ -1919,15 +1940,6 @@ Elm.Exts.Dict.make = function (_elm) {
          reducer(f),
          $Dict.empty);
       }();
-   };
-   var frequency = function (xs) {
-      return $Dict.map(function (_v0) {
-         return function () {
-            return $List.length;
-         }();
-      })(A2(groupBy,
-      $Basics.identity,
-      xs));
    };
    var indexBy = function (f) {
       return A2($List.foldl,
@@ -3974,35 +3986,6 @@ Elm.Html.Events.make = function (_elm) {
                              ,keyCode: keyCode};
    return _elm.Html.Events.values;
 };
-Elm.Html = Elm.Html || {};
-Elm.Html.Lazy = Elm.Html.Lazy || {};
-Elm.Html.Lazy.make = function (_elm) {
-   "use strict";
-   _elm.Html = _elm.Html || {};
-   _elm.Html.Lazy = _elm.Html.Lazy || {};
-   if (_elm.Html.Lazy.values)
-   return _elm.Html.Lazy.values;
-   var _op = {},
-   _N = Elm.Native,
-   _U = _N.Utils.make(_elm),
-   _L = _N.List.make(_elm),
-   $moduleName = "Html.Lazy",
-   $Basics = Elm.Basics.make(_elm),
-   $Html = Elm.Html.make(_elm),
-   $List = Elm.List.make(_elm),
-   $Maybe = Elm.Maybe.make(_elm),
-   $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm),
-   $VirtualDom = Elm.VirtualDom.make(_elm);
-   var lazy3 = $VirtualDom.lazy3;
-   var lazy2 = $VirtualDom.lazy2;
-   var lazy = $VirtualDom.lazy;
-   _elm.Html.Lazy.values = {_op: _op
-                           ,lazy: lazy
-                           ,lazy2: lazy2
-                           ,lazy3: lazy3};
-   return _elm.Html.Lazy.values;
-};
 Elm.HtmlUtils = Elm.HtmlUtils || {};
 Elm.HtmlUtils.make = function (_elm) {
    "use strict";
@@ -5397,6 +5380,28 @@ Elm.Maybe.make = function (_elm) {
                        ,Just: Just
                        ,Nothing: Nothing};
    return _elm.Maybe.values;
+};
+Elm.Memoize = Elm.Memoize || {};
+Elm.Memoize.make = function (_elm) {
+   "use strict";
+   _elm.Memoize = _elm.Memoize || {};
+   if (_elm.Memoize.values)
+   return _elm.Memoize.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Memoize",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Native$Memoize = Elm.Native.Memoize.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm);
+   var memoize = $Native$Memoize.memoize;
+   _elm.Memoize.values = {_op: _op
+                         ,memoize: memoize};
+   return _elm.Memoize.values;
 };
 Elm.Native.Array = {};
 Elm.Native.Array.make = function(localRuntime) {
@@ -8949,6 +8954,35 @@ Elm.Native.Markdown.make = function(localRuntime) {
 		toElementWith: F2(toElementWith)
 	};
 };
+Elm.Native.Memoize = {};
+Elm.Native.Memoize.make = function(localRuntime) {
+    localRuntime.Native = localRuntime.Native || {};
+    localRuntime.Native.Memoize = localRuntime.Native.Memoize || {};
+    if (localRuntime.Native.Memoize.values) {
+        return localRuntime.Native.Memoize.values;
+    }
+
+    function memoize(f) {
+        var cachedArg = null;
+        var cachedResult = null;
+        return function(arg) {
+            // TODO This is fairly naive: it only caches the last
+            // result. For the current purpose, at the time of
+            // writing, this suffices.
+            if (! (arg === cachedArg && cachedResult)) {
+                cachedArg = arg;
+                cachedResult = f(cachedArg);
+            }
+
+            return cachedResult;
+        };
+    }
+
+    return localRuntime.Native.Memoize.values = {
+        memoize: memoize
+    };
+};
+
 Elm.Native.Port = {};
 Elm.Native.Port.make = function(localRuntime) {
 
@@ -15456,11 +15490,11 @@ Elm.View.make = function (_elm) {
    $Html = Elm.Html.make(_elm),
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
-   $Html$Lazy = Elm.Html.Lazy.make(_elm),
    $HtmlUtils = Elm.HtmlUtils.make(_elm),
    $Http = Elm.Http.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
+   $Memoize = Elm.Memoize.make(_elm),
    $Number$Format = Elm.Number.Format.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Schema = Elm.Schema.make(_elm),
@@ -15496,23 +15530,21 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 178 and 184");
+         "between lines 176 and 182");
       }();
    };
-   var brandHistogram = function (dataFeed) {
-      return $Exts$Dict.frequency(A2($List.filterMap,
-      function (_) {
+   var brandHistogram = $Memoize.memoize(function ($) {
+      return $Exts$Dict.frequency($List.filterMap(function (_) {
          return _.brandId;
-      },
-      dataFeed.products));
-   };
-   var categoryHistogram = function (dataFeed) {
-      return $Exts$Dict.frequency(A2($List.concatMap,
-      function (_) {
+      })(function (_) {
+         return _.products;
+      }($)));
+   });
+   var categoryHistogram = $Memoize.memoize(function ($) {
+      return $Exts$Dict.frequency($List.concatMap(function (_) {
          return _.categoryIds;
-      },
-      dataFeed.products));
-   };
+      })($));
+   });
    var exploreCategoriesView = function (dataFeed) {
       return A2($Html.div,
       _L.fromArray([]),
@@ -15520,7 +15552,7 @@ Elm.View.make = function (_elm) {
                    _L.fromArray([]),
                    _L.fromArray([$Html.text("Top Categories")]))
                    ,A2($View$Navigation.categoryListView,
-                   categoryHistogram(dataFeed),
+                   categoryHistogram(dataFeed.products),
                    A2($List.filterMap,
                    A2($Basics.flip,
                    $Dict.get,
@@ -15576,7 +15608,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 109 and 113");
+         "between lines 107 and 111");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15595,7 +15627,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 101 and 105");
+         "between lines 99 and 103");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15667,13 +15699,12 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 157 and 159");
+         "between lines 155 and 157");
       }();
    });
    var boolSort = function (x) {
       return x ? 0 : 1;
    };
-   var lExploreCategoriesView = $Html$Lazy.lazy(exploreCategoriesView);
    var frontPageHeadingView = F3(function (uiChannel,
    starredProducts,
    dataFeed) {
@@ -15681,7 +15712,7 @@ Elm.View.make = function (_elm) {
       _L.fromArray([$Html$Attributes.$class("row hidden-xs hidden-sm")]),
       _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-3")]),
-                   _L.fromArray([lExploreCategoriesView(dataFeed)]))
+                   _L.fromArray([exploreCategoriesView(dataFeed)]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("col-md-8 col-md-offset-1")]),
                    _L.fromArray([A3($View$Placement.currentPlacementView,
@@ -15884,7 +15915,7 @@ Elm.View.make = function (_elm) {
                                        case "CategoryListPage":
                                        return function (dataFeed) {
                                             return A2($View$Navigation.categoryListPage,
-                                            categoryHistogram(dataFeed),
+                                            categoryHistogram(dataFeed.products),
                                             dataFeed.categories);
                                          };
                                        case "ProductListPage":
@@ -15910,13 +15941,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 198 and 205");
+                                    "between lines 196 and 203");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 188 and 206");
+         "between lines 186 and 204");
       }();
    });
    _elm.View.values = {_op: _op
@@ -15924,7 +15955,6 @@ Elm.View.make = function (_elm) {
                       ,productSummaryView: productSummaryView
                       ,productSummaryRowView: productSummaryRowView
                       ,nameForProductFilter: nameForProductFilter
-                      ,lExploreCategoriesView: lExploreCategoriesView
                       ,frontPageHeadingView: frontPageHeadingView
                       ,productListHeadingView: productListHeadingView
                       ,boolSort: boolSort
