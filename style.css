@@ -11,7 +11,7 @@ h2,
 h3,
 .navbar {
   font-family: 'Montserrat', sans;
-  color: #2c3b47;
+  color: #4782b3;
 }
 body {
   padding-top: 60px;
@@ -22,8 +22,13 @@ h1 {
 }
 @media (max-width: 767px) {
   h1 {
-    margin: 20px 0;
+    margin: 15px 0;
   }
+}
+.navbar {
+  background-color: #d7e4ef;
+  background-image: repeating-linear-gradient(-30deg, transparent, transparent 20px, rgba(128, 128, 128, 0.05) 20px, rgba(128, 128, 128, 0.05) 40px);
+  border-bottom: dashed 2px #8eb3d2;
 }
 .navbar .navbar-header {
   float: left;
@@ -37,11 +42,8 @@ h1 {
 .navbar .navbar-nav > li {
   float: left;
 }
-.navbar {
-  background-image: linear-gradient(to bottom, #ffffff 0, #fdfdfd 100%);
-}
 .navbar .badge {
-  background-color: #337ab7;
+  background-color: #4782b3;
   margin-left: 5px;
 }
 code {
@@ -53,9 +55,13 @@ code {
 .btn:focus {
   outline: none;
 }
+.btn.btn-success {
+  color: #fdfdfd;
+  background-color: #68b849;
+}
 .btn.btn-warning.btn-passive {
-  background-color: white;
-  color: #f0ad4e;
+  background-color: #fdfdfd;
+  color: #cb9050;
 }
 .img-responsive {
   margin-bottom: 10px;
@@ -74,7 +80,7 @@ code {
 }
 .product-summary .product-summary-image {
   margin-bottom: 5px;
-  height: 200px;
+  height: 120px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

@@ -1,4 +1,4 @@
-/* @flow weak */
+/*global Elm, ga */
 
 (function () {
     var STARRED_PRODUCTS_KEY = "STARRED_PRODUCTS";
