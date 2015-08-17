@@ -11,7 +11,7 @@ h2,
 h3,
 .navbar {
   font-family: 'Montserrat', sans;
-  color: #4782b3;
+  color: #38678e;
 }
 body {
   padding-top: 60px;
@@ -25,11 +25,6 @@ h1 {
     margin: 15px 0;
   }
 }
-.navbar {
-  background-color: #d7e4ef;
-  background-image: repeating-linear-gradient(-30deg, transparent, transparent 20px, rgba(128, 128, 128, 0.05) 20px, rgba(128, 128, 128, 0.05) 40px);
-  border-bottom: dashed 2px #8eb3d2;
-}
 .navbar .navbar-header {
   float: left;
 }
@@ -42,8 +37,13 @@ h1 {
 .navbar .navbar-nav > li {
   float: left;
 }
+.navbar {
+  background-color: #d7e4ef;
+  background-image: repeating-linear-gradient(-15deg, transparent 0, transparent 5px, #d0dfec 5px, #d0dfec 10px);
+  border-bottom: dashed 2px #b3cbe0;
+}
 .navbar .badge {
-  background-color: #4782b3;
+  background-color: #38678e;
   margin-left: 5px;
 }
 code {
@@ -120,7 +120,7 @@ code {
   }
 }
 #debug {
-  background-color: #f9f2f4;
+  background-color: #fdfdfd;
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -137,4 +137,11 @@ code {
 }
 .product-list {
   margin-bottom: 200px;
+}
+.list-group .list-group-item {
+  text-transform: initcaps;
+}
+.list-group .list-group-item-info {
+  background-color: #d7e4ef;
+  background-image: repeating-linear-gradient(-15deg, transparent 0, transparent 5px, #d0dfec 5px, #d0dfec 10px);
 }
