@@ -1904,7 +1904,7 @@ Elm.Exts.Dict.make = function (_elm) {
             {case "Just":
                return $Maybe.Just(m._0 + 1);
                case "Nothing":
-               return $Maybe.Just(0);}
+               return $Maybe.Just(1);}
             _U.badCase($moduleName,
             "between lines 41 and 44");
          }();
