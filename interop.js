@@ -6,7 +6,7 @@
     var getViewport = function () {
         return {
             pageHeight: document.documentElement.scrollHeight,
-            viewportTop: document.body.scrollTop,
+            viewportTop: window.scrollY,
             viewportHeight: document.documentElement.clientHeight
         };
     };
