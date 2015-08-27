@@ -16256,6 +16256,14 @@ Elm.View.Navigation.make = function (_elm) {
          {case "Model":
             return function () {
                  var collapseTarget = "collapse-menu";
+                 var collapseAttributes = _L.fromArray([A2($Html$Attributes.attribute,
+                                                       "data-toggle",
+                                                       "collapse")
+                                                       ,A2($Html$Attributes.attribute,
+                                                       "data-target",
+                                                       A2($Basics._op["++"],
+                                                       "#",
+                                                       collapseTarget))]);
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
                  _v0._0.starredProducts)));
@@ -16264,16 +16272,10 @@ Elm.View.Navigation.make = function (_elm) {
                  _L.fromArray([$Exts$Html$Bootstrap.containerFluid(_L.fromArray([A2($Html.div,
                                                                                 _L.fromArray([$Html$Attributes.$class("navbar-header")]),
                                                                                 _L.fromArray([A2($Html.button,
+                                                                                             A2($Basics._op["++"],
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-toggle collapsed btn btn-primary")
-                                                                                                          ,$Html$Attributes.type$("button")
-                                                                                                          ,A2($Html$Attributes.attribute,
-                                                                                                          "data-toggle",
-                                                                                                          "collapse")
-                                                                                                          ,A2($Html$Attributes.attribute,
-                                                                                                          "data-target",
-                                                                                                          A2($Basics._op["++"],
-                                                                                                          "#",
-                                                                                                          collapseTarget))]),
+                                                                                                          ,$Html$Attributes.type$("button")]),
+                                                                                             collapseAttributes),
                                                                                              _L.fromArray([$Html.text("More...")]))
                                                                                              ,A2($Html.a,
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-brand")
@@ -16290,14 +16292,18 @@ Elm.View.Navigation.make = function (_elm) {
                                                                                 _L.fromArray([A2($Html.li,
                                                                                              _L.fromArray([]),
                                                                                              _L.fromArray([A2($Html.a,
+                                                                                             A2($Basics._op["++"],
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-link")
                                                                                                           ,$Html$Attributes.href("#/category")]),
+                                                                                             collapseAttributes),
                                                                                              _L.fromArray([$Html.text("Categories")]))]))
                                                                                              ,A2($Html.li,
                                                                                              _L.fromArray([]),
                                                                                              _L.fromArray([A2($Html.a,
+                                                                                             A2($Basics._op["++"],
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-link")
                                                                                                           ,$Html$Attributes.href("#/brand")]),
+                                                                                             collapseAttributes),
                                                                                              _L.fromArray([$Html.text("Brands")]))]))
                                                                                              ,A2($Html.li,
                                                                                              _L.fromArray([]),
@@ -16311,14 +16317,17 @@ Elm.View.Navigation.make = function (_elm) {
                                                                                              ,A2($Html.li,
                                                                                              _L.fromArray([]),
                                                                                              _L.fromArray([A2($Html.a,
-                                                                                             _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                             A2($Basics._op["++"],
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                          ,$Html$Attributes.href("#/favourites")]),
+                                                                                             collapseAttributes),
                                                                                              _L.fromArray([$Html.text("Saved Patterns")
                                                                                                           ,A2($Html.span,
                                                                                                           _L.fromArray([$Html$Attributes.$class("badge")]),
                                                                                                           _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 17 and 52");
+         "between lines 17 and 57");
       }();
    });
    _elm.View.Navigation.values = {_op: _op
