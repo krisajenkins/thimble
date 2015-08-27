@@ -2056,17 +2056,6 @@ Elm.Exts.Maybe.make = function (_elm) {
          return $Maybe.withDefault($default)($Maybe.map(f)($));
       };
    });
-   var maybeNumber = function (x) {
-      return function () {
-         switch (x.ctor)
-         {case "Just":
-            return $Basics.toString(x._0);
-            case "Nothing": return "";}
-         _U.badCase($moduleName,
-         "between lines 27 and 29");
-      }();
-   };
-   var maybeString = $Maybe.withDefault("");
    var isJust = function (x) {
       return function () {
          switch (x.ctor)
@@ -2080,8 +2069,6 @@ Elm.Exts.Maybe.make = function (_elm) {
    _elm.Exts.Maybe.values = {_op: _op
                             ,isJust: isJust
                             ,isNothing: isNothing
-                            ,maybeString: maybeString
-                            ,maybeNumber: maybeNumber
                             ,maybe: maybe};
    return _elm.Exts.Maybe.values;
 };
@@ -15530,7 +15517,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 176 and 182");
+         "between lines 180 and 186");
       }();
    };
    var brandHistogram = $Memoize.memoize(function ($) {
@@ -15608,7 +15595,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 107 and 111");
+         "between lines 111 and 115");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15627,7 +15614,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 99 and 103");
+         "between lines 103 and 107");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15699,7 +15686,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 155 and 157");
+         "between lines 159 and 161");
       }();
    });
    var boolSort = function (x) {
@@ -15754,7 +15741,7 @@ Elm.View.make = function (_elm) {
                     return _v13._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 65 and 68");
+                 "between lines 69 and 72");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -15766,7 +15753,7 @@ Elm.View.make = function (_elm) {
                     return _v15._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 61 and 64");
+                 "between lines 65 and 68");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -15809,7 +15796,17 @@ Elm.View.make = function (_elm) {
          switch (ps.ctor)
          {case "[]": return A2($Html.p,
               _L.fromArray([]),
-              _L.fromArray([$Html.text("Nothing here yet!")]));}
+              _L.fromArray([A2($Html.span,
+                           _L.fromArray([]),
+                           _L.fromArray([$Html.text("Save your favourites by clicking the ")]))
+                           ,A2($Html.button,
+                           _L.fromArray([$Html$Attributes.$class("btn btn-warning")]),
+                           _L.fromArray([A2($Html.span,
+                           _L.fromArray([$Html$Attributes.$class("glyphicon glyphicon-star")]),
+                           _L.fromArray([]))]))
+                           ,A2($Html.span,
+                           _L.fromArray([]),
+                           _L.fromArray([$Html.text(" button below any pattern. ")]))]));}
          return $Exts$Html$Bootstrap.row(A2($List.map,
          A2(productSummaryView,
          uiChannel,
@@ -15941,13 +15938,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 196 and 203");
+                                    "between lines 200 and 207");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 186 and 204");
+         "between lines 190 and 208");
       }();
    });
    _elm.View.values = {_op: _op
@@ -16258,45 +16255,70 @@ Elm.View.Navigation.make = function (_elm) {
          switch (_v0.ctor)
          {case "Model":
             return function () {
+                 var collapseTarget = "collapse-menu";
                  var starredCount = $List.length($Set.toList(A2($Maybe.withDefault,
                  $Set.empty,
                  _v0._0.starredProducts)));
                  return A2($Html.nav,
                  _L.fromArray([$Html$Attributes.$class("navbar navbar-default navbar-fixed-top")]),
-                 _L.fromArray([$Exts$Html$Bootstrap.container(_L.fromArray([A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-header")]),
-                                                                           _L.fromArray([A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-brand")]),
-                                                                           _L.fromArray([A2($Html.a,
-                                                                           _L.fromArray([$Html$Attributes.href("#")]),
-                                                                           _L.fromArray([$Html.text("Get Stitching!")]))]))]))
-                                                                           ,A2($Html.div,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-left hidden-xs")]),
-                                                                           _L.fromArray([A2($Html.p,
-                                                                           _L.fromArray([$Html$Attributes.$class("navbar-text")]),
-                                                                           _L.fromArray([$Html.text("Find your next project...")]))]))
-                                                                           ,A2($Html.ul,
-                                                                           _L.fromArray([$Html$Attributes.$class("nav navbar-nav navbar-right")]),
-                                                                           _L.fromArray([A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.$class("navbar-link hidden-xs")
-                                                                                                     ,A2($Html$Events.onClick,
-                                                                                                     uiChannel,
-                                                                                                     $System.Contact($System.Twitter))
-                                                                                                     ,$Html$Attributes.href("https://twitter.com/getstitching")]),
-                                                                                        _L.fromArray([$Html.text("Contact Us")]))]))
-                                                                                        ,A2($Html.li,
-                                                                                        _L.fromArray([]),
-                                                                                        _L.fromArray([A2($Html.a,
-                                                                                        _L.fromArray([$Html$Attributes.href("#/favourites")]),
-                                                                                        _L.fromArray([$Html.text("Saved Patterns ")
-                                                                                                     ,A2($Html.span,
-                                                                                                     _L.fromArray([$Html$Attributes.$class("badge")]),
-                                                                                                     _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]));
+                 _L.fromArray([$Exts$Html$Bootstrap.containerFluid(_L.fromArray([A2($Html.div,
+                                                                                _L.fromArray([$Html$Attributes.$class("navbar-header")]),
+                                                                                _L.fromArray([A2($Html.button,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-toggle collapsed btn btn-primary")
+                                                                                                          ,$Html$Attributes.type$("button")
+                                                                                                          ,A2($Html$Attributes.attribute,
+                                                                                                          "data-toggle",
+                                                                                                          "collapse")
+                                                                                                          ,A2($Html$Attributes.attribute,
+                                                                                                          "data-target",
+                                                                                                          A2($Basics._op["++"],
+                                                                                                          "#",
+                                                                                                          collapseTarget))]),
+                                                                                             _L.fromArray([$Html.text("More...")]))
+                                                                                             ,A2($Html.a,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-brand")
+                                                                                                          ,$Html$Attributes.href("#")]),
+                                                                                             _L.fromArray([$Html.text("Get Stitching!")]))
+                                                                                             ,A2($Html.p,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-text hidden-sm")]),
+                                                                                             _L.fromArray([$Html.text("Find your next project...")]))]))
+                                                                                ,A2($Html.div,
+                                                                                _L.fromArray([$Html$Attributes.$class("collapse navbar-collapse navbar-right")
+                                                                                             ,$Html$Attributes.id(collapseTarget)]),
+                                                                                _L.fromArray([A2($Html.ul,
+                                                                                _L.fromArray([$Html$Attributes.$class("nav navbar-nav")]),
+                                                                                _L.fromArray([A2($Html.li,
+                                                                                             _L.fromArray([]),
+                                                                                             _L.fromArray([A2($Html.a,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                          ,$Html$Attributes.href("#/category")]),
+                                                                                             _L.fromArray([$Html.text("Categories")]))]))
+                                                                                             ,A2($Html.li,
+                                                                                             _L.fromArray([]),
+                                                                                             _L.fromArray([A2($Html.a,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                          ,$Html$Attributes.href("#/brand")]),
+                                                                                             _L.fromArray([$Html.text("Brands")]))]))
+                                                                                             ,A2($Html.li,
+                                                                                             _L.fromArray([]),
+                                                                                             _L.fromArray([A2($Html.a,
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-link")
+                                                                                                          ,A2($Html$Events.onClick,
+                                                                                                          uiChannel,
+                                                                                                          $System.Contact($System.Twitter))
+                                                                                                          ,$Html$Attributes.href("https://twitter.com/getstitching")]),
+                                                                                             _L.fromArray([$Html.text("Contact Us")]))]))
+                                                                                             ,A2($Html.li,
+                                                                                             _L.fromArray([]),
+                                                                                             _L.fromArray([A2($Html.a,
+                                                                                             _L.fromArray([$Html$Attributes.href("#/favourites")]),
+                                                                                             _L.fromArray([$Html.text("Saved Patterns")
+                                                                                                          ,A2($Html.span,
+                                                                                                          _L.fromArray([$Html$Attributes.$class("badge")]),
+                                                                                                          _L.fromArray([$Html.text($Basics.toString(starredCount))]))]))]))]))]))]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 17 and 37");
+         "between lines 17 and 52");
       }();
    });
    _elm.View.Navigation.values = {_op: _op
