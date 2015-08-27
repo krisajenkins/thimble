@@ -16276,13 +16276,13 @@ Elm.View.Navigation.make = function (_elm) {
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-toggle collapsed btn btn-primary")
                                                                                                           ,$Html$Attributes.type$("button")]),
                                                                                              collapseAttributes),
-                                                                                             _L.fromArray([$Html.text("More...")]))
+                                                                                             _L.fromArray([$Html.text("Menu")]))
                                                                                              ,A2($Html.a,
                                                                                              _L.fromArray([$Html$Attributes.$class("navbar-brand")
                                                                                                           ,$Html$Attributes.href("#")]),
                                                                                              _L.fromArray([$Html.text("Get Stitching!")]))
                                                                                              ,A2($Html.p,
-                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-text hidden-sm")]),
+                                                                                             _L.fromArray([$Html$Attributes.$class("navbar-text hidden-xs hidden-sm")]),
                                                                                              _L.fromArray([$Html.text("Find your next project...")]))]))
                                                                                 ,A2($Html.div,
                                                                                 _L.fromArray([$Html$Attributes.$class("collapse navbar-collapse navbar-right")
