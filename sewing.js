@@ -15517,7 +15517,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 180 and 186");
+         "between lines 182 and 188");
       }();
    };
    var brandHistogram = $Memoize.memoize(function ($) {
@@ -15595,7 +15595,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 111 and 115");
+         "between lines 112 and 116");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15614,7 +15614,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 103 and 107");
+         "between lines 104 and 108");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15633,10 +15633,12 @@ Elm.View.make = function (_elm) {
                                                           _L.fromArray([A2($Html.a,
                                                           _L.fromArray([$Html$Attributes.href(product.clickUrl)
                                                                        ,$Html$Attributes.target("_blank")]),
+                                                          _L.fromArray([A2($Html.div,
+                                                          _L.fromArray([$Html$Attributes.$class("product-image-container")]),
                                                           _L.fromArray([A2($Html.img,
                                                           _L.fromArray([$Html$Attributes.$class("img-responsive")
                                                                        ,$Html$Attributes.src(product.bestImage.url)]),
-                                                          _L.fromArray([]))]))]))
+                                                          _L.fromArray([]))]))]))]))
                                                           ,A2($Html.div,
                                                           _L.fromArray([$Html$Attributes.$class("col-xs-12\n                        col-sm-5\n                        col-md-4")]),
                                                           _L.fromArray([A3($View$Common.productControls,
@@ -15686,7 +15688,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 159 and 161");
+         "between lines 161 and 163");
       }();
    });
    var boolSort = function (x) {
@@ -15741,7 +15743,7 @@ Elm.View.make = function (_elm) {
                     return _v13._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 69 and 72");
+                 "between lines 70 and 73");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -15753,7 +15755,7 @@ Elm.View.make = function (_elm) {
                     return _v15._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 65 and 68");
+                 "between lines 66 and 69");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -15773,6 +15775,8 @@ Elm.View.make = function (_elm) {
                    "#/product/",
                    $Basics.toString(product.productId)))]),
                    _L.fromArray([A2($Html.div,
+                   _L.fromArray([$Html$Attributes.$class("product-image-container")]),
+                   _L.fromArray([A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("product-summary-image")
                                 ,$Html$Attributes.style(_L.fromArray([{ctor: "_Tuple2"
                                                                       ,_0: "backgroundImage"
@@ -15781,7 +15785,7 @@ Elm.View.make = function (_elm) {
                                                                       A2($Basics._op["++"],
                                                                       product.largeImage.url,
                                                                       ")"))}]))]),
-                   _L.fromArray([]))]))
+                   _L.fromArray([]))]))]))
                    ,A2($Html.div,
                    _L.fromArray([$Html$Attributes.$class("caption")]),
                    _L.fromArray([A3($View$Common.productControls,
@@ -15938,13 +15942,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 200 and 207");
+                                    "between lines 202 and 209");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 190 and 208");
+         "between lines 192 and 210");
       }();
    });
    _elm.View.values = {_op: _op
@@ -16391,10 +16395,12 @@ Elm.View.Placement.make = function (_elm) {
                                                                        _L.fromArray([$Html$Attributes.href(A2($Basics._op["++"],
                                                                        "#/product/",
                                                                        $Basics.toString(product.productId)))]),
+                                                                       _L.fromArray([A2($Html.div,
+                                                                       _L.fromArray([$Html$Attributes.$class("product-image-container")]),
                                                                        _L.fromArray([A2($Html.img,
                                                                        _L.fromArray([$Html$Attributes.$class("img-responsive")
                                                                                     ,$Html$Attributes.src(product.bestImage.url)]),
-                                                                       _L.fromArray([]))]))
+                                                                       _L.fromArray([]))]))]))
                                                                        ,A3($View$Common.productControls,
                                                                        uiChannel,
                                                                        starredProducts,

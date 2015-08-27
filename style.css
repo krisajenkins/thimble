@@ -72,6 +72,15 @@ code {
 .product-detail p {
   margin: 15px 0;
 }
+.product-detail img {
+  margin: 0 auto;
+}
+.product-image-container {
+  background-image: url(loading.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 50px;
+}
 .product-summary {
   margin-top: 20px;
   margin-bottom: 20px;
