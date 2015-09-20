@@ -1,4 +1,38 @@
 var Elm = Elm || { Native: {} };
+Elm.Analytics = Elm.Analytics || {};
+Elm.Analytics.make = function (_elm) {
+   "use strict";
+   _elm.Analytics = _elm.Analytics || {};
+   if (_elm.Analytics.values)
+   return _elm.Analytics.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Analytics",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Native$Analytics = Elm.Native.Analytics.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var sendEvent = $Native$Analytics.sendEvent;
+   var Event = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,action: b
+             ,category: a
+             ,label: c
+             ,value: d};
+   });
+   _elm.Analytics.values = {_op: _op
+                           ,Event: Event
+                           ,sendEvent: sendEvent};
+   return _elm.Analytics.values;
+};
 Elm.Array = Elm.Array || {};
 Elm.Array.make = function (_elm) {
    "use strict";
@@ -1878,6 +1912,148 @@ Elm.Dict.make = function (_elm) {
                       ,fromList: fromList};
    return _elm.Dict.values;
 };
+Elm.Effects = Elm.Effects || {};
+Elm.Effects.make = function (_elm) {
+   "use strict";
+   _elm.Effects = _elm.Effects || {};
+   if (_elm.Effects.values)
+   return _elm.Effects.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Effects",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Native$Effects = Elm.Native.Effects.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var ignore = function (task) {
+      return A2($Task.andThen,
+      task,
+      $Basics.always($Task.succeed({ctor: "_Tuple0"})));
+   };
+   var sequence_ = function (tasks) {
+      return ignore($Task.sequence(tasks));
+   };
+   var requestAnimationFrame = $Native$Effects.requestAnimationFrame;
+   var toTaskHelp = F3(function (address,
+   _v0,
+   effect) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return function () {
+                 switch (effect.ctor)
+                 {case "Batch":
+                    return function () {
+                         var $ = $List.unzip(A2($List.map,
+                         A2(toTaskHelp,address,_v0),
+                         effect._0)),
+                         tasks = $._0,
+                         toMsgLists = $._1;
+                         return {ctor: "_Tuple2"
+                                ,_0: sequence_(tasks)
+                                ,_1: $List.concat(toMsgLists)};
+                      }();
+                    case "None": return _v0;
+                    case "Task":
+                    return function () {
+                         var reporter = A2($Task.andThen,
+                         effect._0,
+                         $Signal.send(address));
+                         return {ctor: "_Tuple2"
+                                ,_0: A2($Task.andThen,
+                                _v0._0,
+                                $Basics.always(ignore($Task.spawn(reporter))))
+                                ,_1: _v0._1};
+                      }();
+                    case "Tick":
+                    return {ctor: "_Tuple2"
+                           ,_0: _v0._0
+                           ,_1: A2($List._op["::"],
+                           effect._0,
+                           _v0._1)};}
+                 _U.badCase($moduleName,
+                 "between lines 184 and 209");
+              }();}
+         _U.badCase($moduleName,
+         "between lines 184 and 209");
+      }();
+   });
+   var toTask = F2(function (address,
+   effect) {
+      return function () {
+         var $ = A3(toTaskHelp,
+         address,
+         {ctor: "_Tuple2"
+         ,_0: $Task.succeed({ctor: "_Tuple0"})
+         ,_1: _L.fromArray([])},
+         effect),
+         combinedTask = $._0,
+         tickMessages = $._1;
+         var animationReport = function (time) {
+            return sequence_($List.map(function (f) {
+               return A2($Signal.send,
+               address,
+               f(time));
+            })(tickMessages));
+         };
+         var animationRequests = requestAnimationFrame(animationReport);
+         return A2($Task.andThen,
+         combinedTask,
+         $Basics.always(animationRequests));
+      }();
+   });
+   var Never = function (a) {
+      return {ctor: "Never",_0: a};
+   };
+   var Batch = function (a) {
+      return {ctor: "Batch",_0: a};
+   };
+   var batch = Batch;
+   var None = {ctor: "None"};
+   var none = None;
+   var Tick = function (a) {
+      return {ctor: "Tick",_0: a};
+   };
+   var tick = Tick;
+   var Task = function (a) {
+      return {ctor: "Task",_0: a};
+   };
+   var task = Task;
+   var map = F2(function (func,
+   effect) {
+      return function () {
+         switch (effect.ctor)
+         {case "Batch":
+            return Batch(A2($List.map,
+              map(func),
+              effect._0));
+            case "None": return None;
+            case "Task":
+            return Task(A2($Task.map,
+              func,
+              effect._0));
+            case "Tick":
+            return Tick(function ($) {
+                 return func(effect._0($));
+              });}
+         _U.badCase($moduleName,
+         "between lines 136 and 147");
+      }();
+   });
+   _elm.Effects.values = {_op: _op
+                         ,none: none
+                         ,task: task
+                         ,tick: tick
+                         ,map: map
+                         ,batch: batch
+                         ,toTask: toTask};
+   return _elm.Effects.values;
+};
 Elm.Exts = Elm.Exts || {};
 Elm.Exts.Dict = Elm.Exts.Dict || {};
 Elm.Exts.Dict.make = function (_elm) {
@@ -1978,6 +2154,33 @@ Elm.Exts.Html.Bootstrap.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
+   var video = F2(function (ratio,
+   url) {
+      return function () {
+         var ratioClass = function () {
+            switch (ratio.ctor)
+            {case "FourByThree":
+               return "embed-responsive-4by3";
+               case "SixteenByNine":
+               return "embed-responsive-16by9";}
+            _U.badCase($moduleName,
+            "between lines 41 and 44");
+         }();
+         return A2($Html.div,
+         _L.fromArray([]),
+         _L.fromArray([A2($Html.h1,
+                      _L.fromArray([]),
+                      _L.fromArray([$Html.text("About")]))
+                      ,A2($Html.div,
+                      _L.fromArray([$Html$Attributes.$class("embed-responsive")]),
+                      _L.fromArray([A2($Html.iframe,
+                      _L.fromArray([$Html$Attributes.$class("embed-responsive-item")
+                                   ,$Html$Attributes.src(url)]),
+                      _L.fromArray([]))]))]));
+      }();
+   });
+   var FourByThree = {ctor: "FourByThree"};
+   var SixteenByNine = {ctor: "SixteenByNine"};
    var empty = A2($Html.span,
    _L.fromArray([]),
    _L.fromArray([]));
@@ -1998,7 +2201,10 @@ Elm.Exts.Html.Bootstrap.make = function (_elm) {
                                      ,containerFluid: containerFluid
                                      ,row: row
                                      ,empty: empty
-                                     ,twoColumns: twoColumns};
+                                     ,twoColumns: twoColumns
+                                     ,SixteenByNine: SixteenByNine
+                                     ,FourByThree: FourByThree
+                                     ,video: video};
    return _elm.Exts.Html.Bootstrap.values;
 };
 Elm.Exts = Elm.Exts || {};
@@ -2050,6 +2256,33 @@ Elm.Exts.Maybe.make = function (_elm) {
    $Maybe = Elm.Maybe.make(_elm),
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
+   var mappend = F2(function (a,
+   b) {
+      return function () {
+         var _v0 = {ctor: "_Tuple2"
+                   ,_0: a
+                   ,_1: b};
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            switch (_v0._0.ctor)
+              {case "Nothing":
+                 return $Maybe.Nothing;}
+              switch (_v0._1.ctor)
+              {case "Nothing":
+                 return $Maybe.Nothing;}
+              switch (_v0._0.ctor)
+              {case "Just":
+                 switch (_v0._1.ctor)
+                   {case "Just":
+                      return $Maybe.Just({ctor: "_Tuple2"
+                                         ,_0: _v0._0._0
+                                         ,_1: _v0._1._0});}
+                   break;}
+              break;}
+         _U.badCase($moduleName,
+         "between lines 27 and 30");
+      }();
+   });
    var maybe = F2(function ($default,
    f) {
       return function ($) {
@@ -2069,7 +2302,8 @@ Elm.Exts.Maybe.make = function (_elm) {
    _elm.Exts.Maybe.values = {_op: _op
                             ,isJust: isJust
                             ,isNothing: isNothing
-                            ,maybe: maybe};
+                            ,maybe: maybe
+                            ,mappend: mappend};
    return _elm.Exts.Maybe.values;
 };
 Elm.Exts = Elm.Exts || {};
@@ -4012,107 +4246,280 @@ Elm.Http.make = function (_elm) {
    _L = _N.List.make(_elm),
    $moduleName = "Http",
    $Basics = Elm.Basics.make(_elm),
+   $Dict = Elm.Dict.make(_elm),
+   $Json$Decode = Elm.Json.Decode.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Native$Http = Elm.Native.Http.make(_elm),
    $Result = Elm.Result.make(_elm),
-   $Signal = Elm.Signal.make(_elm);
+   $Signal = Elm.Signal.make(_elm),
+   $String = Elm.String.make(_elm),
+   $Task = Elm.Task.make(_elm),
+   $Time = Elm.Time.make(_elm);
    var send = $Native$Http.send;
+   var BadResponse = F2(function (a,
+   b) {
+      return {ctor: "BadResponse"
+             ,_0: a
+             ,_1: b};
+   });
+   var UnexpectedPayload = function (a) {
+      return {ctor: "UnexpectedPayload"
+             ,_0: a};
+   };
+   var handleResponse = F2(function (handle,
+   response) {
+      return function () {
+         var _v0 = _U.cmp(200,
+         response.status) < 1 && _U.cmp(response.status,
+         300) < 0;
+         switch (_v0)
+         {case false:
+            return $Task.fail(A2(BadResponse,
+              response.status,
+              response.statusText));
+            case true: return function () {
+                 var _v1 = response.value;
+                 switch (_v1.ctor)
+                 {case "Text":
+                    return handle(_v1._0);}
+                 return $Task.fail(UnexpectedPayload("Response body is a blob, expecting a string."));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 419 and 426");
+      }();
+   });
+   var NetworkError = {ctor: "NetworkError"};
+   var Timeout = {ctor: "Timeout"};
+   var promoteError = function (rawError) {
+      return function () {
+         switch (rawError.ctor)
+         {case "RawNetworkError":
+            return NetworkError;
+            case "RawTimeout":
+            return Timeout;}
+         _U.badCase($moduleName,
+         "between lines 431 and 433");
+      }();
+   };
+   var fromJson = F2(function (decoder,
+   response) {
+      return function () {
+         var decode = function (str) {
+            return function () {
+               var _v4 = A2($Json$Decode.decodeString,
+               decoder,
+               str);
+               switch (_v4.ctor)
+               {case "Err":
+                  return $Task.fail(UnexpectedPayload(_v4._0));
+                  case "Ok":
+                  return $Task.succeed(_v4._0);}
+               _U.badCase($moduleName,
+               "between lines 409 and 412");
+            }();
+         };
+         return A2($Task.andThen,
+         A2($Task.mapError,
+         promoteError,
+         response),
+         handleResponse(decode));
+      }();
+   });
+   var RawNetworkError = {ctor: "RawNetworkError"};
+   var RawTimeout = {ctor: "RawTimeout"};
+   var Blob = function (a) {
+      return {ctor: "Blob",_0: a};
+   };
+   var Text = function (a) {
+      return {ctor: "Text",_0: a};
+   };
+   var Response = F5(function (a,
+   b,
+   c,
+   d,
+   e) {
+      return {_: {}
+             ,headers: c
+             ,status: a
+             ,statusText: b
+             ,url: d
+             ,value: e};
+   });
+   var defaultSettings = {_: {}
+                         ,desiredResponseType: $Maybe.Nothing
+                         ,onProgress: $Maybe.Nothing
+                         ,onStart: $Maybe.Nothing
+                         ,timeout: 0};
+   var post = F3(function (decoder,
+   url,
+   body) {
+      return function () {
+         var request = {_: {}
+                       ,body: body
+                       ,headers: _L.fromArray([])
+                       ,url: url
+                       ,verb: "POST"};
+         return A2(fromJson,
+         decoder,
+         A2(send,
+         defaultSettings,
+         request));
+      }();
+   });
+   var Settings = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,desiredResponseType: d
+             ,onProgress: c
+             ,onStart: b
+             ,timeout: a};
+   });
+   var multipart = $Native$Http.multipart;
+   var FileData = F3(function (a,
+   b,
+   c) {
+      return {ctor: "FileData"
+             ,_0: a
+             ,_1: b
+             ,_2: c};
+   });
+   var BlobData = F3(function (a,
+   b,
+   c) {
+      return {ctor: "BlobData"
+             ,_0: a
+             ,_1: b
+             ,_2: c};
+   });
+   var blobData = BlobData;
+   var StringData = F2(function (a,
+   b) {
+      return {ctor: "StringData"
+             ,_0: a
+             ,_1: b};
+   });
+   var stringData = StringData;
+   var BodyBlob = function (a) {
+      return {ctor: "BodyBlob"
+             ,_0: a};
+   };
+   var BodyFormData = {ctor: "BodyFormData"};
+   var ArrayBuffer = {ctor: "ArrayBuffer"};
+   var BodyString = function (a) {
+      return {ctor: "BodyString"
+             ,_0: a};
+   };
+   var string = BodyString;
+   var Empty = {ctor: "Empty"};
+   var empty = Empty;
+   var getString = function (url) {
+      return function () {
+         var request = {_: {}
+                       ,body: empty
+                       ,headers: _L.fromArray([])
+                       ,url: url
+                       ,verb: "GET"};
+         return A2($Task.andThen,
+         A2($Task.mapError,
+         promoteError,
+         A2(send,
+         defaultSettings,
+         request)),
+         handleResponse($Task.succeed));
+      }();
+   };
+   var get = F2(function (decoder,
+   url) {
+      return function () {
+         var request = {_: {}
+                       ,body: empty
+                       ,headers: _L.fromArray([])
+                       ,url: url
+                       ,verb: "GET"};
+         return A2(fromJson,
+         decoder,
+         A2(send,
+         defaultSettings,
+         request));
+      }();
+   });
    var Request = F4(function (a,
    b,
    c,
    d) {
       return {_: {}
-             ,body: c
-             ,headers: d
-             ,url: b
+             ,body: d
+             ,headers: b
+             ,url: c
              ,verb: a};
    });
-   var request = Request;
-   var get = function (url) {
-      return A4(Request,
-      "GET",
-      url,
-      "",
-      _L.fromArray([]));
+   var uriDecode = $Native$Http.uriDecode;
+   var uriEncode = $Native$Http.uriEncode;
+   var queryEscape = function (string) {
+      return A2($String.join,
+      "+",
+      A2($String.split,
+      "%20",
+      uriEncode(string)));
    };
-   var sendGet = function (requestStrings) {
-      return send(A2($Signal.map,
-      get,
-      requestStrings));
-   };
-   var post = F2(function (url,
-   body) {
-      return A4(Request,
-      "POST",
-      url,
-      body,
-      _L.fromArray([]));
-   });
-   var Failure = F2(function (a,
-   b) {
-      return {ctor: "Failure"
-             ,_0: a
-             ,_1: b};
-   });
-   var Success = function (a) {
-      return {ctor: "Success"
-             ,_0: a};
-   };
-   var Waiting = {ctor: "Waiting"};
-   var NotAsked = {ctor: "NotAsked"};
-   var map = F2(function (f,r) {
+   var queryPair = function (_v7) {
       return function () {
-         switch (r.ctor)
-         {case "Failure":
-            return A2(Failure,r._0,r._1);
-            case "NotAsked":
-            return NotAsked;
-            case "Success":
-            return Success(f(r._0));
-            case "Waiting": return Waiting;}
+         switch (_v7.ctor)
+         {case "_Tuple2":
+            return A2($Basics._op["++"],
+              queryEscape(_v7._0),
+              A2($Basics._op["++"],
+              "=",
+              queryEscape(_v7._1)));}
          _U.badCase($moduleName,
-         "between lines 71 and 75");
+         "on line 63, column 3 to 46");
+      }();
+   };
+   var url = F2(function (domain,
+   args) {
+      return function () {
+         switch (args.ctor)
+         {case "[]": return domain;}
+         return A2($Basics._op["++"],
+         domain,
+         A2($Basics._op["++"],
+         "?",
+         A2($String.join,
+         "&",
+         A2($List.map,queryPair,args))));
       }();
    });
-   var mapResult = F2(function (f,
-   r) {
-      return function () {
-         switch (r.ctor)
-         {case "Failure":
-            return A2(Failure,r._0,r._1);
-            case "NotAsked":
-            return NotAsked;
-            case "Success":
-            return function () {
-                 var _v8 = f(r._0);
-                 switch (_v8.ctor)
-                 {case "Err": return A2(Failure,
-                      0,
-                      _v8._0);
-                    case "Ok":
-                    return Success(_v8._0);}
-                 _U.badCase($moduleName,
-                 "between lines 82 and 85");
-              }();
-            case "Waiting": return Waiting;}
-         _U.badCase($moduleName,
-         "between lines 79 and 85");
-      }();
-   });
+   var TODO_implement_file_in_another_library = {ctor: "TODO_implement_file_in_another_library"};
+   var TODO_implement_blob_in_another_library = {ctor: "TODO_implement_blob_in_another_library"};
    _elm.Http.values = {_op: _op
-                      ,send: send
-                      ,sendGet: sendGet
+                      ,getString: getString
                       ,get: get
                       ,post: post
-                      ,request: request
-                      ,map: map
-                      ,mapResult: mapResult
+                      ,send: send
+                      ,url: url
+                      ,uriEncode: uriEncode
+                      ,uriDecode: uriDecode
+                      ,empty: empty
+                      ,string: string
+                      ,multipart: multipart
+                      ,stringData: stringData
+                      ,blobData: blobData
+                      ,defaultSettings: defaultSettings
+                      ,fromJson: fromJson
                       ,Request: Request
-                      ,NotAsked: NotAsked
-                      ,Waiting: Waiting
-                      ,Success: Success
-                      ,Failure: Failure};
+                      ,Settings: Settings
+                      ,Response: Response
+                      ,Text: Text
+                      ,Blob: Blob
+                      ,Timeout: Timeout
+                      ,NetworkError: NetworkError
+                      ,UnexpectedPayload: UnexpectedPayload
+                      ,BadResponse: BadResponse
+                      ,RawTimeout: RawTimeout
+                      ,RawNetworkError: RawNetworkError};
    return _elm.Http.values;
 };
 Elm.Json = Elm.Json || {};
@@ -4746,7 +5153,9 @@ Elm.Main.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Main",
+   $Analytics = Elm.Analytics.make(_elm),
    $Basics = Elm.Basics.make(_elm),
+   $Effects = Elm.Effects.make(_elm),
    $Exts$Json$Encode = Elm.Exts.Json.Encode.make(_elm),
    $Exts$String = Elm.Exts.String.make(_elm),
    $Html = Elm.Html.make(_elm),
@@ -4759,8 +5168,10 @@ Elm.Main.make = function (_elm) {
    $Schema = Elm.Schema.make(_elm),
    $Set = Elm.Set.make(_elm),
    $Signal = Elm.Signal.make(_elm),
+   $StartApp = Elm.StartApp.make(_elm),
    $String = Elm.String.make(_elm),
    $System = Elm.System.make(_elm),
+   $Task = Elm.Task.make(_elm),
    $View = Elm.View.make(_elm);
    var clamp = F2(function (factor,
    x) {
@@ -4773,7 +5184,6 @@ Elm.Main.make = function (_elm) {
                          viewport.viewportTop)]],
       viewport);
    };
-   var uiMailbox = $Signal.mailbox($System.NoOp);
    var updateFrontPageSettings = function (_v0) {
       return function () {
          switch (_v0.ctor)
@@ -4801,13 +5211,13 @@ Elm.Main.make = function (_elm) {
                  return _v0._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 153 and 158");
+         "between lines 156 and 161");
       }();
    };
    var pageSize = 24;
-   var dataFeedQuery = A2($Signal._op["<~"],
-   $Http.mapResult($Json$Decode.decodeString($Schema.decodeDataFeed)),
-   $Http.sendGet($Signal.constant("products.json")));
+   var loadDataFeed = $Effects.task($Task.toResult(A2($Http.get,
+   $Schema.decodeDataFeed,
+   "products.json")));
    var starredProductsRead = Elm.Native.Port.make(_elm).inboundSignal("starredProductsRead",
    "Maybe.Maybe String",
    function (v) {
@@ -4840,48 +5250,48 @@ Elm.Main.make = function (_elm) {
       decodeStarred,
       starredProductsRead);
    }();
-   var analytics = function (action) {
+   var toAnalyticsEvent = function (action) {
       return function () {
          switch (action.ctor)
          {case "BuyProduct":
-            return $Maybe.Just({ctor: "_Tuple4"
-                               ,_0: "Buy"
-                               ,_1: "Product"
-                               ,_2: $Maybe.Just($Basics.toString(action._0))
-                               ,_3: $Maybe.Nothing});
+            return $Maybe.Just({_: {}
+                               ,action: "Product"
+                               ,category: "Buy"
+                               ,label: $Maybe.Just($Basics.toString(action._0))
+                               ,value: $Maybe.Nothing});
             case "ChangeDataFeed":
             switch (action._0.ctor)
-              {case "Failure":
-                 return $Maybe.Just({ctor: "_Tuple4"
-                                    ,_0: "DataLoad"
-                                    ,_1: "Failed"
-                                    ,_2: $Maybe.Just(action._0._1)
-                                    ,_3: $Maybe.Just(action._0._0)});}
+              {case "Err":
+                 return $Maybe.Just({_: {}
+                                    ,action: "Failed"
+                                    ,category: "DataLoad"
+                                    ,label: $Maybe.Just($Basics.toString(action._0._0))
+                                    ,value: $Maybe.Nothing});}
               break;
             case "Contact":
             switch (action._0.ctor)
               {case "Twitter":
-                 return $Maybe.Just({ctor: "_Tuple4"
-                                    ,_0: "Contact"
-                                    ,_1: "Twitter"
-                                    ,_2: $Maybe.Nothing
-                                    ,_3: $Maybe.Nothing});}
+                 return $Maybe.Just({_: {}
+                                    ,action: "Twitter"
+                                    ,category: "Contact"
+                                    ,label: $Maybe.Nothing
+                                    ,value: $Maybe.Nothing});}
               break;
             case "ShareProduct":
             switch (action._0.ctor)
               {case "Twitter":
-                 return $Maybe.Just({ctor: "_Tuple4"
-                                    ,_0: "Share"
-                                    ,_1: "Twitter"
-                                    ,_2: $Maybe.Just($Basics.toString(action._1))
-                                    ,_3: $Maybe.Nothing});}
+                 return $Maybe.Just({_: {}
+                                    ,action: "Twitter"
+                                    ,category: "Share"
+                                    ,label: $Maybe.Just($Basics.toString(action._1))
+                                    ,value: $Maybe.Nothing});}
               break;
             case "StarProduct":
-            return $Maybe.Just({ctor: "_Tuple4"
-                               ,_0: "Star"
-                               ,_1: action._0 ? "Add" : "Remove"
-                               ,_2: $Maybe.Just($Basics.toString(action._1))
-                               ,_3: $Maybe.Nothing});}
+            return $Maybe.Just({_: {}
+                               ,action: action._0 ? "Add" : "Remove"
+                               ,category: "Star"
+                               ,label: $Maybe.Just($Basics.toString(action._1))
+                               ,value: $Maybe.Nothing});}
          return $Maybe.Nothing;
       }();
    };
@@ -4889,83 +5299,83 @@ Elm.Main.make = function (_elm) {
       return _U.cmp(v.viewportTop + v.viewportHeight,
       v.pageHeight - 200) > -1;
    };
-   var updatePageSize = function (_v23) {
+   var updatePageSize = function (_v22) {
       return function () {
-         switch (_v23.ctor)
+         switch (_v22.ctor)
          {case "Model":
             return $System.Model(function () {
-                 var _v26 = {ctor: "_Tuple2"
-                            ,_0: _v23._0.viewport
-                            ,_1: _v23._0.view};
-                 switch (_v26.ctor)
+                 var _v25 = {ctor: "_Tuple2"
+                            ,_0: _v22._0.viewport
+                            ,_1: _v22._0.view};
+                 switch (_v25.ctor)
                  {case "_Tuple2":
-                    switch (_v26._1.ctor)
+                    switch (_v25._1.ctor)
                       {case "ProductListPage":
-                         return scrolledToBottom(_v26._0) ? _U.replace([["view"
+                         return scrolledToBottom(_v25._0) ? _U.replace([["view"
                                                                         ,A2($System.ProductListPage,
-                                                                        _v26._1._0 + pageSize,
-                                                                        _v26._1._1)]],
-                           _v23._0) : _v23._0;}
+                                                                        _v25._1._0 + pageSize,
+                                                                        _v25._1._1)]],
+                           _v22._0) : _v22._0;}
                       break;}
-                 return _v23._0;
+                 return _v22._0;
               }());}
          _U.badCase($moduleName,
-         "between lines 144 and 149");
+         "between lines 147 and 152");
       }();
    };
-   var scrollWatcher = F2(function (_v31,
+   var scrollWatcher = F2(function (_v30,
    scrollWatch) {
       return function () {
-         switch (_v31.ctor)
+         switch (_v30.ctor)
          {case "Model":
             return function () {
                  var newScroll = function () {
-                    var _v34 = {ctor: "_Tuple3"
+                    var _v33 = {ctor: "_Tuple3"
                                ,_0: scrollWatch.view
-                               ,_1: _v31._0.view
-                               ,_2: _v31._0.frontPageSettings};
-                    switch (_v34.ctor)
+                               ,_1: _v30._0.view
+                               ,_2: _v30._0.frontPageSettings};
+                    switch (_v33.ctor)
                     {case "_Tuple3":
-                       switch (_v34._0.ctor)
+                       switch (_v33._0.ctor)
                          {case "ProductListPage":
-                            switch (_v34._0._1.ctor)
+                            switch (_v33._0._1.ctor)
                               {case "NoFilter":
-                                 switch (_v34._1.ctor)
+                                 switch (_v33._1.ctor)
                                    {case "ProductListPage":
-                                      switch (_v34._1._1.ctor)
+                                      switch (_v33._1._1.ctor)
                                         {case "NoFilter":
                                            return $Maybe.Nothing;}
                                         break;}
                                    break;}
                               break;}
-                         switch (_v34._1.ctor)
+                         switch (_v33._1.ctor)
                          {case "ProductListPage":
-                            switch (_v34._1._1.ctor)
+                            switch (_v33._1._1.ctor)
                               {case "NoFilter":
-                                 switch (_v34._2.ctor)
+                                 switch (_v33._2.ctor)
                                    {case "Just":
-                                      return $Maybe.Just(_v34._2._0.scroll);}
+                                      return $Maybe.Just(_v33._2._0.scroll);}
                                    break;}
                               break;}
-                         switch (_v34._0.ctor)
+                         switch (_v33._0.ctor)
                          {case "ProductPage":
-                            switch (_v34._1.ctor)
+                            switch (_v33._1.ctor)
                               {case "ProductPage":
                                  return $Maybe.Nothing;}
                               break;}
-                         switch (_v34._1.ctor)
+                         switch (_v33._1.ctor)
                          {case "ProductPage":
                             return $Maybe.Just(0);}
                          break;}
                     return $Maybe.Nothing;
                  }();
                  return _U.replace([["view"
-                                    ,_v31._0.view]
+                                    ,_v30._0.view]
                                    ,["scroll",newScroll]],
                  scrollWatch);
               }();}
          _U.badCase($moduleName,
-         "between lines 63 and 71");
+         "between lines 67 and 75");
       }();
    });
    var ScrollWatch = F2(function (a,
@@ -5032,88 +5442,101 @@ Elm.Main.make = function (_elm) {
          hash))) : A2($String.startsWith,
          productPrefix,
          hash) ? function () {
-            var _v48 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
+            var _v47 = $Json$Decode.decodeString($Json$Decode.$int)(A2($Exts$String.removePrefix,
             productPrefix,
             hash));
-            switch (_v48.ctor)
+            switch (_v47.ctor)
             {case "Err":
                return $System.NotFoundPage;
                case "Ok":
-               return $System.ProductPage(_v48._0);}
+               return $System.ProductPage(_v47._0);}
             _U.badCase($moduleName,
-            "between lines 40 and 43");
+            "between lines 44 and 47");
          }() : $System.NotFoundPage;
       }();
    };
-   var step = F2(function (action,
-   _v51) {
+   var update = F2(function (action,
+   _v50) {
       return function () {
-         switch (_v51.ctor)
+         switch (_v50.ctor)
          {case "Model":
-            return function () {
-                 switch (action.ctor)
-                 {case "ChangeCurrentPageUrl":
-                    return $System.Model(_U.replace([["currentPageUrl"
-                                                     ,action._0]],
-                      _v51._0));
-                    case "ChangeDataFeed":
-                    return $System.Model(_U.replace([["dataFeed"
-                                                     ,action._0]],
-                      _v51._0));
-                    case "ChangeView":
-                    return function () {
-                         var newView = function () {
-                            var _v65 = {ctor: "_Tuple2"
-                                       ,_0: _v51._0.frontPageSettings
-                                       ,_1: decodeHash(action._0)};
-                            switch (_v65.ctor)
-                            {case "_Tuple2":
-                               switch (_v65._0.ctor)
-                                 {case "Just":
-                                    switch (_v65._1.ctor)
-                                      {case "ProductListPage":
-                                         switch (_v65._1._1.ctor)
-                                           {case "NoFilter":
-                                              return A2($System.ProductListPage,
-                                                _v65._0._0.pageSize,
-                                                $System.NoFilter);}
+            return {ctor: "_Tuple2"
+                   ,_0: function () {
+                      switch (action.ctor)
+                      {case "ChangeCurrentPageUrl":
+                         return $System.Model(_U.replace([["currentPageUrl"
+                                                          ,action._0]],
+                           _v50._0));
+                         case "ChangeDataFeed":
+                         return $System.Model(_U.replace([["dataFeed"
+                                                          ,$Maybe.Just(action._0)]],
+                           _v50._0));
+                         case "ChangeView":
+                         return function () {
+                              var newView = function () {
+                                 var _v64 = {ctor: "_Tuple2"
+                                            ,_0: _v50._0.frontPageSettings
+                                            ,_1: decodeHash(action._0)};
+                                 switch (_v64.ctor)
+                                 {case "_Tuple2":
+                                    switch (_v64._0.ctor)
+                                      {case "Just":
+                                         switch (_v64._1.ctor)
+                                           {case "ProductListPage":
+                                              switch (_v64._1._1.ctor)
+                                                {case "NoFilter":
+                                                   return A2($System.ProductListPage,
+                                                     _v64._0._0.pageSize,
+                                                     $System.NoFilter);}
+                                                break;}
                                            break;}
-                                      break;}
-                                 return _v65._1;}
-                            _U.badCase($moduleName,
-                            "between lines 168 and 171");
-                         }();
-                         return $System.Model(_U.replace([["view"
-                                                          ,newView]],
-                         _v51._0));
-                      }();
-                    case "ChangeViewport":
-                    return updateFrontPageSettings(updatePageSize($System.Model(_U.replace([["viewport"
-                                                                                            ,action._0]],
-                      _v51._0))));
-                    case "Contact":
-                    return $System.Model(_v51._0);
-                    case "LoadStarred":
-                    return $System.Model(_U.replace([["starredProducts"
-                                                     ,$Maybe.Just(action._0)]],
-                      _v51._0));
-                    case "NoOp":
-                    return $System.Model(_v51._0);
-                    case "ShareProduct":
-                    return $System.Model(_v51._0);
-                    case "StarProduct":
-                    return $System.Model(_U.replace([["starredProducts"
-                                                     ,$Maybe.Just(A2(action._0 ? $Set.insert : $Set.remove,
-                                                     action._1,
-                                                     A2($Maybe.withDefault,
-                                                     $Set.empty,
-                                                     _v51._0.starredProducts)))]],
-                      _v51._0));}
-                 _U.badCase($moduleName,
-                 "between lines 162 and 180");
-              }();}
+                                      return _v64._1;}
+                                 _U.badCase($moduleName,
+                                 "between lines 171 and 174");
+                              }();
+                              return $System.Model(_U.replace([["view"
+                                                               ,newView]],
+                              _v50._0));
+                           }();
+                         case "ChangeViewport":
+                         return updateFrontPageSettings(updatePageSize($System.Model(_U.replace([["viewport"
+                                                                                                 ,action._0]],
+                           _v50._0))));
+                         case "Contact":
+                         return $System.Model(_v50._0);
+                         case "LoadStarred":
+                         return $System.Model(_U.replace([["starredProducts"
+                                                          ,$Maybe.Just(action._0)]],
+                           _v50._0));
+                         case "NoOp":
+                         return $System.Model(_v50._0);
+                         case "ShareProduct":
+                         return $System.Model(_v50._0);
+                         case "StarProduct":
+                         return $System.Model(_U.replace([["starredProducts"
+                                                          ,$Maybe.Just(A2(action._0 ? $Set.insert : $Set.remove,
+                                                          action._1,
+                                                          A2($Maybe.withDefault,
+                                                          $Set.empty,
+                                                          _v50._0.starredProducts)))]],
+                           _v50._0));}
+                      _U.badCase($moduleName,
+                      "between lines 165 and 185");
+                   }()
+                   ,_1: function () {
+                      var _v70 = toAnalyticsEvent(action);
+                      switch (_v70.ctor)
+                      {case "Just":
+                         return $Effects.task(A2($Analytics.sendEvent,
+                           $System.NoOp,
+                           _v70._0));
+                         case "Nothing":
+                         return $Effects.none;}
+                      _U.badCase($moduleName,
+                      "between lines 185 and 187");
+                   }()};}
          _U.badCase($moduleName,
-         "between lines 162 and 180");
+         "between lines 165 and 187");
       }();
    });
    var locationHash = Elm.Native.Port.make(_elm).inboundSignal("locationHash",
@@ -5128,57 +5551,47 @@ Elm.Main.make = function (_elm) {
       return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
       v);
    });
-   var actionSignal = $Signal.mergeMany(_L.fromArray([uiMailbox.signal
-                                                     ,A2($Signal._op["<~"],
-                                                     $System.ChangeViewport,
-                                                     $Signal.dropRepeats(A2($Signal._op["<~"],
-                                                     clampViewportTop,
-                                                     viewport)))
-                                                     ,A2($Signal._op["<~"],
-                                                     $System.ChangeCurrentPageUrl,
-                                                     location)
-                                                     ,A2($Signal._op["<~"],
-                                                     $System.ChangeView,
-                                                     locationHash)
-                                                     ,A2($Signal._op["<~"],
-                                                     $System.ChangeDataFeed,
-                                                     dataFeedQuery)
-                                                     ,A2($Signal._op["<~"],
-                                                     $System.LoadStarred,
-                                                     $Signal.dropRepeats(persistedStarredProducts))]));
-   var analyticsPort = Elm.Native.Port.make(_elm).outboundSignal("analyticsPort",
-   function (v) {
-      return v.ctor === "Nothing" ? null : [v._0._0
-                                           ,v._0._1
-                                           ,v._0._2.ctor === "Nothing" ? null : v._0._2._0
-                                           ,v._0._3.ctor === "Nothing" ? null : v._0._3._0];
-   },
-   $Signal.dropRepeats(A2($Signal._op["<~"],
-   analytics,
-   actionSignal)));
    var initialLocation = Elm.Native.Port.make(_elm).inbound("initialLocation",
    "String",
    function (v) {
       return typeof v === "string" || typeof v === "object" && v instanceof String ? v : _U.badPort("a string",
       v);
    });
-   var initialModel = $System.Model({_: {}
-                                    ,currentPageUrl: initialLocation
-                                    ,dataFeed: $Http.NotAsked
-                                    ,frontPageSettings: $Maybe.Nothing
-                                    ,starredProducts: $Maybe.Nothing
-                                    ,view: $System.NoPage
-                                    ,viewport: initialViewport});
-   var modelSignal = A3($Signal.foldp,
-   step,
-   initialModel,
-   actionSignal);
+   var init = {ctor: "_Tuple2"
+              ,_0: $System.Model({_: {}
+                                 ,currentPageUrl: initialLocation
+                                 ,dataFeed: $Maybe.Nothing
+                                 ,frontPageSettings: $Maybe.Nothing
+                                 ,starredProducts: $Maybe.Nothing
+                                 ,view: $System.NoPage
+                                 ,viewport: initialViewport})
+              ,_1: A2($Effects.map,
+              $System.ChangeDataFeed,
+              loadDataFeed)};
+   var app = $StartApp.start({_: {}
+                             ,init: init
+                             ,inputs: _L.fromArray([A2($Signal._op["<~"],
+                                                   $System.ChangeViewport,
+                                                   $Signal.dropRepeats(A2($Signal._op["<~"],
+                                                   clampViewportTop,
+                                                   viewport)))
+                                                   ,A2($Signal._op["<~"],
+                                                   $System.ChangeCurrentPageUrl,
+                                                   location)
+                                                   ,A2($Signal._op["<~"],
+                                                   $System.ChangeView,
+                                                   locationHash)
+                                                   ,A2($Signal._op["<~"],
+                                                   $System.LoadStarred,
+                                                   $Signal.dropRepeats(persistedStarredProducts))])
+                             ,update: update
+                             ,view: $View.rootView});
    var scrollWatch = A3($Signal.foldp,
    scrollWatcher,
    {_: {}
    ,scroll: $Maybe.Nothing
    ,view: $System.NoPage},
-   modelSignal);
+   app.model);
    var scrollTo = Elm.Native.Port.make(_elm).outboundSignal("scrollTo",
    function (v) {
       return v.ctor === "Nothing" ? null : v._0;
@@ -5196,11 +5609,11 @@ Elm.Main.make = function (_elm) {
       var encodeStarred = $Maybe.map(function ($) {
          return $Json$Encode.encode(0)($Exts$Json$Encode.set($Json$Encode.$int)($));
       });
-      var starred = function (_v71) {
+      var starred = function (_v72) {
          return function () {
-            switch (_v71.ctor)
+            switch (_v72.ctor)
             {case "Model":
-               return _v71._0.starredProducts;}
+               return _v72._0.starredProducts;}
             _U.badCase($moduleName,
             "on line 114, column 27 to 44");
          }();
@@ -5209,35 +5622,28 @@ Elm.Main.make = function (_elm) {
       encodeStarred,
       $Signal.dropRepeats(A2($Signal._op["<~"],
       starred,
-      A2($Signal.sampleOn,
-      A3($Signal.filter,
-      $System.isLoadStarredAction,
-      $System.NoOp,
-      actionSignal),
-      modelSignal))));
+      app.model)));
    }());
-   var main = A2($Signal._op["<~"],
-   $View.rootView(uiMailbox.address),
-   modelSignal);
+   var main = app.html;
+   var tasks = Elm.Native.Task.make(_elm).performSignal("tasks",
+   app.tasks);
    _elm.Main.values = {_op: _op
                       ,decodeHash: decodeHash
                       ,ScrollWatch: ScrollWatch
                       ,scrollWatch: scrollWatch
                       ,scrollWatcher: scrollWatcher
                       ,scrolledToBottom: scrolledToBottom
-                      ,analytics: analytics
+                      ,toAnalyticsEvent: toAnalyticsEvent
                       ,persistedStarredProducts: persistedStarredProducts
-                      ,dataFeedQuery: dataFeedQuery
+                      ,loadDataFeed: loadDataFeed
                       ,pageSize: pageSize
-                      ,initialModel: initialModel
+                      ,init: init
                       ,updatePageSize: updatePageSize
                       ,updateFrontPageSettings: updateFrontPageSettings
-                      ,step: step
-                      ,uiMailbox: uiMailbox
+                      ,update: update
                       ,clamp: clamp
                       ,clampViewportTop: clampViewportTop
-                      ,actionSignal: actionSignal
-                      ,modelSignal: modelSignal
+                      ,app: app
                       ,main: main};
    return _elm.Main.values;
 };
@@ -5390,6 +5796,43 @@ Elm.Memoize.make = function (_elm) {
                          ,memoize: memoize};
    return _elm.Memoize.values;
 };
+/*global Elm, ga */
+
+Elm.Native = Elm.Native || {};
+Elm.Native.Analytics = {};
+Elm.Native.Analytics.make = function(localRuntime){
+
+    localRuntime.Native = localRuntime.Native || {};
+    localRuntime.Native.Analytics = localRuntime.Native.Analytics || {};
+
+    if (localRuntime.Native.Analytics.values){
+        return localRuntime.Native.Analytics.values;
+    }
+
+    var Task = Elm.Native.Task.make(localRuntime);
+    var Maybe = Elm.Maybe.make(localRuntime);
+    var Utils = Elm.Native.Utils.make(localRuntime);
+
+    var sendEvent = F2(function (success, event) {
+        return Task.asyncFunction(function(callback){
+            console.log("EVENT", event);
+            var category = event.category,
+                action   = event.action,
+                label    = event.label.ctor == 'Just' ? event.label._0 : null,
+                value    = event.value.ctor == 'Just' ? event.value._0 : null;
+            console.log("HEVEN", event);
+            console.log('send', 'event', category, action, label, value);
+            // ga('send', 'event', category, action, label, value);
+
+            return callback(Task.succeed(success));
+        });
+    });
+
+    return {
+        sendEvent: sendEvent
+    };
+};
+
 Elm.Native.Array = {};
 Elm.Native.Array.make = function(localRuntime) {
 
@@ -6683,6 +7126,36 @@ Elm.Native.Debug.make = function(localRuntime) {
 		watch: F2(watch),
 		watchSummary:F3(watchSummary),
 	};
+};
+
+Elm.Native.Effects = {};
+Elm.Native.Effects.make = function(localRuntime) {
+
+	localRuntime.Native = localRuntime.Native || {};
+	localRuntime.Native.Effects = localRuntime.Native.Effects || {};
+	if (localRuntime.Native.Effects.values)
+	{
+		return localRuntime.Native.Effects.values;
+	}
+
+	var Task = Elm.Native.Task.make(localRuntime);
+	var Utils = Elm.Native.Utils.make(localRuntime);
+
+
+	function raf(timeToTask)
+	{
+		return Task.asyncFunction(function(callback) {
+			requestAnimationFrame(function(time) {
+				Task.perform(timeToTask(time));
+			});
+			callback(Task.succeed(Utils.Tuple0));
+		});
+	}
+
+	return localRuntime.Native.Effects.values = {
+		requestAnimationFrame: raf
+	};
+
 };
 
 
@@ -8063,67 +8536,176 @@ Elm.Native.Graphics.Element.make = function(localRuntime) {
 };
 
 Elm.Native.Http = {};
-Elm.Native.Http.make = function(elm) {
+Elm.Native.Http.make = function(localRuntime) {
 
-    elm.Native = elm.Native || {};
-    elm.Native.Http = elm.Native.Http || {};
-    if (elm.Native.Http.values) return elm.Native.Http.values;
+	localRuntime.Native = localRuntime.Native || {};
+	localRuntime.Native.Http = localRuntime.Native.Http || {};
+	if (localRuntime.Native.Http.values)
+	{
+		return localRuntime.Native.Http.values;
+	}
 
-    var List = Elm.List.make(elm);
-    var Signal = Elm.Signal.make(elm);
+	var Dict = Elm.Dict.make(localRuntime);
+	var List = Elm.List.make(localRuntime);
+	var Maybe = Elm.Maybe.make(localRuntime);
+	var Task = Elm.Native.Task.make(localRuntime);
 
-    function registerReq(queue,responses) {
-        return function(req) {
-            if (req.url.length > 0) {
-                sendReq(queue,responses,req);
-            }
-        };
-    }
 
-    function updateQueue(queue,responses) {
-        if (queue.length > 0) {
-            elm.notify(responses.id, queue[0].value);
-            if (queue[0].value.ctor !== 'Waiting') {
-                queue.shift();
-                setTimeout(function() { updateQueue(queue,responses); }, 0);
-            }
-        }
-    }
+	function send(settings, request)
+	{
+		return Task.asyncFunction(function(callback) {
+			var req = new XMLHttpRequest();
 
-    function sendReq(queue,responses,req) {
-        var response = { value: { ctor:'Waiting' } };
-        queue.push(response);
+			// start
+			if (settings.onStart.ctor === 'Just')
+			{
+				req.addEventListener('loadStart', function() {
+					var task = settings.onStart._0;
+					Task.spawn(task);
+				});
+			}
 
-        var request = (window.ActiveXObject
-                       ? new ActiveXObject("Microsoft.XMLHTTP")
-                       : new XMLHttpRequest());
+			// progress
+			if (settings.onProgress.ctor === 'Just')
+			{
+				req.addEventListener('progress', function(event) {
+					var progress = !event.lengthComputable
+						? Maybe.Nothing
+						: Maybe.Just({
+							_: {},
+							loaded: event.loaded,
+							total: event.total
+						});
+					var task = settings.onProgress._0(progress);
+					Task.spawn(task);
+				});
+			}
 
-        request.onreadystatechange = function(e) {
-            if (request.readyState === 4) {
-                response.value = (request.status >= 200 && request.status < 300 ?
-                                  { ctor:'Success', _0:request.responseText } :
-                                  { ctor:'Failure', _0:request.status, _1:request.statusText });
-                setTimeout(function() { updateQueue(queue,responses); }, 0);
-            }
-        };
-        request.open(req.verb, req.url, true);
-        function setHeader(pair) {
-            request.setRequestHeader( pair._0, pair._1 );
-        }
-        A2( List.map, setHeader, req.headers );
-        request.send(req.body);
-    }
+			// end
+			req.addEventListener('error', function() {
+				return callback(Task.fail({ ctor: 'RawNetworkError' }));
+			});
 
-    function send(requests) {
-        var responses = Signal.constant(elm.Http.values.Waiting);
-        var sender = A2( Signal.map, registerReq([],responses), requests );
-        function f(x) { return function(y) { return x; } }
-        return A3( Signal.map2, f, responses, sender );
-    }
+			req.addEventListener('timeout', function() {
+				return callback(Task.fail({ ctor: 'RawTimeout' }));
+			});
 
-    return elm.Native.Http.values = {
-        send:send
-    };
+			req.addEventListener('load', function() {
+				return callback(Task.succeed(toResponse(req)));
+			});
+
+			req.open(request.verb, request.url, true);
+
+			// set all the headers
+			function setHeader(pair) {
+				req.setRequestHeader(pair._0, pair._1);
+			}
+			A2(List.map, setHeader, request.headers);
+
+			// set the timeout
+			req.timeout = settings.timeout;
+
+			// ask for a specific MIME type for the response
+			if (settings.desiredResponseType.ctor === 'Just')
+			{
+				req.overrideMimeType(settings.desiredResponseType._0);
+			}
+
+			req.send(request.body._0);
+		});
+	}
+
+
+	// deal with responses
+
+	function toResponse(req)
+	{
+		var tag = typeof req.response === 'string' ? 'Text' : 'Blob';
+		return {
+			_: {},
+			status: req.status,
+			statusText: req.statusText,
+			headers: parseHeaders(req.getAllResponseHeaders()),
+			url: req.responseURL,
+			value: { ctor: tag, _0: req.response }
+		};
+	}
+
+
+	function parseHeaders(rawHeaders)
+	{
+		var headers = Dict.empty;
+
+		if (!rawHeaders)
+		{
+			return headers;
+		}
+
+		var headerPairs = rawHeaders.split('\u000d\u000a');
+		for (var i = headerPairs.length; i--; )
+		{
+			var headerPair = headerPairs[i];
+			var index = headerPair.indexOf('\u003a\u0020');
+			if (index > 0)
+			{
+				var key = headerPair.substring(0, index);
+				var value = headerPair.substring(index + 2);
+
+				headers = A3(Dict.update, key, function(oldValue) {
+					if (oldValue.ctor === 'Just')
+					{
+						return Maybe.Just(value + ', ' + oldValue._0);
+					}
+					return Maybe.Just(value);
+				}, headers);
+			}
+		}
+
+		return headers;
+	}
+
+
+	function multipart(dataList)
+	{
+		var formData = new FormData();
+
+		while (dataList.ctor !== '[]')
+		{
+			var data = dataList._0;
+			if (type === 'StringData')
+			{
+				formData.append(data._0, data._1);
+			}
+			else
+			{
+				var fileName = data._1.ctor === 'Nothing'
+					? undefined
+					: data._1._0;
+				formData.append(data._0, data._2, fileName);
+			}
+			dataList = dataList._1;
+		}
+
+		return { ctor: 'FormData', formData: formData };
+	}
+
+
+	function uriEncode(string)
+	{
+		return encodeURIComponent(string);
+	}
+
+	function uriDecode(string)
+	{
+		return decodeURIComponent(string);
+	}
+
+	return localRuntime.Native.Http.values = {
+		send: F2(send),
+		multipart: multipart,
+		uriEncode: uriEncode,
+		uriDecode: uriDecode
+	};
 };
 
 Elm.Native.Json = {};
@@ -14598,6 +15180,95 @@ Elm.Signal.make = function (_elm) {
                         ,Mailbox: Mailbox};
    return _elm.Signal.values;
 };
+Elm.StartApp = Elm.StartApp || {};
+Elm.StartApp.make = function (_elm) {
+   "use strict";
+   _elm.StartApp = _elm.StartApp || {};
+   if (_elm.StartApp.values)
+   return _elm.StartApp.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "StartApp",
+   $Basics = Elm.Basics.make(_elm),
+   $Effects = Elm.Effects.make(_elm),
+   $Html = Elm.Html.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Result = Elm.Result.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Task = Elm.Task.make(_elm);
+   var start = function (config) {
+      return function () {
+         var update = F2(function (_v0,
+         _v1) {
+            return function () {
+               switch (_v1.ctor)
+               {case "_Tuple2":
+                  return function () {
+                       switch (_v0.ctor)
+                       {case "Just":
+                          return A2(config.update,
+                            _v0._0,
+                            _v1._0);}
+                       _U.badCase($moduleName,
+                       "on line 92, column 13 to 39");
+                    }();}
+               _U.badCase($moduleName,
+               "on line 92, column 13 to 39");
+            }();
+         });
+         var messages = $Signal.mailbox($Maybe.Nothing);
+         var address = A2($Signal.forwardTo,
+         messages.address,
+         $Maybe.Just);
+         var inputs = $Signal.mergeMany(A2($List._op["::"],
+         messages.signal,
+         A2($List.map,
+         $Signal.map($Maybe.Just),
+         config.inputs)));
+         var effectsAndModel = A3($Signal.foldp,
+         update,
+         config.init,
+         inputs);
+         var model = A2($Signal.map,
+         $Basics.fst,
+         effectsAndModel);
+         return {_: {}
+                ,html: A2($Signal.map,
+                config.view(address),
+                model)
+                ,model: model
+                ,tasks: A2($Signal.map,
+                function ($) {
+                   return $Effects.toTask(address)($Basics.snd($));
+                },
+                effectsAndModel)};
+      }();
+   };
+   var App = F3(function (a,b,c) {
+      return {_: {}
+             ,html: a
+             ,model: b
+             ,tasks: c};
+   });
+   var Config = F4(function (a,
+   b,
+   c,
+   d) {
+      return {_: {}
+             ,init: a
+             ,inputs: d
+             ,update: b
+             ,view: c};
+   });
+   _elm.StartApp.values = {_op: _op
+                          ,start: start
+                          ,Config: Config
+                          ,App: App};
+   return _elm.StartApp.values;
+};
 Elm.String = Elm.String || {};
 Elm.String.make = function (_elm) {
    "use strict";
@@ -15478,7 +16149,6 @@ Elm.View.make = function (_elm) {
    $Html$Attributes = Elm.Html.Attributes.make(_elm),
    $Html$Events = Elm.Html.Events.make(_elm),
    $HtmlUtils = Elm.HtmlUtils.make(_elm),
-   $Http = Elm.Http.make(_elm),
    $List = Elm.List.make(_elm),
    $Maybe = Elm.Maybe.make(_elm),
    $Memoize = Elm.Memoize.make(_elm),
@@ -15517,7 +16187,7 @@ Elm.View.make = function (_elm) {
                            "Viewport: ",
                            $Basics.toString(_v0._0.viewport)))]))]));}
          _U.badCase($moduleName,
-         "between lines 182 and 188");
+         "between lines 180 and 186");
       }();
    };
    var brandHistogram = $Memoize.memoize(function ($) {
@@ -15595,7 +16265,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 112 and 116");
+         "between lines 110 and 114");
       }();
    });
    var categoryLabel = F2(function (categories,
@@ -15614,7 +16284,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $Exts$Html$Bootstrap.empty;}
          _U.badCase($moduleName,
-         "between lines 104 and 108");
+         "between lines 102 and 106");
       }();
    });
    var productDetailView = F5(function (uiChannel,
@@ -15688,7 +16358,7 @@ Elm.View.make = function (_elm) {
             case "Nothing":
             return $View$Common.notFoundView;}
          _U.badCase($moduleName,
-         "between lines 161 and 163");
+         "between lines 159 and 161");
       }();
    });
    var boolSort = function (x) {
@@ -15743,7 +16413,7 @@ Elm.View.make = function (_elm) {
                     return _v13._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 70 and 73");
+                 "between lines 68 and 71");
               }();
             case "FilterWithCategoryId":
             return function () {
@@ -15755,7 +16425,7 @@ Elm.View.make = function (_elm) {
                     return _v15._0.name;
                     case "Nothing": return "";}
                  _U.badCase($moduleName,
-                 "between lines 66 and 69");
+                 "between lines 64 and 67");
               }();
             case "NoFilter":
             return "All Patterns";}
@@ -15865,16 +16535,17 @@ Elm.View.make = function (_elm) {
    data) {
       return function () {
          switch (data.ctor)
-         {case "Failure":
-            return $HtmlUtils.htmlError($Basics.toString(data._1));
-            case "NotAsked":
-            return $View$Common.loadingView;
-            case "Success":
-            return view(data._0);
-            case "Waiting":
+         {case "Just":
+            switch (data._0.ctor)
+              {case "Err":
+                 return $HtmlUtils.htmlError($Basics.toString(data._0._0));
+                 case "Ok":
+                 return view(data._0._0);}
+              break;
+            case "Nothing":
             return $View$Common.loadingView;}
          _U.badCase($moduleName,
-         "between lines 29 and 33");
+         "between lines 28 and 31");
       }();
    });
    var rootView = F2(function (uiChannel,
@@ -15942,13 +16613,13 @@ Elm.View.make = function (_elm) {
                                          _v22._0.currentPageUrl,
                                          _v26._0);}
                                     _U.badCase($moduleName,
-                                    "between lines 202 and 209");
+                                    "between lines 200 and 207");
                                  }(),
                                  _v22._0.dataFeed);
                               }()]))]));
               }();}
          _U.badCase($moduleName,
-         "between lines 192 and 210");
+         "between lines 190 and 208");
       }();
    });
    _elm.View.values = {_op: _op

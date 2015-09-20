@@ -34,18 +34,6 @@
         }
     };
 
-    var postAnalyticsEvent = function (event) {
-        var category, action, label, value;
-        if (event !== null) {
-            category = event[0];
-            action   = event[1];
-            label    = event[2];
-            value    = event[3];
-
-            ga('send', 'event', category, action, label, value);
-        }
-    };
-
     var scrollRequest = function (value) {
         if (value) {
             window.requestAnimationFrame(function () {
@@ -71,7 +59,6 @@
 
     app.ports.starredProductsWrite.subscribe(starredProductsSave);
     app.ports.starredProductsRead.send(window.localStorage.getItem(STARRED_PRODUCTS_KEY));
-    app.ports.analyticsPort.subscribe(postAnalyticsEvent);
     app.ports.scrollTo.subscribe(scrollRequest);
 	ga('send', 'pageview', {page: document.location.hash});
 }());
