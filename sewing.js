@@ -5815,14 +5815,11 @@ Elm.Native.Analytics.make = function(localRuntime){
 
     var sendEvent = F2(function (success, event) {
         return Task.asyncFunction(function(callback){
-            console.log("EVENT", event);
             var category = event.category,
                 action   = event.action,
                 label    = event.label.ctor == 'Just' ? event.label._0 : null,
                 value    = event.value.ctor == 'Just' ? event.value._0 : null;
-            console.log("HEVEN", event);
-            console.log('send', 'event', category, action, label, value);
-            // ga('send', 'event', category, action, label, value);
+            ga('send', 'event', category, action, label, value);
 
             return callback(Task.succeed(success));
         });
